@@ -1,1 +1,5 @@
-<Solution />
+<Solution>
+  <Project Path="MultipleChoiceBL/MultipleChoiceBL.csproj" />
+  <Project Path="MultipleChoiceDL/MultipleChoiceDL.csproj" />
+  <Project Path="MultipleChoiceGUI/MultipleChoiceGUI.csproj" />
+</Solution>
