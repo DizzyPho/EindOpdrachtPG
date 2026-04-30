@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MultipleChoiceGUI": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
