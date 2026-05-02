@@ -18,8 +18,6 @@ namespace MultipleChoiceBL.FactoryResults
 
         public T? Result { get; private set; }
         public List<String>? Errors { get; private set; }
-        public bool IsSucces { get => Errors == null; }
-
 
     }
 }
