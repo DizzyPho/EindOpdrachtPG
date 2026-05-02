@@ -47,5 +47,16 @@ namespace MultipleChoiceBL.Domain
         {
             return Answers;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Question question &&
+                   QuestionText == question.QuestionText;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(QuestionText);
+        }
     }
 }
