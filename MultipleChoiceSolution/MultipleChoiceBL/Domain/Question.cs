@@ -16,7 +16,7 @@ namespace MultipleChoiceBL.Domain
         {
             List<string> errors = new List<string>();
 
-            if (string.IsNullOrEmpty(questionText)) errors.Add("Question text cannot be empty.");
+            if (string.IsNullOrWhiteSpace(questionText)) errors.Add("Question text cannot be empty.");
             if (answers == null || answers.Count < 2)
             {
                 errors.Add("Question must have at least 2 answers.");
