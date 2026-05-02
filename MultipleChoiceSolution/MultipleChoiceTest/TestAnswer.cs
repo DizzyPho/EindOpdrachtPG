@@ -13,10 +13,10 @@ namespace MultipleChoiceTest
         [InlineData(" Test Antwoord ", true)]
         public void Test_TryCreate_Valid(string text, bool isAnswerCorrect)
         {
-            bool IsSucces = Answer.TryCreate(text, isAnswerCorrect, out FactoryResult<Answer> factory);
+            bool isSucces = Answer.TryCreate(text, isAnswerCorrect, out FactoryResult<Answer> factory);
             Answer answer = factory.Result;
 
-            Assert.True(IsSucces);
+            Assert.True(isSucces);
             Assert.NotNull(answer);
             Assert.Null(factory.Errors);
             Assert.Equal(answer.AnswerText, text);
@@ -31,11 +31,11 @@ namespace MultipleChoiceTest
         [InlineData(null)]
         public void Test_Text_Empty(string text)
         {
-            bool IsSucces = Answer.TryCreate(text, true, out FactoryResult<Answer> factory);
+            bool isSucces = Answer.TryCreate(text, true, out FactoryResult<Answer> factory);
             Answer answer = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(answer);
             Assert.NotNull(errors);
             Assert.Single(errors);

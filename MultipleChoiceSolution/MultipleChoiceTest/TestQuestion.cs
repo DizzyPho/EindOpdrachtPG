@@ -35,11 +35,11 @@ namespace MultipleChoiceTest
         [InlineData(" Vraag 1 ")]
         public void Test_TryCreate_Valid(string questionText)
         {
-            bool IsSucces = Question.TryCreate(questionText, validAnswerSet, out FactoryResult<Question> factory);
+            bool isSucces = Question.TryCreate(questionText, validAnswerSet, out FactoryResult<Question> factory);
             Question q = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.True(IsSucces);
+            Assert.True(isSucces);
             Assert.Null(errors);
             Assert.NotNull(q);
             Assert.Equal(questionText, q.QuestionText);
@@ -53,11 +53,11 @@ namespace MultipleChoiceTest
         [InlineData(null)]
         public void Test_TryCreate_Text_Empty(string text)
         {
-            bool IsSucces = Question.TryCreate(text, validAnswerSet, out FactoryResult<Question> factory);
+            bool isSucces = Question.TryCreate(text, validAnswerSet, out FactoryResult<Question> factory);
             Question q = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(q);
             Assert.NotNull(errors);
             Assert.Single(errors);
@@ -67,11 +67,11 @@ namespace MultipleChoiceTest
         [Fact]
         public void Test_TryCreate_TooFewAnswers()
         {
-            bool IsSucces = Question.TryCreate("Vraag 1", tooShortAnswerSet, out FactoryResult<Question> factory);
+            bool isSucces = Question.TryCreate("Vraag 1", tooShortAnswerSet, out FactoryResult<Question> factory);
             Question q = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(q);
             Assert.NotNull(errors);
             Assert.Single(errors);
@@ -83,22 +83,22 @@ namespace MultipleChoiceTest
         public void Test_TryCreate_AnswerSetNullOrEmpty()
         {
             //check 1 : answer set null
-            bool IsSucces = Question.TryCreate("Vraag 1", null, out FactoryResult<Question> factory);
+            bool isSucces = Question.TryCreate("Vraag 1", null, out FactoryResult<Question> factory);
             Question q = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(q);
             Assert.NotNull(errors);
             Assert.Single(errors);
             Assert.Contains<String>("Question must have at least 2 answers.", errors);
 
             //check 1 : answer set null
-            IsSucces = Question.TryCreate("Vraag 1", emptyAnswerSet, out factory);
+            isSucces = Question.TryCreate("Vraag 1", emptyAnswerSet, out factory);
             q = factory.Result;
             errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(q);
             Assert.NotNull(errors);
             Assert.Single(errors);
@@ -108,11 +108,11 @@ namespace MultipleChoiceTest
         [Fact]
         public void Test_TryCreate_NoCorrectAnswersProvided()
         {
-            bool IsSucces = Question.TryCreate("Vraag 1", noCorrectAnswersSet, out FactoryResult<Question> factory);
+            bool isSucces = Question.TryCreate("Vraag 1", noCorrectAnswersSet, out FactoryResult<Question> factory);
             Question q = factory.Result;
             List<String> errors = factory.Errors;
 
-            Assert.False(IsSucces);
+            Assert.False(isSucces);
             Assert.Null(q);
             Assert.NotNull(errors);
             Assert.Single(errors);
