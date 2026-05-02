@@ -11,7 +11,7 @@ namespace MultipleChoiceBL.Domain
         {
             Name = name;
             CreationDate = creationDate;
-            Questions = new List<Question>();
+            Questions = new HashSet<Question>();
         }
 
         public static bool TryCreate(string name, DateTime creationDate, out FactoryResult<Quiz> result)
@@ -35,12 +35,12 @@ namespace MultipleChoiceBL.Domain
         public String Name { get; init; }
 
         public DateTime CreationDate { get; init; }
-        public List<Question> Questions { get; init; }
+        public HashSet<Question> Questions { get; init; }
 
-        public void AddQuestion(Question question)
+        public bool AddQuestion(Question question)
         {
             ArgumentNullException.ThrowIfNull(question);
-            Questions.Add(question);
+            return Questions.Add(question);
         }
 
     }
