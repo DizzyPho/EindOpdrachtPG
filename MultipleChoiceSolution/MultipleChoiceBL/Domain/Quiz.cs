@@ -39,6 +39,7 @@ namespace MultipleChoiceBL.Domain
 
         public void AddQuestion(Question question)
         {
+            ArgumentNullException.ThrowIfNull(question);
             Questions.Add(question);
         }
 
