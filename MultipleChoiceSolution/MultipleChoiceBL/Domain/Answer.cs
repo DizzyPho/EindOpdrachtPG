@@ -26,7 +26,7 @@ namespace MultipleChoiceBL.Domain
             else
             {
                 result = new FactoryResult<Answer>(new Answer(answerText, isCorrect));
-                return false;
+                return true;
             }
         }
         public string AnswerText { get; init; }
