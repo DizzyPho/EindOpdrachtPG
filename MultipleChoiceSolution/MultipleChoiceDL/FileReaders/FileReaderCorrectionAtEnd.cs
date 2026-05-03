@@ -26,7 +26,6 @@ namespace MultipleChoiceDL.FileReaders
 
             using (StreamReader sr = new StreamReader(path))
             {
-                List<Answer> currentQuestionAnswers = new List<Answer>();
                 string questionText = string.Empty;
                 QuestionBuilder builder = new QuestionBuilder();
                 while (!sr.EndOfStream)
@@ -41,7 +40,6 @@ namespace MultipleChoiceDL.FileReaders
                             builders.Add(builder);
 
                             builder = new QuestionBuilder();
-                            currentQuestionAnswers = new List<Answer>();
                             questionText = string.Empty;
                         }
                         readingQuestion = false;
@@ -68,8 +66,10 @@ namespace MultipleChoiceDL.FileReaders
                     else if (Regex.IsMatch(line, @"^[a-zA-Z]*\.") || readingAnswers)
                     {
                         string[] fields = line.Split(". ");
-                        if (Answer.TryCreate(fields[1], false, out FactoryResult<Answer> factoryResult)) currentQuestionAnswers.Add(factoryResult.Result);
-                        builder.AddAnswer(fields[0].ToUpper()[0], factoryResult.Result);
+                        if (Answer.TryCreate(fields[1], false, out FactoryResult<Answer> factoryResult))
+                        {
+                            builder.AddAnswer(fields[0].ToUpper()[0], factoryResult.Result);
+                        }
                         readingAnswers = true;
                     }
                     else if (line.ToLower().StartsWith("antwoorden"))
