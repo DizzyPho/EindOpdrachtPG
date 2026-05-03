@@ -48,10 +48,7 @@ namespace MultipleChoiceDL.FileReaders
                     }
                     else if (readingCorrections)
                     {
-                        foreach(char letter in line.ToCharArray())
-                        {
-                            builders[currentCorrection].SetCorrectAnswer(letter);
-                        }
+                        builders[currentCorrection].SetCorrectAnswers(line.ToUpper().ToCharArray());
                         currentCorrection++;
                     }
                     else if (readingQuestion)
