@@ -3,4 +3,5 @@
   <Project Path="MultipleChoiceDL/MultipleChoiceDL.csproj" />
   <Project Path="MultipleChoiceGUI/MultipleChoiceGUI.csproj" />
   <Project Path="MultipleChoiceTest/MultipleChoiceTest.csproj" Id="984f316e-b07a-4770-8fbb-8d25368ffc44" />
+  <Project Path="MultipleChoiceUtil/MultipleChoiceUtil.csproj" Id="bfe5f399-dbb2-45b8-9d20-f357045f21c5" />
 </Solution>
