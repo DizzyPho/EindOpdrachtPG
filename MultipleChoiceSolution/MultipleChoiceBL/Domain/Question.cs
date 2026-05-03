@@ -7,7 +7,7 @@ namespace MultipleChoiceBL.Domain
 {
     public class Question
     {
-        private Question(string questionText, List<Answer> answers)
+        internal Question(string questionText, List<Answer> answers)
         {
             QuestionText = questionText;
             Answers = answers;
