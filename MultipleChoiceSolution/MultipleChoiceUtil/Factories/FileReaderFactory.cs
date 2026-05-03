@@ -13,6 +13,7 @@ namespace MultipleChoiceUtil.Factories
             IFileReader reader = format switch
             {
                 "CorrectionAtEnd" => new FileReaderCorrectionAtEnd(),
+                "CorrectionAfterQuestion" => new FileReaderCorrectionAfterQuestion(),
                 _ => throw new ArgumentException("Invalid FileReader format")
             };
             return reader;
