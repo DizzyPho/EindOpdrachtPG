@@ -30,6 +30,16 @@ namespace MultipleChoiceBL.Domain
             }
         }
         public string AnswerText { get; init; }
-        public bool IsCorrect { get; init; }
+        public bool IsCorrect { get; private set; }
+
+        public void SetCorrect()
+        {
+            IsCorrect = true;
+        }
+
+        public void SetIncorrect()
+        {
+            IsCorrect = false;
+        }
     }
 }
