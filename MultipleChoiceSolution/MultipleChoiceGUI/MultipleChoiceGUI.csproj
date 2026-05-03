@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MultipleChoiceBL\MultipleChoiceBL.csproj" />
+    <ProjectReference Include="..\MultipleChoiceUtil\MultipleChoiceUtil.csproj" />
   </ItemGroup>
 
 </Project>
