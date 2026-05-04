@@ -26,10 +26,20 @@ namespace MultipleChoiceBL.Domain
             else
             {
                 result = new FactoryResult<Answer>(new Answer(answerText, isCorrect));
-                return false;
+                return true;
             }
         }
         public string AnswerText { get; init; }
-        public bool IsCorrect { get; init; }
+        public bool IsCorrect { get; private set; }
+
+        public void SetCorrect()
+        {
+            IsCorrect = true;
+        }
+
+        public void SetIncorrect()
+        {
+            IsCorrect = false;
+        }
     }
 }

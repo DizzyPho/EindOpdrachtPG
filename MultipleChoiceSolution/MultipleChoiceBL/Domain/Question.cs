@@ -7,7 +7,7 @@ namespace MultipleChoiceBL.Domain
 {
     public class Question
     {
-        private Question(string questionText, List<Answer> answers)
+        internal Question(string questionText, List<Answer> answers)
         {
             QuestionText = questionText;
             Answers = answers;
@@ -16,7 +16,7 @@ namespace MultipleChoiceBL.Domain
         {
             List<string> errors = new List<string>();
 
-            if (string.IsNullOrEmpty(questionText)) errors.Add("Question text cannot be empty.");
+            if (string.IsNullOrWhiteSpace(questionText)) errors.Add("Question text cannot be empty.");
             if (answers == null || answers.Count < 2)
             {
                 errors.Add("Question must have at least 2 answers.");
@@ -46,6 +46,17 @@ namespace MultipleChoiceBL.Domain
         public IReadOnlyList<Answer> GetAnswers()
         {
             return Answers;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Question question &&
+                   QuestionText == question.QuestionText;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(QuestionText);
         }
     }
 }
