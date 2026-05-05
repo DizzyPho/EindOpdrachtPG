@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.DTOs;
+﻿using MultipleChoiceBL.Domain;
+using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Config;
@@ -26,6 +27,7 @@ namespace MultipleChoiceGUI.Windows
     {
         Manager _manager;
         ObservableCollection<TopicDTO> _topics;
+        ObservableCollection<QuestionDTO> _questions;
         public QuestionsWindow()
         {
             InitializeComponent();
@@ -33,11 +35,26 @@ namespace MultipleChoiceGUI.Windows
                                                       ConfigurationService.GetSetting("databaseType")));
             _topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
             ComboBoxTopics.ItemsSource = _topics;
+            _questions = new ObservableCollection<QuestionDTO>();
+            ListBoxQuestions.ItemsSource = _questions;
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void ComboBoxTopics_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = ComboBoxTopics.SelectedItem;
+
+            if(selectedItem == null)
+            {
+                return;
+            }
+            TopicDTO selectedTopic = (TopicDTO)selectedItem;
+            _questions = new ObservableCollection<QuestionDTO>(_manager.GetQuestionDTOs(selectedTopic.Id));
+            ListBoxQuestions.ItemsSource = _questions;
         }
     }
 }
