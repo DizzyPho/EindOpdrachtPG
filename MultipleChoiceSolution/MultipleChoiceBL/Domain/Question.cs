@@ -7,12 +7,21 @@ namespace MultipleChoiceBL.Domain
 {
     public class Question
     {
+        internal Question(string questionText, List<Answer> answers, int? id) : this(questionText, answers)
+        {
+            Id = id;
+        }
         internal Question(string questionText, List<Answer> answers)
         {
             QuestionText = questionText;
             Answers = answers;
         }
         public static bool TryCreate(string questionText, List<Answer> answers, out FactoryResult<Question> result)
+        {
+            return TryCreate(questionText, answers, null, out result);
+        }
+
+        public static bool TryCreate(string questionText, List<Answer> answers, int? id,out FactoryResult<Question> result)
         {
             List<string> errors = new List<string>();
 
@@ -33,10 +42,11 @@ namespace MultipleChoiceBL.Domain
             }
             else
             {
-                result = new FactoryResult<Question>(new Question(questionText, answers));
+                result = new FactoryResult<Question>(new Question(questionText, answers, id));
                 return true;
             }
         }
+        public int? Id { get; init; }
 
         public string QuestionText { get; init; }
 
