@@ -36,15 +36,29 @@ namespace MultipleChoiceDL.FileReaders
                     {
                         if(readingAnswers)
                         {
-                            builder.SetQuestionText(questionText);
+                            builder.SetQuestionText(questionText.Trim());
                             builders.Add(builder);
 
                             builder = new QuestionBuilder();
                             questionText = string.Empty;
                         }
-                        readingQuestion = false;
                         readingAnswers = false;
                         continue;
+                    }
+                    else if (Regex.IsMatch(line, @"^\d*\."))
+                    {
+                        questionText += line.Split(".")[1].Trim();
+                        readingQuestion = true;
+                    }
+                    else if (Regex.IsMatch(line, @"^[a-zA-Z]*\.") || readingAnswers)
+                    {
+                        readingQuestion = false;
+                        string[] fields = line.Split(". ");
+                        if (Answer.TryCreate(fields[1], false, out FactoryResult<Answer> factoryResult))
+                        {
+                            builder.AddAnswer(fields[0].ToUpper()[0], factoryResult.Result);
+                        }
+                        readingAnswers = true;
                     }
                     else if (readingCorrections)
                     {
@@ -53,21 +67,7 @@ namespace MultipleChoiceDL.FileReaders
                     }
                     else if (readingQuestion)
                     {
-                        questionText += " " + line;
-                    }
-                    else if (Regex.IsMatch(line, @"^\d*\."))
-                    {
-                        questionText += line.Split(". ")[1];
-                        readingQuestion = true;
-                    }
-                    else if (Regex.IsMatch(line, @"^[a-zA-Z]*\.") || readingAnswers)
-                    {
-                        string[] fields = line.Split(". ");
-                        if (Answer.TryCreate(fields[1], false, out FactoryResult<Answer> factoryResult))
-                        {
-                            builder.AddAnswer(fields[0].ToUpper()[0], factoryResult.Result);
-                        }
-                        readingAnswers = true;
+                        questionText += " " + line.Trim();
                     }
                     else if (line.ToLower().StartsWith("antwoorden"))
                     {
