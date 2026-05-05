@@ -15,5 +15,9 @@ namespace MultipleChoiceBL.DTOs
         public int Id { get; set; }
         public string Question { get; set; }
 
+        public override string? ToString()
+        {
+            return Question;
+        }
     }
 }
