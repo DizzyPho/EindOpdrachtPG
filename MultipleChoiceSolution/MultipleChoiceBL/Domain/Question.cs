@@ -61,12 +61,12 @@ namespace MultipleChoiceBL.Domain
         public override bool Equals(object? obj)
         {
             return obj is Question question &&
-                   QuestionText == question.QuestionText;
+                   Id == question.Id;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(QuestionText);
+            return HashCode.Combine(Id);
         }
     }
 }
