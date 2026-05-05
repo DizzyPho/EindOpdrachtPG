@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using MultipleChoiceBL.Domain;
+using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,26 @@ namespace MultipleChoiceDL.Repositories
         public QuizRepositorySQLS(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public List<TopicDTO> GetTopics()
+        {
+            List<TopicDTO> topics = new List<TopicDTO>();
+
+            const string query = "SELECT id, topic FROM topic";
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            { 
+                cmd.CommandText = query;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        topics.Add(new TopicDTO(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+            }
+            return topics;
         }
 
         public void ImportQuestions(List<Question> questions, List<int> topicIds)

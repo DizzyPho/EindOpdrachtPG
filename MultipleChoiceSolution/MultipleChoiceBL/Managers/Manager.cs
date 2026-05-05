@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.Interfaces;
+﻿using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,9 @@ namespace MultipleChoiceBL.Managers
             _repository = repository;
         }
 
-
+        public List<TopicDTO> GetTopics()
+        {
+            return _repository.GetTopics();
+        }
     }
 }
