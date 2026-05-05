@@ -1,6 +1,7 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.Interfaces;
 using MultipleChoiceGUI.Config;
+using MultipleChoiceGUI.Windows;
 using MultipleChoiceUtil.Factories;
 using System.Configuration;
 using System.Text;
@@ -27,7 +28,8 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuestions_Click(object sender, RoutedEventArgs e)
         {
-
+            QuestionsWindow qw = new QuestionsWindow();
+            qw.ShowDialog();
         }
 
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
