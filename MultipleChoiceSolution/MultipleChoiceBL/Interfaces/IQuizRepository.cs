@@ -7,6 +7,6 @@ namespace MultipleChoiceBL.Interfaces
 {
     public interface IQuizRepository
     {
-        public void ImportQuestions(List<Question> questions, int topicId);
+        public void ImportQuestions(List<Question> questions, List<int> topicIds);
     }
 }
