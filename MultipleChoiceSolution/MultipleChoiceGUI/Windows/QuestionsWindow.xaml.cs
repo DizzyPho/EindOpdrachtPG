@@ -24,7 +24,7 @@ namespace MultipleChoiceGUI.Windows
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }
