@@ -28,6 +28,7 @@ namespace MultipleChoiceDL.Repositories
             using (SqlCommand cmd = conn.CreateCommand())
             { 
                 cmd.CommandText = query;
+                conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
