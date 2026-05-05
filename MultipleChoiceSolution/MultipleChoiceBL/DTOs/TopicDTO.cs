@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MultipleChoiceBL.DTOs
 {
-    public class TopicDTO
+    public record struct TopicDTO
     {
         public TopicDTO(int id, string name)
         {
