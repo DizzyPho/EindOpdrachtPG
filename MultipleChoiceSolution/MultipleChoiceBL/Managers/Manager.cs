@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.DTOs;
+﻿using MultipleChoiceBL.Domain;
+using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,11 @@ namespace MultipleChoiceBL.Managers
         public Manager(IQuizRepository repository) 
         {
             _repository = repository;
+        }
+
+        public List<QuestionDTO> GetQuestionDTOs(int topicId)
+        {
+            return _repository.GetQuestionDTOs(topicId);
         }
 
         public List<TopicDTO> GetTopics()

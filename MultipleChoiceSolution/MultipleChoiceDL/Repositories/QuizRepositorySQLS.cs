@@ -19,6 +19,33 @@ namespace MultipleChoiceDL.Repositories
             _connectionString = connectionString;
         }
 
+        public List<QuestionDTO> GetQuestionDTOs(int topicId)
+        {
+            List<QuestionDTO> questions = new List<QuestionDTO>();
+
+            const string query = "SELECT q.id, question_text from question q " +
+                                 "JOIN question_topic t on t.question_id = q.id " +
+                                 "WHERE t.topic_id = @topic_id";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@topic_id", topicId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        questions.Add(new QuestionDTO(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+            }
+
+            return questions;
+        }
+
         public List<TopicDTO> GetTopics()
         {
             List<TopicDTO> topics = new List<TopicDTO>();

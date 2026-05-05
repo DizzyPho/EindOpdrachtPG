@@ -8,6 +8,7 @@ namespace MultipleChoiceBL.Interfaces
 {
     public interface IQuizRepository
     {
+        List<QuestionDTO> GetQuestionDTOs(int topicId);
         public List<TopicDTO> GetTopics();
         public void ImportQuestions(List<Question> questions, List<int> topicIds);
     }
