@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MultipleChoiceGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MeerkeuzeApp" Height="auto" Width="400" SizeToContent="Height">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Wat wil je bekijken?" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.Row="0"></Label>
+        <Button Content="Vragen" Margin="10" Padding="5" Grid.Row="1" Click="ButtonQuestions_Click"></Button>
+        <Button Content="Tests" Margin="10" Padding="5" Grid.Row="2" Click="ButtonQuiz_Click"></Button>
     </Grid>
 </Window>
