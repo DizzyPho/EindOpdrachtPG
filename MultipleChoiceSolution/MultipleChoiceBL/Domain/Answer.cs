@@ -41,5 +41,10 @@ namespace MultipleChoiceBL.Domain
         {
             IsCorrect = false;
         }
+
+        public override string? ToString()
+        {
+            return AnswerText;
+        }
     }
 }
