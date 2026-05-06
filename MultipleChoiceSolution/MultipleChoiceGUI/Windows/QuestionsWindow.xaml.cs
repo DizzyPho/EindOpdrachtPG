@@ -56,5 +56,16 @@ namespace MultipleChoiceGUI.Windows
             _questions = new ObservableCollection<QuestionDTO>(_manager.GetQuestionDTOs(selectedTopic.Id));
             ListBoxQuestions.ItemsSource = _questions;
         }
+
+        private void ListBoxQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(sender is not ListBox)
+            {
+                return;
+            }
+            QuestionDTO selected = (QuestionDTO)ListBoxQuestions.SelectedItem;
+            Question question = _manager.GetQuestion(selected.Id);
+            ListBoxAnswers.ItemsSource = question.GetAnswers();
+        }
     }
 }
