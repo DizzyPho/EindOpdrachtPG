@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
+using MultipleChoiceBL.Builders;
 using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.FactoryResults;
 using MultipleChoiceBL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,49 @@ namespace MultipleChoiceDL.Repositories
         public QuizRepositorySQLS(string connectionString)
         {
             _connectionString = connectionString;
+        }
+
+        public Question GetQuestion(int questionId)
+        {
+            const string query = "SELECT q.question_text, a.answer_text, a.is_correct  FROM question q " +
+                                 "JOIN answer a ON a.question_id = q.id " +
+                                 "WHERE q.id = @id";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using(SqlCommand command = connection.CreateCommand())
+            {
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@id", questionId);
+                connection.Open();
+
+                QuestionBuilder builder = new QuestionBuilder();
+                string questionText = null;
+                List<Answer> answers = new List<Answer>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (questionText == null)
+                        {
+                            questionText = reader.GetString(0);
+                        }
+                        string answerText = reader.GetString(1);
+                        bool isCorrect = reader.GetBoolean(2);
+                        if (Answer.TryCreate(answerText, isCorrect, out FactoryResult<Answer> result))
+                        {
+                            answers.Add(result.Result);
+                        }
+                    }
+                }
+                if(Question.TryCreate(questionText, answers, out FactoryResult<Question> questionResult))
+                {
+                    return questionResult.Result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
 
         public List<QuestionDTO> GetQuestionDTOs(int topicId)

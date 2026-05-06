@@ -15,6 +15,11 @@ namespace MultipleChoiceBL.Managers
             _repository = repository;
         }
 
+        public Question GetQuestion(int questionId)
+        {
+            return _repository.GetQuestion(questionId);
+        }
+
         public List<QuestionDTO> GetQuestionDTOs(int topicId)
         {
             return _repository.GetQuestionDTOs(topicId);
