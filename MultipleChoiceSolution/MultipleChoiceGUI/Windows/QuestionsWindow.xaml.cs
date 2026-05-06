@@ -65,6 +65,7 @@ namespace MultipleChoiceGUI.Windows
             }
             QuestionDTO selected = (QuestionDTO)ListBoxQuestions.SelectedItem;
             Question question = _manager.GetQuestion(selected.Id);
+            LabelQuestion.Content = question.QuestionText;
             ListBoxAnswers.ItemsSource = question.GetAnswers();
         }
     }
