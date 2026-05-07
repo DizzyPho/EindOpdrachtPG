@@ -172,5 +172,28 @@ namespace MultipleChoiceDL.Repositories
                 }
             }
         }
+        // returns id of inserted topic, or -1 if topic could not be inserted.
+        public int InsertTopic(string topicName)
+        {
+            int id;
+            const string query = "INSERT INTO topic (topic) OUTPUT inserted.id VALUES (@topic)";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@topic", topicName);
+                conn.Open();
+                try
+                {
+                    id = (int)cmd.ExecuteScalar();
+                }
+                catch
+                {
+                    id = -1;
+                }
+            }
+            return id;
+        }
     }
 }

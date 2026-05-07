@@ -29,5 +29,10 @@ namespace MultipleChoiceBL.Managers
         {
             return _repository.GetTopics();
         }
+
+        public int InsertTopic(string topicName)
+        {
+            return _repository.InsertTopic(topicName);
+        }
     }
 }
