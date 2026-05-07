@@ -19,12 +19,18 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
                                 .Select(topic => new TopicViewModel(topic))
                                 .ToList();
             SelectFileCommand = new Command(OnSelectFile);
+            FormatOptions = new List<FormatViewModel>
+            {
+                new FormatViewModel("Oplossingssleutel aan einde van bestand", 1),
+                new FormatViewModel("Oplossing na vraag", 2)
+            };
         }
         public List<TopicViewModel> TopicList
         {
             get => Get<List<TopicViewModel>>();
             set => Set(value);
         }
+        public List<FormatViewModel> FormatOptions { get; set; } 
 
         public String FilePath
         {
