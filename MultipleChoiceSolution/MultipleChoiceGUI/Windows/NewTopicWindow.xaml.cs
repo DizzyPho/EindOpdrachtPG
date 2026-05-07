@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.ViewModels.NewTopic;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,10 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class NewTopicWindow : Window
     {
-        public NewTopicWindow()
+        public NewTopicWindow(Manager manager)
         {
             InitializeComponent();
+            DataContext = new NewTopicViewModel(manager);
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

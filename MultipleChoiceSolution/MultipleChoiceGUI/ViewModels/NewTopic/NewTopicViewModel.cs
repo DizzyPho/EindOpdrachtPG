@@ -1,0 +1,32 @@
+﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Commands;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
+
+namespace MultipleChoiceGUI.ViewModels.NewTopic
+{
+    public class NewTopicViewModel : BaseViewModel
+    {
+        Manager _manager;
+        public String TopicName
+        {
+            get => Get<String>();
+            set => Set(value);
+        }
+
+        public ICommand AddNewTopic;
+
+        public NewTopicViewModel(Manager manager)
+        {
+            AddNewTopic = new Command(OnAddNewTopic);
+            _manager = manager;
+        }
+
+        public void OnAddNewTopic()
+        {
+            
+        }
+    }
+}

@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Label Content="Welk onderwerp wil je toevoegen?" Grid.Row="0" Margin="8"></Label>
         <TextBox Grid.Row="1" Margin="8"></TextBox>
-        <Button Grid.Row="2" Content="Toevoegen" Margin="8" HorizontalAlignment="Right" Padding="16 4"></Button>
+        <Button Grid.Row="2" Content="Toevoegen" Margin="8" HorizontalAlignment="Right" Padding="16 4" Command="{Binding AddNewTopic}"></Button>
         <Button Grid.Row="2" Content="Terug" Margin="8" HorizontalAlignment="Left" Padding="16 4" Click="ButtonBack_Click"></Button>
     </Grid>
 </Window>
