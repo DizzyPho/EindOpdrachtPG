@@ -25,7 +25,7 @@ namespace MultipleChoiceBL.Managers
             return _repository.GetQuestionDTOs(topicId);
         }
 
-        public List<TopicDTO> GetTopics()
+        public List<Topic> GetTopics()
         {
             return _repository.GetTopics();
         }

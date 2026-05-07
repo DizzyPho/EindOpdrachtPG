@@ -1,4 +1,4 @@
-﻿using MultipleChoiceBL.DTOs;
+﻿using MultipleChoiceBL.Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +7,9 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
 {
     public class TopicViewModel : BaseViewModel
     {
-        public TopicDTO Topic
+        public Topic Topic
         {
-            get => Get<TopicDTO>(); 
+            get => Get<Topic>(); 
             set => Set(value);
         }
         public bool IsChecked
@@ -17,7 +17,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             get => Get<bool>();
             set => Set(value);
         }
-        public TopicViewModel(TopicDTO topic)
+        public TopicViewModel(Topic topic)
         {
             Topic = topic;
             IsChecked = false;

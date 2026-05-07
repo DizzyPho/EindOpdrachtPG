@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MultipleChoiceBL.DTOs
+namespace MultipleChoiceBL.Domain
 {
-    public record struct TopicDTO
+    public record struct Topic
     {
-        public TopicDTO(int id, string name)
+        public Topic(int id, string name)
         {
             Id = id;
             Name = name;

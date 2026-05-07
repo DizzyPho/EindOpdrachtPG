@@ -91,9 +91,9 @@ namespace MultipleChoiceDL.Repositories
             return questions;
         }
 
-        public List<TopicDTO> GetTopics()
+        public List<Topic> GetTopics()
         {
-            List<TopicDTO> topics = new List<TopicDTO>();
+            List<Topic> topics = new List<Topic>();
 
             const string query = "SELECT id, topic FROM topic";
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -105,7 +105,7 @@ namespace MultipleChoiceDL.Repositories
                 {
                     while (reader.Read())
                     {
-                        topics.Add(new TopicDTO(reader.GetInt32(0), reader.GetString(1)));
+                        topics.Add(new Topic(reader.GetInt32(0), reader.GetString(1)));
                     }
                 }
             }

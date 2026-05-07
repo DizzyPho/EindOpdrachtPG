@@ -14,9 +14,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
     public class QuestionInfoViewModel : BaseViewModel
     {
         private Manager _manager;
-        public ObservableCollection<TopicDTO> Topics
+        public ObservableCollection<Topic> Topics
         {
-            get => Get<ObservableCollection<TopicDTO>>();
+            get => Get<ObservableCollection<Topic>>();
             set => Set(value);
         }
         public List<QuestionDTO> QuestionList
@@ -24,9 +24,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<List<QuestionDTO>>();
             set => Set(value);
         }
-        public TopicDTO SelectedTopic
+        public Topic SelectedTopic
         {
-            get => Get<TopicDTO>();
+            get => Get<Topic>();
             set
             {
                 Set(value);
@@ -55,7 +55,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         public QuestionInfoViewModel(Manager manager)
         {
             _manager = manager;
-            Topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
+            Topics = new ObservableCollection<Topic>(_manager.GetTopics());
         }
         internal void SelectedQuestionChange(QuestionDTO question)
         {
@@ -66,7 +66,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             SelectedQuestionAnswers = new List<AnswerViewModel>(answers);
         }
 
-        internal void SelectedTopicChange(TopicDTO topic)
+        internal void SelectedTopicChange(Topic topic)
         {
             QuestionList = _manager.GetQuestionDTOs(topic.Id).ToList(); 
         }
