@@ -39,7 +39,6 @@ namespace MultipleChoiceGUI.Windows
             _topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
             ComboBoxTopics.ItemsSource = _topics;
             _questions = new ObservableCollection<QuestionDTO>();
-            ListBoxQuestions.ItemsSource = _questions;
 
             _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;
@@ -50,29 +49,5 @@ namespace MultipleChoiceGUI.Windows
             Close();
         }
 
-        private void ComboBoxTopics_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = ComboBoxTopics.SelectedItem;
-
-            if(selectedItem == null)
-            {
-                return;
-            }
-            TopicDTO selectedTopic = (TopicDTO)selectedItem;
-            _questions = new ObservableCollection<QuestionDTO>(_manager.GetQuestionDTOs(selectedTopic.Id));
-            ListBoxQuestions.ItemsSource = _questions;
-        }
-
-        private void ListBoxQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(sender is not ListBox)
-            {
-                return;
-            }
-            QuestionDTO selected = (QuestionDTO)ListBoxQuestions.SelectedItem;
-            Question question = _manager.GetQuestion(selected.Id);
-            _viewModel.QuestionText = question.QuestionText;
-            ListBoxAnswers.ItemsSource = question.GetAnswers();
-        }
     }
 }
