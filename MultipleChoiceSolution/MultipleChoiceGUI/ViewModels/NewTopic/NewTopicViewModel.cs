@@ -26,7 +26,14 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
 
         public void OnAddNewTopic()
         {
-            
+            if (!String.IsNullOrWhiteSpace(TopicName))
+            {
+                _manager.InsertTopic(TopicName);
+            }
+            else
+            {
+                MessageBox.Show("test");
+            }
         }
     }
 }
