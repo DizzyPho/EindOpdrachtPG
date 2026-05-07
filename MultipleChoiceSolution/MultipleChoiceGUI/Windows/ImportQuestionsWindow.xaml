@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Label Content="Nieuwe vragenlijst importeren" Margin="8" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="1" Margin="8" Grid.Column="0" Text="{Binding FilePath}"></TextBox>
-        <Button Content="Kies Bestand" Grid.Row="1" Grid.Column="1" Margin="8" Command="{Binding SelectFileCommand}"></Button>
+        <Button Content="Kies Bestand" Grid.Row="1" Grid.Column="1" Margin="8" Command="{Binding SelectFileCommand}" Padding="8 0"></Button>
         <Label Grid.Row="2" Grid.Column="0"  Content="Kies formaat van bestand" Margin="8"></Label>
         <ItemsControl Grid.Row="3" Grid.ColumnSpan="2" Margin="4" Background="Transparent" 
                   BorderThickness="0" ItemsSource="{Binding FormatOptions}">
