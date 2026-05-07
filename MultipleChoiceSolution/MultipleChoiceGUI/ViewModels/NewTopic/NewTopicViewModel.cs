@@ -29,7 +29,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
         {
             if (!String.IsNullOrWhiteSpace(TopicName))
             {
-                _manager.InsertTopic(TopicName);
+                int id = _manager.InsertTopic(TopicName);
             }
             else
             {
