@@ -15,16 +15,10 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             set => Set(value);
         }
 
-        public ICommand SelectedQuestionCommand { get; init; }
 
         public QuestionInfoViewModel()
         {
-            SelectedQuestionCommand = new Command(OnSelectedQuestionChange);
-        }
 
-        internal void OnSelectedQuestionChange()
-        {
-            MessageBox.Show("test");
         }
     }
 }
