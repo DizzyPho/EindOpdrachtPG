@@ -24,5 +24,10 @@ namespace MultipleChoiceGUI.Windows
             InitializeComponent();
             DataContext = new ImportQuestionViewModel(manager);
         }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

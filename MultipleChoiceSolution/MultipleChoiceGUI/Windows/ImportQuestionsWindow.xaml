@@ -16,6 +16,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Nieuwe vragenlijst importeren" Margin="8" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"></Label>
         <TextBox Grid.Row="1" Margin="8" Grid.Column="0" Text="{Binding FilePath}"></TextBox>
@@ -35,5 +36,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
+        <Button Content="Terug" Grid.Row="4" Grid.Column="0" Margin="8" HorizontalAlignment="Left" Padding="4" Click="ButtonBack_Click"></Button>
+        <Button Content="Importeer" Grid.Row="4" Grid.Column="1" Margin="8" Padding="4"></Button>
     </Grid>
 </Window>
