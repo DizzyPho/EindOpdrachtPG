@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.ViewModels.ImportQuestion;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,10 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class ImportQuestionsWindow : Window
     {
-        public ImportQuestionsWindow()
+        public ImportQuestionsWindow(Manager manager)
         {
             InitializeComponent();
+            DataContext = new ImportQuestionViewModel(manager);
         }
     }
 }
