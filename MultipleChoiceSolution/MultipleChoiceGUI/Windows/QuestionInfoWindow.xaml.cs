@@ -46,7 +46,8 @@ namespace MultipleChoiceGUI.Windows
 
         private void NewTopic_Click(object sender, RoutedEventArgs e)
         {
-
+            NewTopicWindow ntw = new NewTopicWindow();
+            ntw.ShowDialog();
         }
     }
 }
