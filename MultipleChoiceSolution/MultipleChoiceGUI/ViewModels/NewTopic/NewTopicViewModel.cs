@@ -3,6 +3,7 @@ using MultipleChoiceGUI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewTopic
@@ -16,7 +17,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
             set => Set(value);
         }
 
-        public ICommand AddNewTopic;
+        public ICommand AddNewTopic { get; init; }
 
         public NewTopicViewModel(Manager manager)
         {
