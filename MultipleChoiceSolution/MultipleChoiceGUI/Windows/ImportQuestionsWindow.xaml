@@ -15,6 +15,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
@@ -26,17 +27,15 @@
             <RadioButton Content="Oplossingssleutel aan einde van bestand" Margin="8"></RadioButton>
             <RadioButton Content="Oplossing na vraag" Margin="8"></RadioButton>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="8">
-            <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8"></Label>
-            <ListView Margin="8" ItemsSource="{Binding TopicList}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox Content="{Binding Name}"></CheckBox>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
-        <Button Content="Terug" Grid.Row="4" Grid.Column="0" Margin="8" HorizontalAlignment="Left" Padding="4" Click="ButtonBack_Click"></Button>
-        <Button Content="Importeer" Grid.Row="4" Grid.Column="1" Margin="8" Padding="4"></Button>
+        <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8" Grid.Row="3"></Label>
+        <ListView ItemsSource="{Binding TopicList}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}"></CheckBox>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Content="Terug" Grid.Row="5" Grid.Column="0" Margin="8" HorizontalAlignment="Left" Padding="4" Click="ButtonBack_Click"></Button>
+        <Button Content="Importeer" Grid.Row="5" Grid.Column="1" Margin="8" Padding="4"></Button>
     </Grid>
 </Window>
