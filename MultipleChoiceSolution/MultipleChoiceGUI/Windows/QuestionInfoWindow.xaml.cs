@@ -29,7 +29,6 @@ namespace MultipleChoiceGUI.Windows
     {
         Manager _manager;
         ObservableCollection<TopicDTO> _topics;
-        ObservableCollection<QuestionDTO> _questions;
         QuestionInfoViewModel _viewModel;
         public QuestionsWindow()
         {
@@ -38,7 +37,6 @@ namespace MultipleChoiceGUI.Windows
                                                       ConfigurationService.GetSetting("databaseType")));
             _topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
             ComboBoxTopics.ItemsSource = _topics;
-            _questions = new ObservableCollection<QuestionDTO>();
 
             _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;
