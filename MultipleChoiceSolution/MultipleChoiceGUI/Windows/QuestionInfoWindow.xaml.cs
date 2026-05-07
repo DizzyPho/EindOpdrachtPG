@@ -3,6 +3,8 @@ using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Config;
+using MultipleChoiceGUI.ViewModels;
+using MultipleChoiceGUI.ViewModels.QuestionInfo;
 using MultipleChoiceUtil.Factories;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,7 @@ namespace MultipleChoiceGUI.Windows
         Manager _manager;
         ObservableCollection<TopicDTO> _topics;
         ObservableCollection<QuestionDTO> _questions;
+        QuestionInfoViewModel _viewModel;
         public QuestionsWindow()
         {
             InitializeComponent();
@@ -37,6 +40,9 @@ namespace MultipleChoiceGUI.Windows
             ComboBoxTopics.ItemsSource = _topics;
             _questions = new ObservableCollection<QuestionDTO>();
             ListBoxQuestions.ItemsSource = _questions;
+
+            _viewModel = new QuestionInfoViewModel();
+            DataContext = _viewModel;
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -65,7 +71,7 @@ namespace MultipleChoiceGUI.Windows
             }
             QuestionDTO selected = (QuestionDTO)ListBoxQuestions.SelectedItem;
             Question question = _manager.GetQuestion(selected.Id);
-            LabelQuestion.Content = question.QuestionText;
+            _viewModel.QuestionText = question.QuestionText;
             ListBoxAnswers.ItemsSource = question.GetAnswers();
         }
     }
