@@ -49,5 +49,11 @@ namespace MultipleChoiceGUI.Windows
             NewTopicWindow ntw = new NewTopicWindow(_manager);
             ntw.ShowDialog();
         }
+
+        private void ImportQuestions_Click(object sender, RoutedEventArgs e)
+        {
+            ImportQuestionsWindow iqw = new ImportQuestionsWindow(_manager);
+            iqw.ShowDialog();
+        }
     }
 }

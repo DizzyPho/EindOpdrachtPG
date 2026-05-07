@@ -35,7 +35,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="2" Grid.Column="2">
-            <Button Margin="8" Content="Importeer vragenlijst" Padding="0 4"></Button>
+            <Button Margin="8" Content="Importeer vragenlijst" Padding="0 4" Click="ImportQuestions_Click"></Button>
             <Button Margin="8" Content="Nieuw onderwerp" Padding="0 4" Click="NewTopic_Click"></Button>
             <Button Margin="8" Content="Nieuwe vraag" Padding="0 4"></Button>
         </StackPanel>
