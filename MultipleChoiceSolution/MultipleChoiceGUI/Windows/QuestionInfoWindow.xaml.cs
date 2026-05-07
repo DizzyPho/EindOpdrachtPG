@@ -41,7 +41,7 @@ namespace MultipleChoiceGUI.Windows
             _questions = new ObservableCollection<QuestionDTO>();
             ListBoxQuestions.ItemsSource = _questions;
 
-            _viewModel = new QuestionInfoViewModel();
+            _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;
         }
 

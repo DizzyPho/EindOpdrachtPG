@@ -1,4 +1,5 @@
-﻿using MultipleChoiceGUI.Commands;
+﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 {
     public class QuestionInfoViewModel : BaseViewModel
     {
+        private Manager _manager;
         public String QuestionText
         {
             get => Get<String>();
@@ -16,9 +18,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         }
 
 
-        public QuestionInfoViewModel()
+        public QuestionInfoViewModel(Manager manager)
         {
-
+            _manager = manager;
         }
     }
 }
