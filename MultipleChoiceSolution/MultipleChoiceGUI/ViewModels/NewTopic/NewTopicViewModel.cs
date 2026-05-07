@@ -32,7 +32,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
             }
             else
             {
-                MessageBox.Show("test");
+                MessageBox.Show("Geef een naam in a.u.b.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
