@@ -1,0 +1,39 @@
+﻿<Window x:Class="MultipleChoiceGUI.Windows.ImportQuestionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultipleChoiceGUI.Windows"
+        mc:Ignorable="d"
+        Title="Importeer vragenlijst" Height="auto" Width="350" SizeToContent="Height">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Nieuwe vragenlijst importeren" Margin="8" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"></Label>
+        <TextBox Grid.Row="1" Margin="8" Grid.Column="0"></TextBox>
+        <Button Content="Kies Bestand" Grid.Row="1" Grid.Column="1" Margin="8" Padding="4"></Button>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="8">
+            <Label Content="Kies Formaat van bestand"></Label>
+            <RadioButton Content="Oplossingssleutel aan einde van bestand" Margin="8"></RadioButton>
+            <RadioButton Content="Oplossing na vraag" Margin="8"></RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="8">
+            <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8"></Label>
+            <ListView Margin="8">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Content=""></CheckBox>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>
