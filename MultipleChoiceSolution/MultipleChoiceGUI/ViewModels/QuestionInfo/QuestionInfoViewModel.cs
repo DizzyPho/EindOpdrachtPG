@@ -41,9 +41,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<String>();
             set => Set(value);
         }
-        public List<Answer> SelectedQuestionAnswers
+        public List<AnswerViewModel> SelectedQuestionAnswers
         {
-            get => Get<List<Answer>>();
+            get => Get<List<AnswerViewModel>>();
             set => Set(value);
         }
         public QuestionInfoViewModel(Manager manager)
@@ -53,7 +53,10 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         internal void SelectedQuestionChange(QuestionDTO question)
         {
             QuestionText = question.Question;
-            SelectedQuestionAnswers = _manager.GetQuestion(question.Id).GetAnswers().ToList();
+            var answers = _manager.GetQuestion(question.Id)
+                                              .GetAnswers()
+                                              .Select(answer => new AnswerViewModel(answer));
+            SelectedQuestionAnswers = new List<AnswerViewModel>(answers);
         }
 
         internal void SelectedTopicChange(TopicDTO topic)

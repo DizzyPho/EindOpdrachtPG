@@ -22,8 +22,18 @@
         <Label Margin="8" Grid.Row="0" Grid.Column="2" Name="LabelQuestion" Content="{Binding QuestionText}"></Label>
         <ComboBox Grid.Row="0" Grid.Column="1" Margin="8" SelectedItem="{Binding SelectedTopic}" Name="ComboBoxTopics"></ComboBox>
         <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" 
-                 Margin="8" ItemsSource="{Binding QuestionList}"  SelectedItem="{Binding SelectedQuestion}"></ListBox>
-        <ListBox Grid.Column="2" Grid.Row="1" Margin="8" ItemsSource="{Binding SelectedQuestionAnswers}"></ListBox>
+                 Margin="8" ItemsSource="{Binding QuestionList}"  SelectedItem="{Binding SelectedQuestion}">
+        </ListBox>
+        <ListBox Grid.Column="2" Grid.Row="1" Margin="8" ItemsSource="{Binding SelectedQuestionAnswers}" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <Label Content="{Binding Text}"></Label>
+                        <Label Content="{Binding Mark}" HorizontalAlignment="Right"></Label>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button Content="Terug" Grid.Column="0" Grid.Row="3" Margin="8" Click="ButtonBack_Click"></Button>
     </Grid>
 </Window>
