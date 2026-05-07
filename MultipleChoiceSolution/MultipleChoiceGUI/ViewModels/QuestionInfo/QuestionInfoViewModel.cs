@@ -4,6 +4,7 @@ using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -13,6 +14,11 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
     public class QuestionInfoViewModel : BaseViewModel
     {
         private Manager _manager;
+        public ObservableCollection<TopicDTO> Topics
+        {
+            get => Get<ObservableCollection<TopicDTO>>();
+            set => Set(value);
+        }
         public List<QuestionDTO> QuestionList
         {
             get => Get<List<QuestionDTO>>();
@@ -49,6 +55,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         public QuestionInfoViewModel(Manager manager)
         {
             _manager = manager;
+            Topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
         }
         internal void SelectedQuestionChange(QuestionDTO question)
         {

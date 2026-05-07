@@ -28,15 +28,12 @@ namespace MultipleChoiceGUI.Windows
     public partial class QuestionsWindow : Window
     {
         Manager _manager;
-        ObservableCollection<TopicDTO> _topics;
         QuestionInfoViewModel _viewModel;
         public QuestionsWindow()
         {
             InitializeComponent();
             _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                                       ConfigurationService.GetSetting("databaseType")));
-            _topics = new ObservableCollection<TopicDTO>(_manager.GetTopics());
-            ComboBoxTopics.ItemsSource = _topics;
 
             _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;
@@ -47,5 +44,9 @@ namespace MultipleChoiceGUI.Windows
             Close();
         }
 
+        private void NewTopic_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
