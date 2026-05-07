@@ -15,12 +15,14 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
         public ImportQuestionViewModel(Manager manager)
         {
             _manager = manager;
-            TopicList = _manager.GetTopics();
+            TopicList = _manager.GetTopics()
+                                .Select(topic => new TopicViewModel(topic))
+                                .ToList();
             SelectFileCommand = new Command(OnSelectFile);
         }
-        public List<TopicDTO> TopicList
+        public List<TopicViewModel> TopicList
         {
-            get => Get<List<TopicDTO>>();
+            get => Get<List<TopicViewModel>>();
             set => Set(value);
         }
 
