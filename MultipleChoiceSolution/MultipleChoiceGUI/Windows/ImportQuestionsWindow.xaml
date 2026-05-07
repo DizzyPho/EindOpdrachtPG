@@ -31,7 +31,7 @@
         <ListView ItemsSource="{Binding TopicList}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding Name}"></CheckBox>
+                    <CheckBox Content="{Binding Topic.Name}" IsChecked="{Binding IsChecked}"></CheckBox>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
