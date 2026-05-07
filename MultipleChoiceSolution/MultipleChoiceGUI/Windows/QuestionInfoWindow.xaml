@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Content="Onderwerp" Margin="8"></Label>
-        <Label Margin="8" Grid.Row="0" Grid.Column="2" Name="LabelQuestion"></Label>
+        <Label Margin="8" Grid.Row="0" Grid.Column="2" Name="LabelQuestion" Content="{Binding QuestionText}"></Label>
         <ComboBox Grid.Row="0" Grid.Column="1" Margin="8" Name="ComboBoxTopics" SelectionChanged="ComboBoxTopics_SelectionChanged"></ComboBox>
         <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" 
                  Margin="8" Name="ListBoxQuestions" SelectionChanged="ListBoxQuestions_SelectionChanged"></ListBox>
