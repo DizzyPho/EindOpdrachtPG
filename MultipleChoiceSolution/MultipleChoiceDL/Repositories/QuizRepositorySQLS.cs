@@ -106,8 +106,8 @@ namespace MultipleChoiceDL.Repositories
                 {
                     while(reader.Read())
                     {
-                        int topicId = reader.GetInt32(0);
-                        int questionId = reader.GetInt32(1);
+                        int questionId = reader.GetInt32(0);
+                        int topicId = reader.GetInt32(1);
                         if(ids.TryGetValue(topicId, out List<int> questionIds))
                         {
                             questionIds.Add(questionId);
