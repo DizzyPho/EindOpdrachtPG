@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="Nieuwe vraag toevoegen" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
         <Label Content="Geef de vraag in" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
-        <TextBox Grid.ColumnSpan="2" Margin="8" Grid.Row="2" Text="{Binding QuestionText}"></TextBox>
+        <TextBox Grid.ColumnSpan="2" Margin="8" Grid.Row="2" Text="{Binding QuestionText}" TextWrapping="Wrap"></TextBox>
         <Label Content="Antwoorden" Margin="8" Grid.Row="3" Grid.ColumnSpan="2"></Label>
         <ItemsControl Margin="8" Grid.Row="4" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0">
             <ItemsControl.ItemTemplate>
