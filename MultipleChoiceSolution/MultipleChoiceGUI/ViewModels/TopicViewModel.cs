@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MultipleChoiceGUI.ViewModels.ImportQuestion
+namespace MultipleChoiceGUI.ViewModels
 {
     public class TopicViewModel : BaseViewModel
     {
