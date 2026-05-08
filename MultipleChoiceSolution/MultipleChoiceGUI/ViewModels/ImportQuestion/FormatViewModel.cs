@@ -13,12 +13,12 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
         }
         public string Text { get; set; }
 
-        public int _option;
+        public string Option;
 
-        public FormatViewModel(string text, int option)
+        public FormatViewModel(string text, string option)
         {
             Text = text;
-            _option = option;
+            Option = option;
         }
     }
 }
