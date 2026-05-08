@@ -30,6 +30,11 @@ namespace MultipleChoiceBL.Managers
             return _repository.GetTopics();
         }
 
+        public void InsertQuestion(Question question, List<int> topicIds)
+        {
+            _repository.ImportQuestions(new List<Question> { question }, topicIds);
+        }
+
         public int InsertTopic(string topicName)
         {
             return _repository.InsertTopic(topicName);
