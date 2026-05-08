@@ -91,6 +91,36 @@ namespace MultipleChoiceDL.Repositories
             return questions;
         }
 
+        public Dictionary<int, List<int>> GetQuestionIdsByTopic()
+        {
+            const string query = "SELECT q.id question_id, qt.topic_id FROM question q " +
+                                 "JOIN question_topic qt on qt.question_id = q.id ";
+            Dictionary<int, List<int>> ids = new Dictionary<int, List<int>>();
+
+            using(SqlConnection conn = new SqlConnection(_connectionString))
+            using(SqlCommand cmd = conn.CreateCommand()) 
+            {
+                cmd.CommandText = query;
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        int topicId = reader.GetInt32(0);
+                        int questionId = reader.GetInt32(1);
+                        if(ids.TryGetValue(topicId, out List<int> questionIds))
+                        {
+                            questionIds.Add(questionId);
+                        }
+                        else
+                        {
+                            ids[topicId] = new List<int> { questionId };
+                        }
+                    }
+                }
+            }
+            return ids;
+        }
+
         public List<Topic> GetTopics()
         {
             List<Topic> topics = new List<Topic>();

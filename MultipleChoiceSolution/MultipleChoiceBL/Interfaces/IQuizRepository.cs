@@ -13,5 +13,7 @@ namespace MultipleChoiceBL.Interfaces
         public List<Topic> GetTopics();
         public void ImportQuestions(List<Question> questions, List<int> topicIds);
         public int InsertTopic(string topicName);
+
+        public Dictionary<int, List<int>> GetQuestionIdsByTopic();
     }
 }
