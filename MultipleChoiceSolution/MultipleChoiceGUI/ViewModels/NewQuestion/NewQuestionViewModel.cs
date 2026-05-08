@@ -53,6 +53,11 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             List<String> errors = new List<String>();
             List<Answer> answers = new List<Answer>();
             List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
+            if (answers.Count == 0)
+            {
+                errors.Add("Please select at least one category.");
+            }
+
             foreach(AddAnswerViewModel answerViewModel in AnswerList)
             {
                 if(Answer.TryCreate(answerViewModel.Text, answerViewModel.IsChecked, out FactoryResult<Answer> answerResult))
@@ -66,13 +71,14 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
                 answerNumber++;
             }
             Question question = null;
+
             if(Question.TryCreate(QuestionText, answers, out FactoryResult<Question> questionResult))
             {
                 question = questionResult.Result;
             }
             else
             {
-                errors.Add(string.Join(", ", questionResult.Errors));
+                errors.Add(string.Join("\n", questionResult.Errors));
             }
 
             if (errors.Count > 0)
