@@ -29,5 +29,10 @@ namespace MultipleChoiceGUI.Windows
         {
             Close();
         }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e) 
+        {
+            Close();
+        }
     }
 }
