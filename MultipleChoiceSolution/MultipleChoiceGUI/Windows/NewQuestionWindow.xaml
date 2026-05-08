@@ -14,8 +14,8 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -24,23 +24,24 @@
         </Grid.ColumnDefinitions>
         <Label Content="Nieuwe vraag toevoegen" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
         <Label Content="Geef de vraag in" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
-        <TextBox Grid.ColumnSpan="2" Margin="8" Grid.Row="2"></TextBox>
-        <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8" Grid.Row="3" Grid.ColumnSpan="2"></Label>
-        <ListView ItemsSource="{Binding TopicList}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="8">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <CheckBox Content="{Binding Topic.Name}" IsChecked="{Binding IsChecked}"></CheckBox>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Label Content="Antwoorden" Margin="8" Grid.Row="5" Grid.ColumnSpan="2"></Label>
-        <ItemsControl Margin="8" Grid.Row="6" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0">
+        <TextBox Grid.ColumnSpan="2" Margin="8" Grid.Row="2" Text="{Binding QuestionText}"></TextBox>
+        <Label Content="Antwoorden" Margin="8" Grid.Row="3" Grid.ColumnSpan="2"></Label>
+        <ItemsControl Margin="8" Grid.Row="4" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <CheckBox Content="" IsChecked="False"></CheckBox>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="7" Background="Transparent" BorderThickness="0" Margin="8" Content=" + Antwoord Toevoegen" HorizontalAlignment="Left"></Button>
+        <Button Grid.Row="5" Background="Transparent" BorderThickness="0" Margin="8" Content=" + Antwoord Toevoegen" HorizontalAlignment="Left"></Button>
+        <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8" Grid.Row="6" Grid.ColumnSpan="2"></Label>
+        <ListView ItemsSource="{Binding TopicList}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="8">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Topic.Name}" IsChecked="{Binding IsChecked}"></CheckBox>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 </Window>

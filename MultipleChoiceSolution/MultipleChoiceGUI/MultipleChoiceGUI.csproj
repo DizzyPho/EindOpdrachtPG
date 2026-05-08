@@ -19,8 +19,4 @@
     <ProjectReference Include="..\MultipleChoiceUtil\MultipleChoiceUtil.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\NewQuestion\" />
-  </ItemGroup>
-
 </Project>
