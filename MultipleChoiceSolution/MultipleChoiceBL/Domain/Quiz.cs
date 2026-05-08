@@ -7,14 +7,15 @@ namespace MultipleChoiceBL.Domain
 {
     public class Quiz
     {
-        private Quiz(string name, DateTime creationDate)
+        private Quiz(string name, DateTime creationDate, int seed)
         {
             Name = name;
             CreationDate = creationDate;
             Questions = new HashSet<Question>();
+            Seed = seed;
         }
 
-        public static bool TryCreate(string name, DateTime creationDate, out FactoryResult<Quiz> result)
+        public static bool TryCreate(string name, DateTime creationDate, int seed, out FactoryResult<Quiz> result)
         {
             List<String> errors = new List<String>();
 
@@ -28,13 +29,14 @@ namespace MultipleChoiceBL.Domain
             }
             else
             {
-                result = new FactoryResult<Quiz>(new Quiz(name, creationDate));
+                result = new FactoryResult<Quiz>(new Quiz(name, creationDate, seed));
                 return true;
             }
         }
         public String Name { get; init; }
 
         public DateTime CreationDate { get; init; }
+        public int Seed { get; init; }
         public HashSet<Question> Questions { get; init; }
 
         public bool AddQuestion(Question question)
