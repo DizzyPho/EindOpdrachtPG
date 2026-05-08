@@ -55,5 +55,10 @@ namespace MultipleChoiceGUI.Windows
             ImportQuestionsWindow iqw = new ImportQuestionsWindow(_manager);
             iqw.ShowDialog();
         }
+        private void NewQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            NewQuestionWindow nqw = new NewQuestionWindow(_manager);
+            nqw.ShowDialog();
+        }
     }
 }

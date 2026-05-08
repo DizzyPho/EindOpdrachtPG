@@ -37,7 +37,7 @@
         <StackPanel Grid.Row="2" Grid.Column="2">
             <Button Margin="8" Content="Importeer vragenlijst" Padding="0 4" Click="ImportQuestions_Click"></Button>
             <Button Margin="8" Content="Nieuw onderwerp" Padding="0 4" Click="NewTopic_Click"></Button>
-            <Button Margin="8" Content="Nieuwe vraag" Padding="0 4"></Button>
+            <Button Margin="8" Content="Nieuwe vraag" Padding="0 4" Click="NewQuestion_Click"></Button>
         </StackPanel>
         <Button Content="Terug" Grid.Column="0" Grid.Row="3" Margin="8" Click="ButtonBack_Click"></Button>
     </Grid>
