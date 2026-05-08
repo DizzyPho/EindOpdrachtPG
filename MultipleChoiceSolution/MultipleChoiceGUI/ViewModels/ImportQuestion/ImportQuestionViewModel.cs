@@ -2,9 +2,12 @@
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Config;
+using MultipleChoiceUtil.Factories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.ImportQuestion
@@ -12,17 +15,20 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
     public class ImportQuestionViewModel : BaseViewModel
     {
         Manager _manager;
+        ImportManager _importManager;
         public ImportQuestionViewModel(Manager manager)
         {
             _manager = manager;
+            
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
                                 .ToList();
             SelectFileCommand = new Command(OnSelectFile);
+            ImportQuestionsCommand = new Command(OnImportQuestions);
             FormatOptions = new List<FormatViewModel>
             {
-                new FormatViewModel("Oplossingssleutel aan einde van bestand", 1),
-                new FormatViewModel("Oplossing na vraag", 2)
+                new FormatViewModel("Oplossingssleutel aan einde van bestand", "CorrectionAtEnd"),
+                new FormatViewModel("Oplossing na vraag", "CorrectionAfterQuestion")
             };
         }
         public List<TopicViewModel> TopicList
@@ -39,6 +45,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
         }
 
         public ICommand SelectFileCommand { get; init; }
+        public ICommand ImportQuestionsCommand { get; init; }
 
         public void OnSelectFile()
         {
@@ -46,6 +53,19 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             ofd.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             ofd.ShowDialog();
             FilePath = ofd.FileName;
+        }
+
+        public void OnImportQuestions()
+        {
+            string fileFormat = FormatOptions.Single(f => f.IsChecked).Option;
+            _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
+                                                                  ConfigurationService.GetSetting("databaseType")),
+                                                                  FileReaderFactory.Create(fileFormat));
+
+            List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
+            _importManager.ImportQuestions(FilePath, topicIds);
+
+            MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

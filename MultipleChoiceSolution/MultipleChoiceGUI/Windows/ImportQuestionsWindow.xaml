@@ -41,6 +41,6 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Content="Terug" Grid.Row="6" Grid.Column="0" Margin="8" HorizontalAlignment="Left" Padding="4" Click="ButtonBack_Click"></Button>
-        <Button Content="Importeer" Grid.Row="6" Grid.Column="1" Margin="8" Padding="4"></Button>
+        <Button Content="Importeer" Grid.Row="6" Grid.Column="1" Margin="8" Padding="4" Command="{Binding ImportQuestionsCommand}" Click="ButtonImport_Click"></Button>
     </Grid>
 </Window>
