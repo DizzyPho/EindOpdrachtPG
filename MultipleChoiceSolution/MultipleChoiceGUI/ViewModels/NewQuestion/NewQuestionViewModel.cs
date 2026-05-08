@@ -3,8 +3,10 @@ using MultipleChoiceGUI.Commands;
 using MultipleChoiceGUI.ViewModels.ImportQuestion;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Text;
+using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuestion
 {
@@ -18,24 +20,28 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
                                 .ToList();
-            AnswerList = new List<AddAnswerViewModel>();
+            AnswerList = new ObservableCollection<AddAnswerViewModel>();
             AnswerList.Add(new AddAnswerViewModel());
             AnswerList.Add(new AddAnswerViewModel());
+
+            AddAnswerCommand = new Command(OnAddAnswer);
         }
+        public ICommand AddAnswerCommand { get; init; }
         public String QuestionText
         {
             get => Get<String>(); set => Set(value);
         }
-        public List<TopicViewModel> TopicList
+        public List<TopicViewModel> TopicList { get; set; }
+        public ObservableCollection<AddAnswerViewModel> AnswerList
         {
-            get => Get<List<TopicViewModel>>();
+            get => Get<ObservableCollection<AddAnswerViewModel>>();
             set => Set(value);
         }
-        public List<AddAnswerViewModel> AnswerList
+        public void OnAddAnswer()
         {
-            get => Get<List<AddAnswerViewModel>>();
-            set => Set(value);
+            AnswerList.Add(new AddAnswerViewModel());
         }
+
 
     }
 }

@@ -26,14 +26,19 @@
         <Label Content="Geef de vraag in" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
         <TextBox Grid.ColumnSpan="2" Margin="8" Grid.Row="2" Text="{Binding QuestionText}" TextWrapping="Wrap"></TextBox>
         <Label Content="Antwoorden" Margin="8" Grid.Row="3" Grid.ColumnSpan="2"></Label>
-        <ItemsControl Margin="8" Grid.Row="4" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0">
+        <ItemsControl Margin="8" Grid.Row="4" Grid.ColumnSpan="2" Background="Transparent" BorderThickness="0" ItemsSource="{Binding AnswerList}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="" IsChecked="False"></CheckBox>
+                    <DockPanel>
+                        <CheckBox IsChecked="{Binding IsChecked}" Margin="4"></CheckBox>
+                        <TextBox Margin="4" Text="{Binding Text}"></TextBox>
+                    </DockPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Button Grid.Row="5" Background="Transparent" BorderThickness="0" Margin="8" Content=" + Antwoord Toevoegen" HorizontalAlignment="Left"></Button>
+        <Button Grid.Row="5" Background="Transparent" BorderThickness="0" Margin="8" 
+                Content=" + Antwoord Toevoegen" HorizontalAlignment="Left"
+                Command="{Binding AddAnswerCommand}"></Button>
         <Label Content="Toevoegen aan welk(e) onderwerp(en)?" Margin="8" Grid.Row="6" Grid.ColumnSpan="2"></Label>
         <ListView ItemsSource="{Binding TopicList}" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="8">
             <ListView.ItemTemplate>
