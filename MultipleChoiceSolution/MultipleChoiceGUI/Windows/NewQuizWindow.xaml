@@ -26,8 +26,8 @@
                     <DataTemplate>
                         <DockPanel>
                             <CheckBox IsChecked="{Binding IsChecked}" Margin="4" IsEnabled="False"></CheckBox>
-                            <TextBlock Margin="4" Text="{Binding Text}"></TextBlock>
-                            <TextBox HorizontalAlignment="Right"></TextBox>
+                            <TextBlock Margin="4" Text="{Binding Name}"></TextBlock>
+                            <TextBox Text="{Binding Count}" MinWidth="50" HorizontalAlignment="Right"></TextBox>
                         </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
