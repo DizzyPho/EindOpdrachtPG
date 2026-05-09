@@ -19,5 +19,10 @@ namespace MultipleChoiceBL.DTOs
         public string Name { get; init; }
         public int QuestionCount { get; init; }
         public List<string> Topics { get; init; }
+
+        public override string? ToString()
+        {
+            return Name;
+        }
     }
 }
