@@ -19,15 +19,17 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class QuizInfoWindow : Window
     {
+        Manager _manager;
         public QuizInfoWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new QuizInfoViewModel(manager);
+            _manager = manager;
+            DataContext = new QuizInfoViewModel(_manager);
         }
 
         private void NewQuiz_Click(object sender, RoutedEventArgs e)
         {
-            NewQuizWindow newQuizWindow = new NewQuizWindow();
+            NewQuizWindow newQuizWindow = new NewQuizWindow(_manager);
             newQuizWindow.Show();
         }
     }
