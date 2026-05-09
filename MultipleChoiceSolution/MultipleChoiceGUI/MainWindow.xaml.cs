@@ -1,5 +1,6 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.Interfaces;
+using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Config;
 using MultipleChoiceGUI.Windows;
 using MultipleChoiceUtil.Factories;
@@ -14,13 +15,13 @@ namespace MultipleChoiceGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        Manager _manager;
         public MainWindow()
         {
-            InitializeComponent();
-            
-            IQuizRepository quizRepository = RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
-                                                                ConfigurationService.GetSetting("databaseType"));
-            IFileReader reader = FileReaderFactory.Create("CorrectionAtEnd");
+            InitializeComponent();          
+
+            _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
+                                          ConfigurationService.GetSetting("databaseType")));
             //List<Question> q = reader.Read("./Data/Muziek80s.txt");
             //quizRepository.ImportQuestions(q, [1,2,3]);
 
@@ -34,7 +35,7 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
         {
-
+            QuizInfoWindow qiw = new QuizInfoWindow(_manager);
         }
     }
 }
