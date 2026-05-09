@@ -53,7 +53,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             List<String> errors = new List<String>();
             List<Answer> answers = new List<Answer>();
             List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
-            if (answers.Count == 0)
+            if (topicIds.Count == 0)
             {
                 errors.Add("Please select at least one category.");
             }
