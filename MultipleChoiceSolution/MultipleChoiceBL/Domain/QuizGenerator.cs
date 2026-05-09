@@ -7,13 +7,13 @@ using System.Text;
 
 namespace MultipleChoiceBL.Domain
 {
-    public class TestGenerator
+    public class QuizGenerator
     {
         private int Seed { get; init; }
         private Random _random;
         private IQuizRepository _repository;
         private Dictionary<int, List<int>> QuestionIdsByTopic { get; init; }
-        internal TestGenerator(IQuizRepository repository)
+        internal QuizGenerator(IQuizRepository repository)
         {
             Seed = Random.Shared.Next();
             _random = new Random(Seed);
