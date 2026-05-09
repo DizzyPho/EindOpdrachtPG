@@ -260,6 +260,40 @@ namespace MultipleChoiceDL.Repositories
                 }
             }
         }
+
+        public int InsertQuiz(Quiz quiz)
+        {
+            const string queryQuiz = "INSERT INTO quiz (name, seed) OUTPUT INSERTED.id VALUES (@name, @seed)";
+            const string queryQuizQuestion = "INSERT INTO quiz_question (quiz_id, question_id) OUTPUT INSERTED.id VALUES (@quiz_id, @question_id)";
+
+            int quizId;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmdQuiz = conn.CreateCommand())
+            using (SqlCommand cmdQuizQuestion = conn.CreateCommand())
+            {
+                cmdQuiz.CommandText = queryQuiz;
+                cmdQuiz.Parameters.AddWithValue("@name", quiz.Name);
+                cmdQuiz.Parameters.AddWithValue("@seed", quiz.Seed);
+
+                cmdQuizQuestion.CommandText = queryQuizQuestion;
+                cmdQuizQuestion.Parameters.Add(new SqlParameter("@quiz_id", SqlDbType.Int));
+                cmdQuizQuestion.Parameters.Add(new SqlParameter("@question_id", SqlDbType.Int));
+
+                conn.Open();
+                quizId = (int)cmdQuizQuestion.ExecuteScalar();
+
+                foreach(Question question in quiz.Questions)
+                {
+                    cmdQuizQuestion.Parameters["quiz_id"].Value = quizId;
+                    cmdQuizQuestion.Parameters["question_id"].Value = question.Id;
+                    cmdQuizQuestion.ExecuteNonQuery();
+                }
+            }
+
+            return quizId;
+        }
+
         // returns id of inserted topic, or -1 if topic could not be inserted.
         public int InsertTopic(string topicName)
         {

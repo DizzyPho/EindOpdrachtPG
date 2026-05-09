@@ -16,5 +16,7 @@ namespace MultipleChoiceBL.Interfaces
 
         public Dictionary<int, List<int>> GetQuestionIdsByTopic();
         public List<Question> GetQuestions(List<int> questionIds);
+
+        public int InsertQuiz(Quiz quiz);
     }
 }
