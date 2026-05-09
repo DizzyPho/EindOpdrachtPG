@@ -29,11 +29,10 @@ namespace MultipleChoiceGUI.Windows
     {
         Manager _manager;
         QuestionInfoViewModel _viewModel;
-        public QuestionsWindow()
+        public QuestionsWindow(Manager manager)
         {
             InitializeComponent();
-            _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
-                                                      ConfigurationService.GetSetting("databaseType")));
+            _manager = manager;
 
             _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;

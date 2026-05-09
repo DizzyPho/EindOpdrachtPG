@@ -29,7 +29,7 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuestions_Click(object sender, RoutedEventArgs e)
         {
-            QuestionsWindow qw = new QuestionsWindow();
+            QuestionsWindow qw = new QuestionsWindow(_manager);
             qw.ShowDialog();
         }
 
