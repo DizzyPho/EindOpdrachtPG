@@ -131,6 +131,9 @@ namespace MultipleChoiceDL.Repositories
 
             List<Question> questions = new List<Question>();
 
+            Dictionary<int, string> questionTexts = new Dictionary<int, string>();
+            Dictionary<int, List<Answer>> questionAnswers = new Dictionary<int, List<Answer>>();
+
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
             {
@@ -147,33 +150,34 @@ namespace MultipleChoiceDL.Repositories
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    int currentQuestionId = -1;
-                    string currentQuestionText = string.Empty;
-                    List<Answer> answerList = new List<Answer>();
-
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        if(currentQuestionId !=  id)
+                        int questionId = reader.GetInt32(0);
+                        if(!questionTexts.ContainsKey(questionId))
                         {
-                            
-                            if(currentQuestionId != -1)
-                            {
-                                Question.TryCreate(currentQuestionText, answerList, currentQuestionId, out FactoryResult<Question> questionResult);
-                                questions.Add(questionResult.Result);
-                                answerList = new List<Answer>();
-                            }
-                            currentQuestionId = id;
-                            currentQuestionText = reader.GetString(1);
+                            questionTexts.Add(questionId, reader.GetString(1));
                         }
-                        
-                        Answer.TryCreate(reader.GetString(2), reader.GetBoolean(3), out FactoryResult<Answer> result);
-                        answerList.Add(result.Result);
-                    }
 
-                    Question.TryCreate(currentQuestionText, answerList, currentQuestionId, out FactoryResult<Question> lastQuestionResult);
-                    questions.Add(lastQuestionResult.Result);
+                        Answer.TryCreate(reader.GetString(2), reader.GetBoolean(3), out FactoryResult<Answer> answerResult);
+                        Answer answer = answerResult.Result;
+
+                        if(questionAnswers.TryGetValue(questionId, out List<Answer> answerList))
+                        {
+                            answerList.Add(answer);
+                        }
+                        else
+                        {
+                            questionAnswers.Add(questionId, new List<Answer> { answer });
+                        }
+                    }
                 }
+            }
+            
+            foreach(KeyValuePair<int, List<Answer>> keyValue in questionAnswers)
+            {
+                string text = questionTexts[keyValue.Key];
+                Question.TryCreate(text, keyValue.Value, out FactoryResult<Question> questionResult);
+                questions.Add(questionResult.Result);
             }
             
             return questions;
