@@ -31,6 +31,11 @@ namespace MultipleChoiceBL.Managers
             return _repository.GetTopics();
         }
 
+        public List<QuizDTO> GetQuizDTOs()
+        {
+            return _repository.GetQuizDTOs();
+        }
+
         public void InsertQuestion(Question question, List<int> topicIds)
         {
             _repository.ImportQuestions(new List<Question> { question }, topicIds);
