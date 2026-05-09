@@ -24,5 +24,11 @@ namespace MultipleChoiceGUI.Windows
             InitializeComponent();
             DataContext = new QuizInfoViewModel(manager);
         }
+
+        private void NewQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            NewQuizWindow newQuizWindow = new NewQuizWindow();
+            newQuizWindow.Show();
+        }
     }
 }

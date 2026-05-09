@@ -31,7 +31,6 @@
         </ItemsControl>
         <Button Grid.Row="3" Margin="8" Content="Test Uitvoeren" Grid.Column="1"></Button>
         <Button Grid.Row="4" Margin="8" Content="Bulk input verwerken" Grid.Column="1"></Button>
-        <Button Grid.Row="4" Margin="8" Content="Nieuwe Test"></Button>
-        
+        <Button Grid.Row="4" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
     </Grid>
 </Window>
