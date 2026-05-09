@@ -2,6 +2,7 @@
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -38,6 +39,16 @@ namespace MultipleChoiceBL.Managers
         public int InsertTopic(string topicName)
         {
             return _repository.InsertTopic(topicName);
+        }
+
+        public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
+        {
+            QuizGenerator generator = new QuizGenerator(_repository);
+            Quiz quiz = generator.GenerateQuiz(questionAmounts, quizName);
+
+            _repository.InsertQuiz(quiz);
+
+            return quiz;
         }
     }
 }
