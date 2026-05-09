@@ -1,5 +1,6 @@
 ﻿using MultipleChoiceBL.FactoryResults;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -67,6 +68,20 @@ namespace MultipleChoiceBL.Domain
         public override int GetHashCode()
         {
             return HashCode.Combine(Id);
+        }
+        // fisher yates shuffle, https://stackoverflow.com/questions/273313/randomize-a-listt
+        // take parameter random to allow setting seed
+        public void ShuffleAnswers(Random random)
+        {
+            int n = Answers.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Answer value = Answers[k];
+                Answers[k] = Answers[n];
+                Answers[n] = value;
+            }
         }
     }
 }
