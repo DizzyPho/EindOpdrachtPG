@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Managers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,13 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
 {
     public class QuizInfoViewModel : BaseViewModel
     {
+        Manager _manager;
+        public QuizInfoViewModel(Manager manager)
+        {
+            _manager = manager;
+            quizzes = new ObservableCollection<QuizDTO>(_manager.GetQui)
+        }
+
         public ObservableCollection<QuizDTO> quizzes
         {
             get => Get<ObservableCollection<QuizDTO>>();
