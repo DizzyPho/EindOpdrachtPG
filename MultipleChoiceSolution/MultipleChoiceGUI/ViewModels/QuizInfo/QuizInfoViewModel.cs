@@ -13,7 +13,11 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
         public QuizInfoViewModel(Manager manager)
         {
             _manager = manager;
-            quizzes = new ObservableCollection<QuizDTO>(_manager.GetQui)
+            quizzes = new ObservableCollection<QuizDTO>(_manager.GetQuizDTOs());
+            if (quizzes.Count > 0)
+            {
+                SelectedQuiz = quizzes.First();
+            }
         }
 
         public ObservableCollection<QuizDTO> quizzes
