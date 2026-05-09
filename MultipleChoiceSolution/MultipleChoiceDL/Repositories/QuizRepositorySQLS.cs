@@ -91,7 +91,63 @@ namespace MultipleChoiceDL.Repositories
 
             return questions;
         }
+        
+        public List<QuizDTO> GetQuizDTOs()
+        {
+            const string query = "select quiz.id, quiz.name, topic.topic, count(question.id) count from quiz quiz " +
+                                 "join quiz_questions qq on quiz.id = qq.quiz_id " +
+                                 "join question question on question.id = qq.question_id " +
+                                 "join question_topic q_topic on q_topic.question_id = question.id " +
+                                 "join topic topic on q_topic.topic_id = topic.id " +
+                                 "group by quiz.id, quiz.name, topic.topic";
+            List<QuizDTO> quizDTOs = new List<QuizDTO>();
 
+            HashSet<int> ids = new HashSet<int>();
+            Dictionary <int,  string> names = new Dictionary<int, string>();
+            Dictionary<int, int> questionCounts = new Dictionary<int, int>();
+            Dictionary<int, List<string>> topics = new Dictionary<int, List<string>>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+
+                using(SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        ids.Add(id);
+                        names.TryAdd(id, reader.GetString(1));
+
+                        if(topics.TryGetValue(id, out var topicsList))
+                        {
+                            topicsList.Add(reader.GetString(2));
+                        }
+                        else
+                        {
+                            topics.Add(id, new List<string> { reader.GetString(2) });
+                        }
+
+                        if (!questionCounts.ContainsKey(id))
+                        {
+                            questionCounts[id] = reader.GetInt32(3);
+                        }
+                        else
+                        {
+                            questionCounts.Add(id, reader.GetInt32(3));
+                        }
+                    }
+                }
+            }
+            foreach(int id in ids)
+            {
+                quizDTOs.Add(new QuizDTO(id, names[id], questionCounts[id], topics[id]));
+            }
+
+            return quizDTOs;
+        }
         public Dictionary<int, List<int>> GetQuestionIdsByTopic()
         {
             const string query = "SELECT q.id question_id, qt.topic_id FROM question q " +

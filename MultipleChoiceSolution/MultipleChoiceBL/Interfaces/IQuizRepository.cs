@@ -18,5 +18,6 @@ namespace MultipleChoiceBL.Interfaces
         public List<Question> GetQuestions(List<int> questionIds);
 
         public int InsertQuiz(Quiz quiz);
+        public List<QuizDTO> GetQuizDTOs();
     }
 }
