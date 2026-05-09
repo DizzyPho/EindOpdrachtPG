@@ -6,6 +6,7 @@ using MultipleChoiceBL.FactoryResults;
 using MultipleChoiceBL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Text;
 
@@ -120,6 +121,62 @@ namespace MultipleChoiceDL.Repositories
                 }
             }
             return ids;
+        }
+
+        public List<Question> GetQuestions(List<int> questionIds)
+        {
+            string query = "select q.id, q.question_text,a.answer_text, a.is_correct from question q " +
+                           "join answer a on a.question_id = q.id " +
+                           "where q.id in ";
+
+            List<Question> questions = new List<Question>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+
+                List<String> inClauseParameters = new List<string>();
+                for (int i = 0; i < questionIds.Count; i++)
+                {
+                    string parameter = "@id" + i;
+                    inClauseParameters.Add(parameter);
+                    cmd.Parameters.AddWithValue(parameter, questionIds[i]);
+                }
+                cmd.CommandText = query + $"({string.Join(',',inClauseParameters)})";
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    int currentQuestionId = -1;
+                    string currentQuestionText = string.Empty;
+                    List<Answer> answerList = new List<Answer>();
+
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        if(currentQuestionId !=  id)
+                        {
+                            
+                            if(currentQuestionId != -1)
+                            {
+                                Question.TryCreate(currentQuestionText, answerList, currentQuestionId, out FactoryResult<Question> questionResult);
+                                questions.Add(questionResult.Result);
+                                answerList = new List<Answer>();
+                            }
+                            currentQuestionId = id;
+                            currentQuestionText = reader.GetString(1);
+                        }
+                        
+                        Answer.TryCreate(reader.GetString(2), reader.GetBoolean(3), out FactoryResult<Answer> result);
+                        answerList.Add(result.Result);
+                    }
+
+                    Question.TryCreate(currentQuestionText, answerList, currentQuestionId, out FactoryResult<Question> lastQuestionResult);
+                    questions.Add(lastQuestionResult.Result);
+                }
+            }
+            
+            return questions;
         }
 
         public List<Topic> GetTopics()
