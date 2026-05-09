@@ -36,6 +36,7 @@ namespace MultipleChoiceGUI
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
         {
             QuizInfoWindow qiw = new QuizInfoWindow(_manager);
+            qiw.ShowDialog();
         }
     }
 }
