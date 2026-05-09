@@ -34,7 +34,7 @@
             </ItemsControl>
         </ScrollViewer>
 
-        <Button Grid.Row="5" Content="Terug" Margin="8" Padding="6" HorizontalAlignment="Left"></Button>
+        <Button Grid.Row="5" Content="Terug" Margin="8" Padding="6" HorizontalAlignment="Left" Click="ButtonBack_Click"></Button>
         <Button Grid.Row="5" Content="Test Genereren" Margin="8" Padding="6" HorizontalAlignment="Right"></Button>
     </Grid>
 </Window>
