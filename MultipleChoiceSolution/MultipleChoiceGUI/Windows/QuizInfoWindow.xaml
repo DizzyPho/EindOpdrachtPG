@@ -1,0 +1,28 @@
+﻿<Window x:Class="MultipleChoiceGUI.Windows.QuizInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultipleChoiceGUI.Windows"
+        mc:Ignorable="d"
+        Title="Testen" Height="450" Width="700">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Overzicht Testen" Margin="8"></Label>
+        <ListBox Grid.Row="1" Grid.Column="0" Margin="8" Grid.RowSpan="3"></ListBox>
+
+        <Label Margin="8" Grid.Row="0" Grid.Column="1" Content="ddd"></Label>
+        <Button Grid.Row="2" Margin="8" Content="Test Uitvoeren" Grid.Column="1"></Button>
+        <Button Grid.Row="3" Margin="8" Content="Bulk input verwerken" Grid.Column="1"></Button>
+        <Button Grid.Row="3" Margin="8" Content="Nieuwe Test"></Button>
+    </Grid>
+</Window>
