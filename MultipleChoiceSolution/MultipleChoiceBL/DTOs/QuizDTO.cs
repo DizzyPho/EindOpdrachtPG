@@ -7,7 +7,7 @@ namespace MultipleChoiceBL.DTOs
 {
     public class QuizDTO
     {
-        public QuizDTO(int id, string name, int questionCount, List<Topic> topics)
+        public QuizDTO(int id, string name, int questionCount, List<string> topics)
         {
             Id = id;
             Name = name;
@@ -18,6 +18,6 @@ namespace MultipleChoiceBL.DTOs
         public int Id { get; init; }
         public string Name { get; init; }
         public int QuestionCount { get; init; }
-        public List<Topic> Topics { get; init; }
+        public List<string> Topics { get; init; }
     }
 }
