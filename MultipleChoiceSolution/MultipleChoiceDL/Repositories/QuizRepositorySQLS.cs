@@ -94,13 +94,16 @@ namespace MultipleChoiceDL.Repositories
         
         public List<QuizDTO> GetQuizDTOs()
         {
-            const string query = "select quiz.id, quiz.name, topic.topic, count(question.id) count from quiz quiz " +
+            const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic count from quiz quiz " +
                                  "join quiz_questions qq on quiz.id = qq.quiz_id " +
                                  "join question question on question.id = qq.question_id " +
                                  "join question_topic q_topic on q_topic.question_id = question.id " +
-                                 "join topic topic on q_topic.topic_id = topic.id " +
-                                 "group by quiz.id, quiz.name, topic.topic";
-            List<QuizDTO> quizDTOs = new List<QuizDTO>();
+                                 "join topic topic on q_topic.topic_id = topic.id";
+            const string queryQuestionCounts = "select quiz.id, count(qq.question_id) as count from quiz quiz " +
+                                               "join quiz_questions qq on quiz.id = qq.quiz_id " +
+                                               "group by quiz.id";
+
+            List <QuizDTO> quizDTOs = new List<QuizDTO>();
 
             HashSet<int> ids = new HashSet<int>();
             Dictionary <int,  string> names = new Dictionary<int, string>();
@@ -108,12 +111,14 @@ namespace MultipleChoiceDL.Repositories
             Dictionary<int, List<string>> topics = new Dictionary<int, List<string>>();
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
-            using (SqlCommand cmd = conn.CreateCommand())
+            using (SqlCommand cmdTopicNames = conn.CreateCommand())
+            using (SqlCommand cmdQuestionCounts = conn.CreateCommand())
             {
-                cmd.CommandText = query;
+                cmdTopicNames.CommandText = queryTopicNames;
+                cmdQuestionCounts.CommandText = queryQuestionCounts;
                 conn.Open();
 
-                using(SqlDataReader reader = cmd.ExecuteReader())
+                using(SqlDataReader reader = cmdTopicNames.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -130,14 +135,15 @@ namespace MultipleChoiceDL.Repositories
                             topics.Add(id, new List<string> { reader.GetString(2) });
                         }
 
-                        if (!questionCounts.ContainsKey(id))
-                        {
-                            questionCounts[id] = reader.GetInt32(3);
-                        }
-                        else
-                        {
-                            questionCounts[id] += reader.GetInt32(3);
-                        }
+                    }
+                }
+                using(SqlDataReader reader = cmdQuestionCounts.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        questionCounts[id] = reader.GetInt32(1);
+
                     }
                 }
             }
