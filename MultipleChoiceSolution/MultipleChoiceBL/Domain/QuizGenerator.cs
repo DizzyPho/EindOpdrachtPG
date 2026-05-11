@@ -46,10 +46,9 @@ namespace MultipleChoiceBL.Domain
             }
 
             List<Question> questions = _repository.GetQuestions(questionIds);
-            Quiz.TryCreate(quizName, Seed, questions, out FactoryResult<Quiz> quizResult);
-
             questions.ForEach(question => question.ShuffleAnswers(_random));
 
+            Quiz.TryCreate(quizName, Seed, questions, out FactoryResult<Quiz> quizResult);
 
             return quizResult.Result;
         }
