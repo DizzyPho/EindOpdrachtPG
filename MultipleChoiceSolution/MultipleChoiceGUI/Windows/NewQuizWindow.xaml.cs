@@ -22,7 +22,7 @@ namespace MultipleChoiceGUI.Windows
         public NewQuizWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new NewQuizViewModel(manager);
+            DataContext = new NewQuizViewModel(manager, () => this.Close());
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

@@ -8,11 +8,11 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuiz
 {
-    public class NewQuizViewModel : BaseViewModel
+    public class NewQuizViewModel : WindowViewModel
     {
         Manager _manager;
         public ICommand GenerateQuizCommand { get; init; }
-        public NewQuizViewModel(Manager manager)
+        public NewQuizViewModel(Manager manager, Action closeAction) : base(closeAction)
         {
             _manager = manager;
             GenerateQuizCommand = new Command(OnGenerateQuiz);
@@ -35,6 +35,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
                                                                     .ToDictionary();
           
             _manager.GenerateQuiz(questionAmountByTopic, Name);
+            CloseAction();
         }
     }
 }
