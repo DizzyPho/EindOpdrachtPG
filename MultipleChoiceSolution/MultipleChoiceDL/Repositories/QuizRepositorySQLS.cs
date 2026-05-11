@@ -232,7 +232,7 @@ namespace MultipleChoiceDL.Repositories
             foreach(KeyValuePair<int, List<Answer>> keyValue in questionAnswers)
             {
                 string text = questionTexts[keyValue.Key];
-                Question.TryCreate(text, keyValue.Value, out FactoryResult<Question> questionResult);
+                Question.TryCreate(text, keyValue.Value, keyValue.Key, out FactoryResult<Question> questionResult);
                 questions.Add(questionResult.Result);
             }
             
