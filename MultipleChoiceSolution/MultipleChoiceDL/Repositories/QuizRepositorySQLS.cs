@@ -350,8 +350,8 @@ namespace MultipleChoiceDL.Repositories
 
                     foreach (Question question in quiz.Questions)
                     {
-                        cmdQuizQuestion.Parameters["quiz_id"].Value = quizId;
-                        cmdQuizQuestion.Parameters["question_id"].Value = question.Id;
+                        cmdQuizQuestion.Parameters["@quiz_id"].Value = quizId;
+                        cmdQuizQuestion.Parameters["@question_id"].Value = question.Id;
                         cmdQuizQuestion.ExecuteNonQuery();
                     }
                     transaction.Commit();
