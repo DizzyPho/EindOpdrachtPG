@@ -11,7 +11,10 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
         {
             Name = topic.Name;
             IsChecked = false;
+            Topic = topic;
         }
+
+        public Topic Topic { get; init; }
 
         public bool IsChecked
         {
