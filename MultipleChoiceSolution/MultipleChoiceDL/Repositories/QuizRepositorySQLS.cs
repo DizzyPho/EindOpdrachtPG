@@ -341,7 +341,7 @@ namespace MultipleChoiceDL.Repositories
                 cmdQuizQuestion.Parameters.Add(new SqlParameter("@question_id", SqlDbType.Int));
 
                 conn.Open();
-                quizId = (int)cmdQuizQuestion.ExecuteScalar();
+                quizId = (int)cmdQuiz.ExecuteScalar();
 
                 foreach(Question question in quiz.Questions)
                 {
