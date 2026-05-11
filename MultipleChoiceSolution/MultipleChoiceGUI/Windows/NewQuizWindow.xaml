@@ -35,6 +35,7 @@
         </ScrollViewer>
 
         <Button Grid.Row="5" Content="Terug" Margin="8" Padding="6" HorizontalAlignment="Left" Click="ButtonBack_Click"></Button>
-        <Button Grid.Row="5" Content="Test Genereren" Margin="8" Padding="6" HorizontalAlignment="Right"></Button>
+        <Button Grid.Row="5" Content="Test Genereren" Margin="8" Padding="6" 
+                HorizontalAlignment="Right" Command="{Binding GenerateQuizCommand}"></Button>
     </Grid>
 </Window>
