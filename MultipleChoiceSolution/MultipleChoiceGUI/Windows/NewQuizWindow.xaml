@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Label Content="Nieuwe Test Genereren" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
         <Label Content="Geef een naam aan de test" Grid.Row="1" Grid.Column="0" Margin="8 8 8 2"></Label>
-        <TextBox Grid.ColumnSpan="2" Margin="8 0" Grid.Row="2" Text="{Binding QuestionText}" TextWrapping="Wrap"></TextBox>
+        <TextBox Grid.ColumnSpan="2" Margin="8 0" Grid.Row="2" Text="{Binding Name}" TextWrapping="Wrap"></TextBox>
         <Label Content="Hoeveel vragen per onderwerp?" Grid.Row="3" Grid.Column="0" Margin="8 8 8 2"></Label>
 
         <ScrollViewer Grid.Row="4">
