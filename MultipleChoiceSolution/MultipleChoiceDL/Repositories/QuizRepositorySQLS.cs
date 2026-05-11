@@ -324,7 +324,7 @@ namespace MultipleChoiceDL.Repositories
         public int InsertQuiz(Quiz quiz)
         {
             const string queryQuiz = "INSERT INTO quiz (name, seed) OUTPUT INSERTED.id VALUES (@name, @seed)";
-            const string queryQuizQuestion = "INSERT INTO quiz_questions (quiz_id, question_id) OUTPUT INSERTED.id VALUES (@quiz_id, @question_id)";
+            const string queryQuizQuestion = "INSERT INTO quiz_questions (quiz_id, question_id) VALUES (@quiz_id, @question_id)";
 
             int quizId = -1;
 
