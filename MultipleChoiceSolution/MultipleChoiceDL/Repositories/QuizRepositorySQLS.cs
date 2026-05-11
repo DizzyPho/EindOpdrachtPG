@@ -136,7 +136,7 @@ namespace MultipleChoiceDL.Repositories
                         }
                         else
                         {
-                            questionCounts.Add(id, reader.GetInt32(3));
+                            questionCounts[id] += reader.GetInt32(3);
                         }
                     }
                 }
