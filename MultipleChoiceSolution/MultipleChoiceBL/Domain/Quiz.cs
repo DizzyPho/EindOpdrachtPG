@@ -7,10 +7,10 @@ namespace MultipleChoiceBL.Domain
 {
     public class Quiz
     {
-        private Quiz(string name, int seed)
+        private Quiz(string name, int seed, List<Question> questions)
         {
             Name = name;
-            Questions = new List<Question>();
+            Questions = questions;
             Seed = seed;
         }
 
@@ -28,7 +28,7 @@ namespace MultipleChoiceBL.Domain
             }
             else
             {
-                result = new FactoryResult<Quiz>(new Quiz(name, seed));
+                result = new FactoryResult<Quiz>(new Quiz(name, seed, questions));
                 return true;
             }
         }
