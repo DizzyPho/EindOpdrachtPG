@@ -326,7 +326,7 @@ namespace MultipleChoiceDL.Repositories
             const string queryQuiz = "INSERT INTO quiz (name, seed) OUTPUT INSERTED.id VALUES (@name, @seed)";
             const string queryQuizQuestion = "INSERT INTO quiz_question (quiz_id, question_id) OUTPUT INSERTED.id VALUES (@quiz_id, @question_id)";
 
-            int quizId;
+            int quizId = -1;
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmdQuiz = conn.CreateCommand())
@@ -341,17 +341,29 @@ namespace MultipleChoiceDL.Repositories
                 cmdQuizQuestion.Parameters.Add(new SqlParameter("@question_id", SqlDbType.Int));
 
                 conn.Open();
-                quizId = (int)cmdQuiz.ExecuteScalar();
-
-                foreach(Question question in quiz.Questions)
+                SqlTransaction transaction = conn.BeginTransaction();
+                cmdQuiz.Transaction = transaction;
+                cmdQuizQuestion.Transaction = transaction;
+                try
                 {
-                    cmdQuizQuestion.Parameters["quiz_id"].Value = quizId;
-                    cmdQuizQuestion.Parameters["question_id"].Value = question.Id;
-                    cmdQuizQuestion.ExecuteNonQuery();
-                }
-            }
+                    quizId = (int)cmdQuiz.ExecuteScalar();
 
-            return quizId;
+                    foreach (Question question in quiz.Questions)
+                    {
+                        cmdQuizQuestion.Parameters["quiz_id"].Value = quizId;
+                        cmdQuizQuestion.Parameters["question_id"].Value = question.Id;
+                        cmdQuizQuestion.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    throw ex;
+                }
+
+                return quizId;
+            }
         }
 
         // returns id of inserted topic, or -1 if topic could not be inserted.
