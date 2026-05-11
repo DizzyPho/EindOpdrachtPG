@@ -23,12 +23,25 @@
                  ItemsSource="{Binding Quizzes}" SelectedItem="{Binding SelectedQuiz}"></ListBox>
 
         <Label Margin="8" Grid.Row="0" Grid.Column="1" Content="{Binding SelectedQuiz.Name}"></Label>
-        <StackPanel Margin="8" Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Margin="8 4"  Content="Aantal Vragen : "></Label>
             <Label Margin="8 0"  Content="{Binding SelectedQuiz.QuestionCount}"></Label>
         </StackPanel>
-        <ItemsControl Margin="8" Grid.Column="1" Grid.Row="2" ItemsSource="{Binding SelectedQuiz.Topics}">
-        </ItemsControl>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Label Margin="8" Content="Deze test bevat vragen uit volgende onderwerpen:"></Label>
+            <ItemsControl ItemsSource="{Binding SelectedQuiz.Topics}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <BulletDecorator Margin="16 0">
+                            <BulletDecorator.Bullet>
+                                <Ellipse Height="4" Width="4" Fill="Black"/>
+                            </BulletDecorator.Bullet>
+                            <Label Content="{Binding .}"></Label>
+                        </BulletDecorator>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
         <Button Grid.Row="3" Margin="8" Content="Test Uitvoeren" Grid.Column="1"></Button>
         <Button Grid.Row="4" Margin="8" Content="Bulk input verwerken" Grid.Column="1"></Button>
         <Button Grid.Row="4" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
