@@ -457,7 +457,7 @@ namespace MultipleChoiceDL.Repositories
 
         public void SubmitAnswers(AnswerSetDTO answerSet)
         {
-            const string query = "INSERT INTO user_answer (user_id,answer_id,) VALUES " +
+            const string query = "INSERT INTO user_answer (user_id,answer_id,date) VALUES " +
                                  "(@user_id,@answer_id,@date)";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
