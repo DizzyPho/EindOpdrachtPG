@@ -12,8 +12,17 @@ namespace MultipleChoiceBL.Domain
             AnswerText = answerText;
             IsCorrect = isCorrect;
         }
+        private Answer(int? id, string answerText, bool isCorrect) : this(answerText, isCorrect)
+        {
+            Id = id;
+        }
 
         public static bool TryCreate(string answerText, bool isCorrect, out FactoryResult<Answer> result)
+        {
+            return TryCreate(null, answerText, isCorrect, out result);
+        }
+
+        public static bool TryCreate(int? id, string answerText, bool isCorrect, out FactoryResult<Answer> result)
         {
             List<String> errors = new List<string>();
             if (string.IsNullOrWhiteSpace(answerText)) errors.Add("Answer cannot be empty.");
@@ -25,10 +34,12 @@ namespace MultipleChoiceBL.Domain
             }
             else
             {
-                result = new FactoryResult<Answer>(new Answer(answerText, isCorrect));
+                result = new FactoryResult<Answer>(new Answer(id, answerText, isCorrect));
                 return true;
             }
         }
+
+        public int? Id { get; init; }
         public string AnswerText { get; init; }
         public bool IsCorrect { get; private set; }
 
