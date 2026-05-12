@@ -3,6 +3,7 @@ using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
 using MultipleChoiceGUI.Config;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceUtil.Factories;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,11 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
     {
         Manager _manager;
         ImportManager _importManager;
-        public ImportQuestionViewModel(Manager manager)
+        IActionableWindow _actionableWindow;
+        public ImportQuestionViewModel(Manager manager, IActionableWindow window)
         {
             _manager = manager;
+            _actionableWindow = window;
             
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
@@ -66,6 +69,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             _importManager.ImportQuestions(FilePath, topicIds);
 
             MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+            _actionableWindow.CloseAction();
         }
     }
 }

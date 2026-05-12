@@ -23,7 +23,7 @@ namespace MultipleChoiceGUI.Windows
         public ImportQuestionsWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new ImportQuestionViewModel(manager);
+            DataContext = new ImportQuestionViewModel(manager, this);
         }
 
         public void CloseAction()
