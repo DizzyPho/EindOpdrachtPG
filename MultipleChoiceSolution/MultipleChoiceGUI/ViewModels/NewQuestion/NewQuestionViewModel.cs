@@ -15,14 +15,12 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuestion
 {
-    public class NewQuestionViewModel : BaseViewModel
+    public class NewQuestionViewModel : WindowViewModel
     {
         Manager _manager;
-        IActionableWindow _actionableWindow;
-        public NewQuestionViewModel(Manager manager, IActionableWindow window)
+        public NewQuestionViewModel(Manager manager, IActionableWindow window) : base(window)
         {
             _manager = manager;
-            _actionableWindow = window;
 
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
@@ -37,7 +35,6 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
         }
         public ICommand AddAnswerCommand { get; init; }
         public ICommand NewQuestionCommand { get; init; }
-        public ICommand CloseCommand { get; init; }
         public String QuestionText
         {
             get => Get<String>(); set => Set(value);
@@ -93,7 +90,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             else
             {
                 _manager.InsertQuestion(question, topicIds);
-                _actionableWindow.CloseAction();
+                CloseAction();
                 MessageBox.Show("Nieuwe vraag toevegoegd", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

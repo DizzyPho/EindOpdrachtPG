@@ -9,18 +9,14 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuiz
 {
-    public class NewQuizViewModel : BaseViewModel
+    public class NewQuizViewModel : WindowViewModel
     {
-        IActionableWindow _actionableWindow;
         Manager _manager;
         public ICommand GenerateQuizCommand { get; init; }
-        public ICommand CloseCommand { get; init; }
-        public NewQuizViewModel(Manager manager, IActionableWindow window)
+        public NewQuizViewModel(Manager manager, IActionableWindow window) : base(window)
         {
             _manager = manager;
-            _actionableWindow = window;
             GenerateQuizCommand = new Command(OnGenerateQuiz);
-            CloseCommand = new Command(window.CloseAction);
 
             TopicList = _manager.GetTopics()
                                 .Select(t =>  new TopicQuestionsAmountViewModel(t))
@@ -41,7 +37,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
                                                                     .ToDictionary();
           
             _manager.GenerateQuiz(questionAmountByTopic, Name);
-            _actionableWindow.CloseAction();
+            CloseAction();
         }
     }
 }

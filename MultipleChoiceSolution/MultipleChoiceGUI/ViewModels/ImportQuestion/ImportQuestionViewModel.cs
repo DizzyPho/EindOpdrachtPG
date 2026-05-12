@@ -13,22 +13,19 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.ImportQuestion
 {
-    public class ImportQuestionViewModel : BaseViewModel
+    public class ImportQuestionViewModel : WindowViewModel
     {
         Manager _manager;
         ImportManager _importManager;
-        IActionableWindow _actionableWindow;
-        public ImportQuestionViewModel(Manager manager, IActionableWindow window)
+        public ImportQuestionViewModel(Manager manager, IActionableWindow window) : base(window)
         {
             _manager = manager;
-            _actionableWindow = window;
             
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
                                 .ToList();
             SelectFileCommand = new Command(OnSelectFile);
             ImportQuestionsCommand = new Command(OnImportQuestions);
-            CloseCommand = new Command(window.CloseAction);
             FormatOptions = new List<FormatViewModel>
             {
                 new FormatViewModel("Oplossingssleutel aan einde van bestand", "CorrectionAtEnd"),
@@ -50,7 +47,6 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
 
         public ICommand SelectFileCommand { get; init; }
         public ICommand ImportQuestionsCommand { get; init; }
-        public ICommand CloseCommand { get; init; }
         public void OnSelectFile()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -70,7 +66,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             _importManager.ImportQuestions(FilePath, topicIds);
 
             MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
-            _actionableWindow.CloseAction();
+            CloseAction();
         }
     }
 }

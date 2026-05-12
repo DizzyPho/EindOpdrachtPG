@@ -9,10 +9,9 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewTopic
 {
-    public class NewTopicViewModel : BaseViewModel
+    public class NewTopicViewModel : WindowViewModel
     {
         Manager _manager;
-        IActionableWindow _actionableWindow;
         public String TopicName
         {
             get => Get<String>();
@@ -20,14 +19,11 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
         }
 
         public ICommand AddNewTopic { get; init; }
-        public ICommand CloseCommand { get; init; }
 
-        public NewTopicViewModel(Manager manager, IActionableWindow window)
+        public NewTopicViewModel(Manager manager, IActionableWindow window) : base(window)
         {
             AddNewTopic = new Command(OnAddNewTopic);
-            CloseCommand = new Command(window.CloseAction);
             _manager = manager;
-            _actionableWindow = window;
         }
 
         public void OnAddNewTopic()
@@ -36,7 +32,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
             {
                 int id = _manager.InsertTopic(TopicName);
                 MessageBox.Show("Toevoegen succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
-                _actionableWindow.CloseAction();
+                CloseAction();
             }
             else
             {

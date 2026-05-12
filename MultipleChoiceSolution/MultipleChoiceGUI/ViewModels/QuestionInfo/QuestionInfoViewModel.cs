@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 {
-    public class QuestionInfoViewModel : BaseViewModel
+    public class QuestionInfoViewModel : WindowViewModel
     {
         private Manager _manager;
         public ObservableCollection<Topic> Topics
@@ -53,12 +53,10 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<List<AnswerViewModel>>();
             set => Set(value);
         }
-        public ICommand CloseCommand { get; init; }
-        public QuestionInfoViewModel(Manager manager, IActionableWindow window)
+        public QuestionInfoViewModel(Manager manager, IActionableWindow window) : base(window)
         {
             _manager = manager;
             Topics = new ObservableCollection<Topic>(_manager.GetTopics());
-            CloseCommand = new Command(window.CloseAction);
         }
         internal void SelectedQuestionChange(QuestionDTO question)
         {
