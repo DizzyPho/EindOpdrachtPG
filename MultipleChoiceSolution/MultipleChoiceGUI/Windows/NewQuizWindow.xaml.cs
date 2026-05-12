@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.NewQuiz;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,17 @@ namespace MultipleChoiceGUI.Windows
     /// <summary>
     /// Interaction logic for NewQuizWindow.xaml
     /// </summary>
-    public partial class NewQuizWindow : Window
+    public partial class NewQuizWindow : Window, IActionableWindow
     {
         public NewQuizWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new NewQuizViewModel(manager, () => this.Close());
+            DataContext = new NewQuizViewModel(manager, this);
+        }
+
+        public void CloseAction()
+        {
+            Close();
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
