@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +11,9 @@ namespace MultipleChoiceGUI.ViewModels
     {
         protected Action CloseAction { get; init; }
         public ICommand CloseCommand { get; init; }
-        public WindowViewModel(Action closeAction)
+        public WindowViewModel(IActionableWindow actionableWindow)
         {
-            CloseAction = closeAction;
+            CloseAction = actionableWindow.CloseAction;
             CloseCommand = new Command(CloseAction);
         }
     }
