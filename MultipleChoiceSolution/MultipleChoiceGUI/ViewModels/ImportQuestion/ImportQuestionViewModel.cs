@@ -28,6 +28,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
                                 .ToList();
             SelectFileCommand = new Command(OnSelectFile);
             ImportQuestionsCommand = new Command(OnImportQuestions);
+            CloseCommand = new Command(window.CloseAction);
             FormatOptions = new List<FormatViewModel>
             {
                 new FormatViewModel("Oplossingssleutel aan einde van bestand", "CorrectionAtEnd"),
@@ -49,7 +50,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
 
         public ICommand SelectFileCommand { get; init; }
         public ICommand ImportQuestionsCommand { get; init; }
-
+        public ICommand CloseCommand { get; init; }
         public void OnSelectFile()
         {
             OpenFileDialog ofd = new OpenFileDialog();
