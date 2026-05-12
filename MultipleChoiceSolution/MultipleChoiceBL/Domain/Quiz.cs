@@ -7,14 +7,17 @@ namespace MultipleChoiceBL.Domain
 {
     public class Quiz
     {
+        private Quiz(int? id, string name, int seed, List<Question> questions) : this(name, seed, questions)
+        {
+            Id = id;
+        }
         private Quiz(string name, int seed, List<Question> questions)
         {
             Name = name;
             Questions = questions;
             Seed = seed;
         }
-
-        public static bool TryCreate(string name, int seed, List<Question> questions, out FactoryResult<Quiz> result)
+        public static bool TryCreate(int? id, string name, int seed, List<Question> questions, out FactoryResult<Quiz> result)
         {
             List<String> errors = new List<String>();
 
@@ -28,13 +31,19 @@ namespace MultipleChoiceBL.Domain
             }
             else
             {
-                result = new FactoryResult<Quiz>(new Quiz(name, seed, questions));
+                result = new FactoryResult<Quiz>(new Quiz(id, name, seed, questions));
                 return true;
             }
+        }
+        public static bool TryCreate(string name, int seed, List<Question> questions, out FactoryResult<Quiz> result)
+        {
+            return TryCreate(null, name, seed, questions, out result);
         }
         public String Name { get; init; }
         public int Seed { get; init; }
         public List<Question> Questions { get; init; }
+
+        public int? Id { get; init; }
 
     }
 }
