@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.NewTopic;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace MultipleChoiceGUI.Windows
     /// <summary>
     /// Interaction logic for NewTopicWindow.xaml
     /// </summary>
-    public partial class NewTopicWindow : Window
+    public partial class NewTopicWindow : Window, IActionableWindow
     {
         public NewTopicWindow(Manager manager)
         {
@@ -31,6 +32,11 @@ namespace MultipleChoiceGUI.Windows
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e) 
+        {
+            Close();
+        }
+
+        public void CloseAction()
         {
             Close();
         }

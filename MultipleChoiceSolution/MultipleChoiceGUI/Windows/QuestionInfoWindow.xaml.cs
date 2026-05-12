@@ -3,6 +3,7 @@ using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Config;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels;
 using MultipleChoiceGUI.ViewModels.QuestionInfo;
 using MultipleChoiceUtil.Factories;
@@ -25,7 +26,7 @@ namespace MultipleChoiceGUI.Windows
     /// <summary>
     /// Interaction logic for QuestionsWindow.xaml
     /// </summary>
-    public partial class QuestionsWindow : Window
+    public partial class QuestionsWindow : Window, IActionableWindow
     {
         Manager _manager;
         QuestionInfoViewModel _viewModel;
@@ -36,6 +37,10 @@ namespace MultipleChoiceGUI.Windows
 
             _viewModel = new QuestionInfoViewModel(_manager);
             DataContext = _viewModel;
+        }
+        public void CloseAction()
+        {
+            Close();
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

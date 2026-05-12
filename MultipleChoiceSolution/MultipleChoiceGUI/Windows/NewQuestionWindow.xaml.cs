@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.NewQuestion;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,17 @@ namespace MultipleChoiceGUI.Windows
     /// <summary>
     /// Interaction logic for NewQuestionWindow.xaml
     /// </summary>
-    public partial class NewQuestionWindow : Window
+    public partial class NewQuestionWindow : Window, IActionableWindow
     {
         public NewQuestionWindow(Manager manager)
         {
             InitializeComponent();
             DataContext = new NewQuestionViewModel(manager);
+        }
+
+        public void CloseAction()
+        {
+            Close();
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

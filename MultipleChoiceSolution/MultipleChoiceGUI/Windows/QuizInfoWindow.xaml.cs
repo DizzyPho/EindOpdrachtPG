@@ -17,7 +17,7 @@ namespace MultipleChoiceGUI.Windows
     /// <summary>
     /// Interaction logic for QuizInfoWindow.xaml
     /// </summary>
-    public partial class QuizInfoWindow : Window
+    public partial class QuizInfoWindow : Window, IActionableWindow
     {
         Manager _manager;
         public QuizInfoWindow(Manager manager)
@@ -25,6 +25,11 @@ namespace MultipleChoiceGUI.Windows
             InitializeComponent();
             _manager = manager;
             DataContext = new QuizInfoViewModel(_manager);
+        }
+
+        public void CloseAction()
+        {
+            Close();
         }
 
         private void NewQuiz_Click(object sender, RoutedEventArgs e)
