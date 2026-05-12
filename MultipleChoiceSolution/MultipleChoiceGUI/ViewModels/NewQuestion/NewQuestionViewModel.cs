@@ -31,7 +31,6 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
 
             AddAnswerCommand = new Command(OnAddAnswer);
             NewQuestionCommand = new Command(OnNewQuestion);
-            CloseCommand = new Command(window.CloseAction);
         }
         public ICommand AddAnswerCommand { get; init; }
         public ICommand NewQuestionCommand { get; init; }
