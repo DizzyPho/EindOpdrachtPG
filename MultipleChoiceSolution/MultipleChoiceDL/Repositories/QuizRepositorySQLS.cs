@@ -97,7 +97,7 @@ namespace MultipleChoiceDL.Repositories
             const string query = "select question.id, question.question_text, a.id, a.answer_text, a.is_correct, quiz.name, quiz.seed from quiz quiz " +
                                  "join quiz_questions qq on quiz.id = qq.quiz_id " +
                                  "join question question on question.id = qq.question_id " +
-                                 "join answer a on a.question_id = q.id " +
+                                 "join answer a on a.question_id = question.id " +
                                  "where quiz.id = @id";
 
             Dictionary<int, string> questionTexts = new Dictionary<int, string>();
