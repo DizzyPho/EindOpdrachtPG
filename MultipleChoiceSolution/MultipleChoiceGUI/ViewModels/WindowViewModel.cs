@@ -9,8 +9,8 @@ namespace MultipleChoiceGUI.ViewModels
 {
     public class WindowViewModel : BaseViewModel
     {
-        protected Action CloseAction { get; init; }
-        public ICommand CloseCommand { get; init; }
+        protected Action CloseAction { get; private init; }
+        public ICommand CloseCommand { get; private init; }
         public WindowViewModel(IActionableWindow actionableWindow)
         {
             CloseAction = actionableWindow.CloseAction;
