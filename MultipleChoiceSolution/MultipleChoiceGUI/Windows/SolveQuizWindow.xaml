@@ -40,5 +40,6 @@
                 </ItemsControl>
             </ScrollViewer>
         </GroupBox>
+        <Button Grid.Column="1" Grid.Row="3" Content="Indienen" Margin="8" HorizontalAlignment="Right" Padding="32 4" Command="{Binding SubmitCommand}"></Button>
     </Grid>
 </Window>
