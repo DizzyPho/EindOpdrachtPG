@@ -14,11 +14,14 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
         IActionableWindow _actionableWindow;
         Manager _manager;
         public ICommand GenerateQuizCommand { get; init; }
+        public ICommand CloseCommand { get; init; }
         public NewQuizViewModel(Manager manager, IActionableWindow window)
         {
             _manager = manager;
             _actionableWindow = window;
             GenerateQuizCommand = new Command(OnGenerateQuiz);
+            CloseCommand = new Command(window.CloseAction);
+
             TopicList = _manager.GetTopics()
                                 .Select(t =>  new TopicQuestionsAmountViewModel(t))
                                 .ToList();
