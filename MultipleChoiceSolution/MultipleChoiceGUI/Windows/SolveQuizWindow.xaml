@@ -21,22 +21,24 @@
         <Label Content="Vul je ID in:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
         <TextBox Grid.Row="1" Grid.Column="2" Margin="8" HorizontalAlignment="Left" MinWidth="40"></TextBox>
         <GroupBox Header="Test" Margin="8" Grid.Row="2" Grid.ColumnSpan="2">
-            <ListBox Margin="8" BorderThickness="0" Background="Transparent">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Label Content=""></Label>
-                            <ListBox BorderThickness="0" Background="Transparent">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <CheckBox Content="" IsChecked="False"></CheckBox>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <ScrollViewer>
+                <ListBox Margin="8" BorderThickness="0" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Label Content=""></Label>
+                                <ListBox BorderThickness="0" Background="Transparent">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="" IsChecked="False"></CheckBox>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
         </GroupBox>
     </Grid>
 </Window>
