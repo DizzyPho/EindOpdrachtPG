@@ -23,7 +23,7 @@ namespace MultipleChoiceGUI.Windows
         public SolveQuizWindow(int quizId, Manager manager)
         {
             InitializeComponent();
-            DataContext = new QuizViewModel(quizId, manager);
+            DataContext = new QuizViewModel(quizId, manager, this);
         }
         public void CloseAction()
         {
