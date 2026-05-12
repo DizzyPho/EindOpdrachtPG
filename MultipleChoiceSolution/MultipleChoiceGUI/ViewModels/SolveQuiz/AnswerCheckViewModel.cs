@@ -9,12 +9,12 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
     {
         public AnswerCheckViewModel(Answer answer)
         {
-            Id = answer.Id;
+            Id = (int)answer.Id;
             AnswerText = answer.AnswerText;
             IsCorrect = answer.IsCorrect;
             IsChecked = false;
         }
-        public int? Id { get; init; }
+        public int Id { get; init; }
         public String AnswerText { get; init; }
         public bool IsCorrect { get; init; }
         public bool IsChecked

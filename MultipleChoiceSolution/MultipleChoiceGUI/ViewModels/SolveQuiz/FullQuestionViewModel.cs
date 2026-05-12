@@ -10,13 +10,13 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
         public FullQuestionViewModel(Question question)
         {
             QuestionText = question.QuestionText;
-            QuestionId = question.Id;
+            QuestionId = (int)question.Id;
             Answers = question.GetAnswers()
                               .Select(a => new AnswerCheckViewModel(a))
                               .ToList();
         }
         public List<AnswerCheckViewModel> Answers { get; set; }
         public string QuestionText { get; init; }
-        public int? QuestionId { get; init; }
+        public int QuestionId { get; init; }
     }
 }
