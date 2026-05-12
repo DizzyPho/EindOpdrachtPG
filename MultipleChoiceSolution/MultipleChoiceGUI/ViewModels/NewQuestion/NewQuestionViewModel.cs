@@ -2,6 +2,7 @@
 using MultipleChoiceBL.FactoryResults;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.ImportQuestion;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,11 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
     public class NewQuestionViewModel : BaseViewModel
     {
         Manager _manager;
-        public NewQuestionViewModel(Manager manager)
+        IActionableWindow _actionableWindow;
+        public NewQuestionViewModel(Manager manager, IActionableWindow window)
         {
             _manager = manager;
+            _actionableWindow = window;
 
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
@@ -88,6 +91,8 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             else
             {
                 _manager.InsertQuestion(question, topicIds);
+                _actionableWindow.CloseAction();
+                MessageBox.Show("Nieuwe vraag toevegoegd", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
