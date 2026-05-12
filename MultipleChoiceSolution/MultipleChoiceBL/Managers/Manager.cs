@@ -55,5 +55,10 @@ namespace MultipleChoiceBL.Managers
 
             return quiz;
         }
+
+        public Quiz GetQuiz(int id)
+        {
+            return _repository.GetQuiz(id);
+        }
     }
 }

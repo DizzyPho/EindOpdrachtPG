@@ -92,6 +92,65 @@ namespace MultipleChoiceDL.Repositories
             return questions;
         }
         
+        public Quiz GetQuiz(int id)
+        {
+            const string query = "select question.id, question.question_text, a.id, a.answer_text, a.is_correct, quiz.name, quiz.seed from quiz quiz " +
+                                 "join quiz_questions qq on quiz.id = qq.quiz_id " +
+                                 "join question question on question.id = qq.question_id " +
+                                 "join answer a on a.question_id = q.id " +
+                                 "where quiz.id = @id";
+
+            Dictionary<int, string> questionTexts = new Dictionary<int, string>();
+            Dictionary<int, List<Answer>> answers = new Dictionary<int, List<Answer>>();
+
+            int seed = -1;
+            string quizName = null;
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using(SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        if (quizName == null) quizName = reader.GetString(5);
+                        if (seed < 0) seed = reader.GetInt32(6);
+
+                        int questionId = reader.GetInt32(0);
+                        questionTexts.TryAdd(questionId, reader.GetString(1));
+
+                        int answerId = reader.GetInt32(2);
+                        string answerText = reader.GetString(3);
+                        bool isCorrect = reader.GetBoolean(4);
+                        Answer.TryCreate(answerId, answerText, isCorrect, out FactoryResult<Answer> answerResult);
+
+                        if(answers.TryGetValue(questionId, out List<Answer> answerList))
+                        {
+                            answerList.Add(answerResult.Result);
+                        }
+                        else
+                        {
+                            answers.Add(questionId, [ answerResult.Result ]);
+                        }
+                    }
+                }
+            }
+
+            List<Question> questions = new List<Question>();
+            foreach(int questionId in answers.Keys)
+            {
+                Question.TryCreate(questionTexts[questionId], answers[questionId], questionId, out FactoryResult<Question> questionResult);
+                questions.Add(questionResult.Result);
+            }
+
+            Quiz.TryCreate(id, quizName, seed, questions, out FactoryResult<Quiz> quizResult);
+            return quizResult.Result;
+
+        }
+
         public List<QuizDTO> GetQuizDTOs()
         {
             const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic from quiz quiz " +
