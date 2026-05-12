@@ -111,7 +111,7 @@ namespace MultipleChoiceDL.Repositories
             {
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@id", id);
-
+                conn.Open();
                 using(SqlDataReader reader = cmd.ExecuteReader())
                 {
                     while(reader.Read())
