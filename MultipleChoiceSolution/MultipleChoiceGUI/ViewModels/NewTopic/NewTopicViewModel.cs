@@ -20,10 +20,12 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
         }
 
         public ICommand AddNewTopic { get; init; }
+        public ICommand CloseCommand { get; init; }
 
         public NewTopicViewModel(Manager manager, IActionableWindow window)
         {
             AddNewTopic = new Command(OnAddNewTopic);
+            CloseCommand = new Command(window.CloseAction);
             _manager = manager;
             _actionableWindow = window;
         }
