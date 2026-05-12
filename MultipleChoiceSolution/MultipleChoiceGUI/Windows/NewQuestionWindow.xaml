@@ -50,7 +50,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" Content="Terug" Padding="4" Margin="8" Click="ButtonBack_Click"></Button>
+        <Button Grid.Row="8" Grid.Column="0" HorizontalAlignment="Left" Content="Terug" Padding="4" Margin="8" Command="{Binding CloseCommand}"></Button>
         <Button Grid.Row="8" Grid.Column="1" HorizontalAlignment="Right" Content="Toevoegen" 
                 Padding="4" Margin="8" Command="{Binding NewQuestionCommand}"></Button>
     </Grid>
