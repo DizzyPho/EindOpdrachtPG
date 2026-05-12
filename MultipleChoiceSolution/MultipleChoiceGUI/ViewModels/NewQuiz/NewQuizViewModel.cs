@@ -1,6 +1,7 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,13 +9,15 @@ using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuiz
 {
-    public class NewQuizViewModel : WindowViewModel
+    public class NewQuizViewModel : BaseViewModel
     {
+        IActionableWindow _actionableWindow;
         Manager _manager;
         public ICommand GenerateQuizCommand { get; init; }
-        public NewQuizViewModel(Manager manager, Action closeAction) : base(closeAction)
+        public NewQuizViewModel(Manager manager, IActionableWindow window)
         {
             _manager = manager;
+            _actionableWindow = window;
             GenerateQuizCommand = new Command(OnGenerateQuiz);
             TopicList = _manager.GetTopics()
                                 .Select(t =>  new TopicQuestionsAmountViewModel(t))
@@ -35,7 +38,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
                                                                     .ToDictionary();
           
             _manager.GenerateQuiz(questionAmountByTopic, Name);
-            CloseAction();
+            _actionableWindow.CloseAction();
         }
     }
 }
