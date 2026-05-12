@@ -39,6 +39,6 @@
             <Button Margin="8" Content="Nieuw onderwerp" Padding="0 4" Click="NewTopic_Click"></Button>
             <Button Margin="8" Content="Nieuwe vraag" Padding="0 4" Click="NewQuestion_Click"></Button>
         </StackPanel>
-        <Button Content="Terug" Grid.Column="0" Grid.Row="3" Margin="8" Click="ButtonBack_Click"></Button>
+        <Button Content="Terug" Grid.Column="0" Grid.Row="3" Margin="8" Command="{Binding CloseCommand}"></Button>
     </Grid>
 </Window>

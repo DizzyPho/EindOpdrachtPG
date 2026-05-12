@@ -2,6 +2,7 @@
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,10 +53,12 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<List<AnswerViewModel>>();
             set => Set(value);
         }
-        public QuestionInfoViewModel(Manager manager)
+        public ICommand CloseCommand { get; init; }
+        public QuestionInfoViewModel(Manager manager, IActionableWindow window)
         {
             _manager = manager;
             Topics = new ObservableCollection<Topic>(_manager.GetTopics());
+            CloseCommand = new Command(window.CloseAction);
         }
         internal void SelectedQuestionChange(QuestionDTO question)
         {

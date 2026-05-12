@@ -35,15 +35,10 @@ namespace MultipleChoiceGUI.Windows
             InitializeComponent();
             _manager = manager;
 
-            _viewModel = new QuestionInfoViewModel(_manager);
+            _viewModel = new QuestionInfoViewModel(_manager, this);
             DataContext = _viewModel;
         }
         public void CloseAction()
-        {
-            Close();
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
