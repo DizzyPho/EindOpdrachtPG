@@ -1,5 +1,6 @@
 ﻿using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
+using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,6 +12,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
     public class NewTopicViewModel : BaseViewModel
     {
         Manager _manager;
+        IActionableWindow _actionableWindow;
         public String TopicName
         {
             get => Get<String>();
@@ -19,10 +21,11 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
 
         public ICommand AddNewTopic { get; init; }
 
-        public NewTopicViewModel(Manager manager)
+        public NewTopicViewModel(Manager manager, IActionableWindow window)
         {
             AddNewTopic = new Command(OnAddNewTopic);
             _manager = manager;
+            _actionableWindow = window;
         }
 
         public void OnAddNewTopic()
@@ -31,6 +34,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
             {
                 int id = _manager.InsertTopic(TopicName);
                 MessageBox.Show("Toevoegen succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                _actionableWindow.CloseAction();
             }
             else
             {

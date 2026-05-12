@@ -23,17 +23,7 @@ namespace MultipleChoiceGUI.Windows
         public NewTopicWindow(Manager manager)
         {
             InitializeComponent();
-            DataContext = new NewTopicViewModel(manager);
-        }
-
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ButtonAdd_Click(object sender, RoutedEventArgs e) 
-        {
-            Close();
+            DataContext = new NewTopicViewModel(manager, this);
         }
 
         public void CloseAction()
