@@ -90,8 +90,8 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
             else
             {
                 _manager.InsertQuestion(question, topicIds);
-                CloseAction();
                 MessageBox.Show("Nieuwe vraag toevegoegd", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseAction();
             }
         }
     }
