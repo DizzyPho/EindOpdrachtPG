@@ -17,27 +17,27 @@
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Content="" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
+        <Label Content="{Binding Title}" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
         <Label Content="Vul je ID in:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
         <TextBox Grid.Row="1" Grid.Column="2" Margin="8" HorizontalAlignment="Left" MinWidth="40"></TextBox>
         <GroupBox Header="Test" Margin="8" Grid.Row="2" Grid.ColumnSpan="2">
             <ScrollViewer>
-                <ListBox Margin="8" BorderThickness="0" Background="Transparent">
-                    <ListBox.ItemTemplate>
+                <ItemsControl Margin="8" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Questions}">
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Content=""></Label>
-                                <ListBox BorderThickness="0" Background="Transparent">
-                                    <ListBox.ItemTemplate>
+                                <Label Content="{Binding QuestionText}"></Label>
+                                <ItemsControl BorderThickness="0" Background="Transparent" ItemsSource="{Binding Answers}">
+                                    <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox Content="" IsChecked="False"></CheckBox>
+                                            <CheckBox Content="{Binding AnswerText}" IsChecked="False"></CheckBox>
                                         </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </StackPanel>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </GroupBox>
     </Grid>
