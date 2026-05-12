@@ -6,13 +6,13 @@ namespace MultipleChoiceBL.DTOs
 {
     public class AnswerSetDTO
     {
-        public AnswerSetDTO(int quizId, int userId, Dictionary<int, List<int>> questionAnswers)
+        public AnswerSetDTO(int userId, List<int> answerIds)
         {
             UserId = userId;
-            QuestionAnswers = questionAnswers;
+            AnswerIds = answerIds;
         }
 
         public int UserId { get; set; }
-        public Dictionary<int, List<int>> QuestionAnswers { get; set; }
+        public List<int> AnswerIds { get; set; }
     }
 }
