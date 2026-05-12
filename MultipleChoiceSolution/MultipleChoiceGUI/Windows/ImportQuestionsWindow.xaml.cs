@@ -31,11 +31,6 @@ namespace MultipleChoiceGUI.Windows
             Close();
         }
 
-        private void ButtonBack_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void ButtonImport_Click(object sender, RoutedEventArgs e)
         {
             Close();
