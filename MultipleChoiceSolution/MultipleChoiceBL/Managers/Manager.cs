@@ -60,5 +60,10 @@ namespace MultipleChoiceBL.Managers
         {
             return _repository.GetQuiz(id);
         }
+
+        public void SubmitAnswers(AnswerSetDTO answerSet)
+        {
+            _repository.SubmitAnswers(answerSet);
+        }
     }
 }

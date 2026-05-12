@@ -29,7 +29,7 @@ namespace MultipleChoiceDL.Repositories
                                  "WHERE q.id = @id";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
-            using(SqlCommand command = connection.CreateCommand())
+            using (SqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = query;
                 command.Parameters.AddWithValue("@id", questionId);
@@ -54,7 +54,7 @@ namespace MultipleChoiceDL.Repositories
                         }
                     }
                 }
-                if(Question.TryCreate(questionText, answers, out FactoryResult<Question> questionResult))
+                if (Question.TryCreate(questionText, answers, out FactoryResult<Question> questionResult))
                 {
                     return questionResult.Result;
                 }
@@ -91,7 +91,7 @@ namespace MultipleChoiceDL.Repositories
 
             return questions;
         }
-        
+
         public Quiz GetQuiz(int id)
         {
             const string query = "select question.id, question.question_text, a.id, a.answer_text, a.is_correct, quiz.name, quiz.seed from quiz quiz " +
@@ -112,9 +112,9 @@ namespace MultipleChoiceDL.Repositories
                 cmd.CommandText = query;
                 cmd.Parameters.AddWithValue("@id", id);
                 conn.Open();
-                using(SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         if (quizName == null) quizName = reader.GetString(5);
                         if (seed < 0) seed = reader.GetInt32(6);
@@ -127,20 +127,20 @@ namespace MultipleChoiceDL.Repositories
                         bool isCorrect = reader.GetBoolean(4);
                         Answer.TryCreate(answerId, answerText, isCorrect, out FactoryResult<Answer> answerResult);
 
-                        if(answers.TryGetValue(questionId, out List<Answer> answerList))
+                        if (answers.TryGetValue(questionId, out List<Answer> answerList))
                         {
                             answerList.Add(answerResult.Result);
                         }
                         else
                         {
-                            answers.Add(questionId, [ answerResult.Result ]);
+                            answers.Add(questionId, [answerResult.Result]);
                         }
                     }
                 }
             }
 
             List<Question> questions = new List<Question>();
-            foreach(int questionId in answers.Keys)
+            foreach (int questionId in answers.Keys)
             {
                 Question.TryCreate(questionTexts[questionId], answers[questionId], questionId, out FactoryResult<Question> questionResult);
                 questions.Add(questionResult.Result);
@@ -162,10 +162,10 @@ namespace MultipleChoiceDL.Repositories
                                                "join quiz_questions qq on quiz.id = qq.quiz_id " +
                                                "group by quiz.id";
 
-            List <QuizDTO> quizDTOs = new List<QuizDTO>();
+            List<QuizDTO> quizDTOs = new List<QuizDTO>();
 
             HashSet<int> ids = new HashSet<int>();
-            Dictionary <int,  string> names = new Dictionary<int, string>();
+            Dictionary<int, string> names = new Dictionary<int, string>();
             Dictionary<int, int> questionCounts = new Dictionary<int, int>();
             Dictionary<int, List<string>> topics = new Dictionary<int, List<string>>();
 
@@ -177,7 +177,7 @@ namespace MultipleChoiceDL.Repositories
                 cmdQuestionCounts.CommandText = queryQuestionCounts;
                 conn.Open();
 
-                using(SqlDataReader reader = cmdTopicNames.ExecuteReader())
+                using (SqlDataReader reader = cmdTopicNames.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -185,7 +185,7 @@ namespace MultipleChoiceDL.Repositories
                         ids.Add(id);
                         names.TryAdd(id, reader.GetString(1));
 
-                        if(topics.TryGetValue(id, out var topicsList))
+                        if (topics.TryGetValue(id, out var topicsList))
                         {
                             topicsList.Add(reader.GetString(2));
                         }
@@ -196,7 +196,7 @@ namespace MultipleChoiceDL.Repositories
 
                     }
                 }
-                using(SqlDataReader reader = cmdQuestionCounts.ExecuteReader())
+                using (SqlDataReader reader = cmdQuestionCounts.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -206,7 +206,7 @@ namespace MultipleChoiceDL.Repositories
                     }
                 }
             }
-            foreach(int id in ids)
+            foreach (int id in ids)
             {
                 quizDTOs.Add(new QuizDTO(id, names[id], questionCounts[id], topics[id]));
             }
@@ -219,18 +219,18 @@ namespace MultipleChoiceDL.Repositories
                                  "JOIN question_topic qt on qt.question_id = q.id ";
             Dictionary<int, List<int>> ids = new Dictionary<int, List<int>>();
 
-            using(SqlConnection conn = new SqlConnection(_connectionString))
-            using(SqlCommand cmd = conn.CreateCommand()) 
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
                 conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         int questionId = reader.GetInt32(0);
                         int topicId = reader.GetInt32(1);
-                        if(ids.TryGetValue(topicId, out List<int> questionIds))
+                        if (ids.TryGetValue(topicId, out List<int> questionIds))
                         {
                             questionIds.Add(questionId);
                         }
@@ -266,7 +266,7 @@ namespace MultipleChoiceDL.Repositories
                     inClauseParameters.Add(parameter);
                     cmd.Parameters.AddWithValue(parameter, questionIds[i]);
                 }
-                cmd.CommandText = query + $"({string.Join(',',inClauseParameters)})";
+                cmd.CommandText = query + $"({string.Join(',', inClauseParameters)})";
                 conn.Open();
 
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -274,7 +274,7 @@ namespace MultipleChoiceDL.Repositories
                     while (reader.Read())
                     {
                         int questionId = reader.GetInt32(0);
-                        if(!questionTexts.ContainsKey(questionId))
+                        if (!questionTexts.ContainsKey(questionId))
                         {
                             questionTexts.Add(questionId, reader.GetString(1));
                         }
@@ -282,7 +282,7 @@ namespace MultipleChoiceDL.Repositories
                         Answer.TryCreate(reader.GetString(2), reader.GetBoolean(3), out FactoryResult<Answer> answerResult);
                         Answer answer = answerResult.Result;
 
-                        if(questionAnswers.TryGetValue(questionId, out List<Answer> answerList))
+                        if (questionAnswers.TryGetValue(questionId, out List<Answer> answerList))
                         {
                             answerList.Add(answer);
                         }
@@ -293,14 +293,14 @@ namespace MultipleChoiceDL.Repositories
                     }
                 }
             }
-            
-            foreach(KeyValuePair<int, List<Answer>> keyValue in questionAnswers)
+
+            foreach (KeyValuePair<int, List<Answer>> keyValue in questionAnswers)
             {
                 string text = questionTexts[keyValue.Key];
                 Question.TryCreate(text, keyValue.Value, keyValue.Key, out FactoryResult<Question> questionResult);
                 questions.Add(questionResult.Result);
             }
-            
+
             return questions;
         }
 
@@ -311,7 +311,7 @@ namespace MultipleChoiceDL.Repositories
             const string query = "SELECT id, topic FROM topic";
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
-            { 
+            {
                 cmd.CommandText = query;
                 conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -369,7 +369,7 @@ namespace MultipleChoiceDL.Repositories
                             cmdAnswer.ExecuteNonQuery();
                         }
 
-                        foreach(int id in topicIds)
+                        foreach (int id in topicIds)
                         {
                             cmdQuestionTopic.Parameters["@question_id"].Value = questionId;
                             cmdQuestionTopic.Parameters["@topic_id"].Value = id;
@@ -377,8 +377,8 @@ namespace MultipleChoiceDL.Repositories
                         }
                     }
                     tran.Commit();
-                } 
-                catch (Exception ex) 
+                }
+                catch (Exception ex)
                 {
                     tran.Rollback();
                     throw ex;
@@ -453,6 +453,28 @@ namespace MultipleChoiceDL.Repositories
                 }
             }
             return id;
+        }
+
+        public void SubmitAnswers(AnswerSetDTO answerSet)
+        {
+            const string query = "INSERT INTO user_answer (user_id,answer_id,) VALUES " +
+                                 "(@user_id,@answer_id,@date)";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@user_id", answerSet.UserId);
+                cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                cmd.Parameters.Add(new SqlParameter("@answer_id", SqlDbType.Int));
+
+                conn.Open();
+                foreach (int id in answerSet.AnswerIds)
+                {
+                    cmd.Parameters["@answer_id"].Value = id;
+                    cmd.ExecuteNonQuery();
+                } 
+            }
         }
     }
 }
