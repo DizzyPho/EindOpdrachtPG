@@ -54,7 +54,7 @@ namespace MultipleChoiceDL.FileReaders
                         char[] correctAnswers = line.Split(": ")[1].ToCharArray();
                         builder.SetCorrectAnswers(correctAnswers)
                                .SetQuestionText(questionText);
-
+                        questionText = string.Empty;
                         result.Add(builder.Build());
                         builder = new QuestionBuilder();
                     }
