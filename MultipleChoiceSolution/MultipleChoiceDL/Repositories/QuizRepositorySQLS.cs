@@ -94,7 +94,7 @@ namespace MultipleChoiceDL.Repositories
         
         public List<QuizDTO> GetQuizDTOs()
         {
-            const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic count from quiz quiz " +
+            const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic from quiz quiz " +
                                  "join quiz_questions qq on quiz.id = qq.quiz_id " +
                                  "join question question on question.id = qq.question_id " +
                                  "join question_topic q_topic on q_topic.question_id = question.id " +
