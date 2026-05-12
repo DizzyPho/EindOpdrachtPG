@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="{Binding Title}" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
         <Label Content="Vul je ID in:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
-        <TextBox Grid.Row="1" Grid.Column="2" Margin="8" HorizontalAlignment="Left" MinWidth="40"></TextBox>
+        <TextBox Text="{Binding UserId}" Grid.Row="1" Grid.Column="1" Margin="11,8,0,8" HorizontalAlignment="Left" MinWidth="40"></TextBox>
         <GroupBox Header="Test" Margin="8" Grid.Row="2" Grid.ColumnSpan="2">
             <ScrollViewer>
                 <ItemsControl Margin="8" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Questions}">
