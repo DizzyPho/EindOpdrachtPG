@@ -151,6 +151,23 @@ namespace MultipleChoiceDL.Repositories
 
         }
 
+        public void InsertUserIfNotExists(int id, string username)
+        {
+            const string query = "if not exists (select @id from user) begin " +
+                                 "insert into user values (@username) end";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            { 
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@username", username);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public List<QuizDTO> GetQuizDTOs()
         {
             const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic from quiz quiz " +

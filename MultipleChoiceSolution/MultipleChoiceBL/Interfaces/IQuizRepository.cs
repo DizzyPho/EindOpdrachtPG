@@ -21,5 +21,6 @@ namespace MultipleChoiceBL.Interfaces
         public int InsertQuiz(Quiz quiz);
         public List<QuizDTO> GetQuizDTOs();
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets);
+        public void InsertUserIfNotExists(int id, string username);
     }
 }
