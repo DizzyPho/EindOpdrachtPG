@@ -154,8 +154,8 @@ namespace MultipleChoiceDL.Repositories
 
         public void InsertUserIfNotExists(int id, string username)
         {
-            const string query = "if not exists (select @id from user) begin " +
-                                 "insert into user values (@username) end";
+            const string query = "if not exists (select @id from dbo.[user]) begin " +
+                                 "insert into dbo.[user] values (@username) end";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
