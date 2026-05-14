@@ -1,0 +1,39 @@
+﻿using MultipleChoiceBL.Domain;
+using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace MultipleChoiceGUI.ViewModels.BulkAnswer
+{
+    public class BulkAnswerViewModel : WindowViewModel
+    {
+        Manager _manager;
+        Quiz _quiz;
+        public BulkAnswerViewModel(int quizId, Manager manager, IActionableWindow actionableWindow) : base(actionableWindow)
+        {
+            _manager = manager;
+            _quiz = _manager.GetQuiz(quizId);
+        }
+
+        public string BulkText
+        {
+            get => Get<String>();
+            set => Set(value);
+        }
+
+        public List<AnswerSetDTO> BulkTextToAnswerSets()
+        {
+            List<AnswerSetDTO> answerSets = new List<AnswerSetDTO>();
+
+            string[] lines = BulkText.Split('\n');
+            foreach (string line in lines)
+            {
+                answerSets.Add(AnswerSetDTO.StringToAnswerSet(_quiz, line));
+            }
+            return answerSets;
+        }
+    }
+}
