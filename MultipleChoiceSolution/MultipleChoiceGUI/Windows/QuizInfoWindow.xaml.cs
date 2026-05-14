@@ -21,11 +21,13 @@ namespace MultipleChoiceGUI.Windows
     public partial class QuizInfoWindow : Window, IActionableWindow
     {
         Manager _manager;
+        QuizInfoViewModel _viewModel;
         public QuizInfoWindow(Manager manager, MessageManager messageManager)
         {
             InitializeComponent();
             _manager = manager;
-            DataContext = new QuizInfoViewModel(_manager, messageManager);
+            _viewModel = new QuizInfoViewModel(_manager, messageManager);
+            DataContext = _viewModel;
         }
 
         public void CloseAction()
@@ -41,7 +43,7 @@ namespace MultipleChoiceGUI.Windows
 
         private void SolveQuiz_Click(object sender, RoutedEventArgs e)
         {
-            SolveQuizWindow sqw = new SolveQuizWindow(1, _manager);
+            SolveQuizWindow sqw = new SolveQuizWindow(_viewModel.SelectedQuiz.Id, _manager);
             sqw.ShowDialog();
         }
     }
