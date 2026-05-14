@@ -509,5 +509,29 @@ namespace MultipleChoiceDL.Repositories
 
             }
         }
+
+        public List<string> GetQuestionTopics(int questionId)
+        {
+            const string query = "select topic from topic t " +
+                                 "join question_topic qt on qt.question_id = @question_id";
+            List<string> topics = new List<string>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@question_id", questionId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        topics.Add(reader.GetString(0));
+                    }
+                }
+            }
+            return topics;
+        }
     }
 }
