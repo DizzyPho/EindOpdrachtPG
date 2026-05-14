@@ -6,6 +6,7 @@ using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.BulkAnswer
@@ -31,12 +32,21 @@ namespace MultipleChoiceGUI.ViewModels.BulkAnswer
         public ICommand SubmitCommand { get; init; }
         public void OnSubmitAnswerSets()
         {
-            _manager.SubmitAnswerSets(BulkTextToAnswerSets());
-            _actionableWindow.CloseAction();
+            List<AnswerSetDTO> answerSets;
+            try
+            {
+                answerSets = BulkTextToAnswerSets();
+                _manager.SubmitAnswerSets(answerSets);
+                _actionableWindow.CloseAction();
+            }
+            catch
+            {
+                MessageBox.Show("Er ging iets mis. Kijk de input na.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public List<AnswerSetDTO> BulkTextToAnswerSets()
-        {
+        { 
             List<AnswerSetDTO> answerSets = new List<AnswerSetDTO>();
 
             string[] lines = BulkText.Split('\n');
