@@ -27,6 +27,11 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
         }
         public List<FullQuestionViewModel> Questions { get; init; }
         public String Title { get; init; }
+        public String Score
+        {
+            get => Get<String>();
+            set => Set(value);
+        }
         public int UserId 
         {
             get => Get<int>();
@@ -42,7 +47,16 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
                                                    .Select(a => a.Id)
                                                    .ToList();
             AnswerSetDTO answerSet = new AnswerSetDTO(UserId, selectedAnswerIds);
-            _manager.SubmitAnswers(answerSet);
+            GiveFeedback();
+            //_manager.SubmitAnswers(answerSet);
+        }
+
+        public void GiveFeedback()
+        {
+            int questionCount = Questions.Count;
+            int correctQuestions = Questions.Count(q => q.Answers
+                                                        .All(a => a.IsCorrect == a.IsChecked));
+            Score = $"Score: {correctQuestions} / {questionCount}";
         }
     }
 }
