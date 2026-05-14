@@ -233,7 +233,8 @@ namespace MultipleChoiceDL.Repositories
         public Dictionary<int, List<int>> GetQuestionIdsByTopic()
         {
             const string query = "SELECT q.id question_id, qt.topic_id FROM question q " +
-                                 "JOIN question_topic qt on qt.question_id = q.id ";
+                                 "JOIN question_topic qt on qt.question_id = q.id " +
+                                 "WHERE q.is_enabled = 1";
             Dictionary<int, List<int>> ids = new Dictionary<int, List<int>>();
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
