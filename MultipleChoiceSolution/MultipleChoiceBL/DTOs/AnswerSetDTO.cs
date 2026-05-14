@@ -28,7 +28,15 @@ namespace MultipleChoiceBL.DTOs
             for (int i = 0; i < letters.Count(); i++)
             {
                 int index = LetterToInt(letters[i]);
-                answerIds.Add((int)questions[i].GetAnswers()[index].Id);
+                try
+                {
+                    IReadOnlyList<Answer> answers = questions[i].GetAnswers();
+                    answerIds.Add((int)answers[index].Id);
+                }
+                catch
+                {
+                    
+                }
             }
 
             return new AnswerSetDTO(userId, answerIds);
