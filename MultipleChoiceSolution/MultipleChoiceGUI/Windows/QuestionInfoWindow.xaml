@@ -23,6 +23,11 @@
         <ComboBox Grid.Row="0" Grid.Column="1" Margin="8" SelectedItem="{Binding SelectedTopic}" ItemsSource="{Binding Topics}"  VerticalAlignment="Top"></ComboBox>
         <ListBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" 
                  Margin="8" ItemsSource="{Binding QuestionList}"  SelectedItem="{Binding SelectedQuestion}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding QuestionText}" IsChecked="{Binding IsEnabled}"></CheckBox>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
         <ListBox Grid.Column="2" Grid.Row="1" Margin="8" ItemsSource="{Binding SelectedQuestionAnswers}" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>

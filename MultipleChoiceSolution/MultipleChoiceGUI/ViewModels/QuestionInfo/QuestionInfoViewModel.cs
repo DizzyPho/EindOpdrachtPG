@@ -21,9 +21,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<ObservableCollection<Topic>>();
             set => Set(value);
         }
-        public List<QuestionDTO> QuestionList
+        public List<QuestionViewModel> QuestionList
         {
-            get => Get<List<QuestionDTO>>();
+            get => Get<List<QuestionViewModel>>();
             set => Set(value);
         }
         public Topic SelectedTopic
@@ -35,9 +35,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
                 SelectedTopicChange(value);
             }
         }
-        public QuestionDTO SelectedQuestion
+        public QuestionViewModel SelectedQuestion
         {
-            get => Get<QuestionDTO>();
+            get => Get<QuestionViewModel>();
             set
             {
                 Set(value);
@@ -61,9 +61,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 
             messageManager.Register<NewTopicMessage>(this, (o, message) => Topics.Add(message.Topic));
         }
-        internal void SelectedQuestionChange(QuestionDTO question)
+        internal void SelectedQuestionChange(QuestionViewModel question)
         {
-            QuestionText = question.Question;
+            QuestionText = question.QuestionText;
             var answers = _manager.GetQuestion(question.Id)
                                               .GetAnswers()
                                               .Select(answer => new AnswerViewModel(answer));
@@ -72,7 +72,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 
         internal void SelectedTopicChange(Topic topic)
         {
-            QuestionList = _manager.GetQuestionDTOs(topic.Id).ToList(); 
+            QuestionList = _manager.GetQuestionDTOs(topic.Id)
+                                    .Select(dto => new QuestionViewModel(dto))
+                                    .ToList(); 
         }
     }
 }
