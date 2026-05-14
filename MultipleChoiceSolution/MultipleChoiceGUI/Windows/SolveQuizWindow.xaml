@@ -16,11 +16,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Content="{Binding Title}" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="2" Margin="8"></Label>
+        <Label Content="{Binding Title}" HorizontalAlignment="Center" Grid.Row="0" Grid.ColumnSpan="3" Margin="8"></Label>
         <Label Content="Vul je ID in:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="8"></Label>
+        <Label Content="" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="8"></Label>
         <TextBox Text="{Binding UserId}" Grid.Row="1" Grid.Column="1" Margin="11,8,0,8" HorizontalAlignment="Left" MinWidth="40"></TextBox>
-        <GroupBox Header="Test" Margin="8" Grid.Row="2" Grid.ColumnSpan="2">
+        <GroupBox Header="Test" Margin="8" Grid.Row="2" Grid.ColumnSpan="3">
             <ScrollViewer>
                 <ItemsControl Margin="8" BorderThickness="0" Background="Transparent" ItemsSource="{Binding Questions}">
                     <ItemsControl.ItemTemplate>
@@ -41,6 +43,6 @@
             </ScrollViewer>
         </GroupBox>
         <Button Grid.Column="0" Grid.Row="3" Margin="8" Content="Terug" Command="{Binding CloseCommand}"></Button>
-        <Button Grid.Column="1" Grid.Row="3" Content="Indienen" Margin="8" HorizontalAlignment="Right" Padding="32 4" Command="{Binding SubmitCommand}"></Button>
+        <Button Grid.Column="2" Grid.Row="3" Content="Indienen" Margin="8" HorizontalAlignment="Right" Padding="32 4" Command="{Binding SubmitCommand}"></Button>
     </Grid>
 </Window>
