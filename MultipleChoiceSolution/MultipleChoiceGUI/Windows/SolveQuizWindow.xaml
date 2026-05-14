@@ -33,7 +33,7 @@
                                 <ItemsControl BorderThickness="0" Background="Transparent" ItemsSource="{Binding Answers}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
-                                            <CheckBox Content="{Binding AnswerText}" IsChecked="{Binding IsChecked}"></CheckBox>
+                                            <CheckBox Content="{Binding AnswerText}" IsChecked="{Binding IsChecked}" Foreground="{Binding TextColour}"></CheckBox>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>

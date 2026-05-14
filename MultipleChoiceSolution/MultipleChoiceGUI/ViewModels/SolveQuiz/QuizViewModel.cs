@@ -61,9 +61,33 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
         public void GiveFeedback()
         {
             int questionCount = Questions.Count;
+
+            // count correct answers and set their color accordingly
+            foreach (AnswerCheckViewModel answer in Questions.SelectMany(q => q.Answers))
+            {
+                ShowAnswerCorrect(answer);
+            }
+
             int correctQuestions = Questions.Count(q => q.Answers
-                                                        .All(a => a.IsCorrect == a.IsChecked));
+                                            .All(a => 
+                                            {
+                                                return a.IsCorrect == a.IsChecked;
+                                            }));
             Score = $"Score: {correctQuestions} / {questionCount}";
+        }
+
+        public void ShowAnswerCorrect(AnswerCheckViewModel answer)
+        {
+            bool isChecked = answer.IsChecked;
+            bool isCorrect = answer.IsCorrect;
+            if(isChecked != isCorrect)
+            {
+                answer.SetRed();
+            }
+            else if (isChecked)
+            {
+                answer.SetGreen();
+            }
         }
     }
 }
