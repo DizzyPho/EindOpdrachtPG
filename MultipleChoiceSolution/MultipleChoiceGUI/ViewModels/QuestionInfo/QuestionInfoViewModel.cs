@@ -1,6 +1,7 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Managers;
+using MultipleChoiceBL.Messages;
 using MultipleChoiceGUI.Commands;
 using MultipleChoiceGUI.Interfaces;
 using System;
@@ -53,10 +54,12 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<List<AnswerViewModel>>();
             set => Set(value);
         }
-        public QuestionInfoViewModel(Manager manager, IActionableWindow window) : base(window)
+        public QuestionInfoViewModel(Manager manager, MessageManager messageManager, IActionableWindow window) : base(window)
         {
             _manager = manager;
             Topics = new ObservableCollection<Topic>(_manager.GetTopics());
+
+            messageManager.Register<NewTopicMessage>(this, (o, message) => Topics.Add(message.Topic));
         }
         internal void SelectedQuestionChange(QuestionDTO question)
         {

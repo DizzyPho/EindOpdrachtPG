@@ -1,6 +1,7 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
+using MultipleChoiceBL.Messages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace MultipleChoiceBL.Managers
     public class Manager
     {
         private IQuizRepository _repository;
+        private MessageManager _messageManager;
         public Manager(IQuizRepository repository) 
         {
             _repository = repository;
+            _messageManager = new MessageManager();
         }
 
         public Question GetQuestion(int questionId)
@@ -43,7 +46,10 @@ namespace MultipleChoiceBL.Managers
 
         public int InsertTopic(string topicName)
         {
-            return _repository.InsertTopic(topicName);
+            int id = _repository.InsertTopic(topicName);
+            Topic topic = new Topic(id, topicName);
+            _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
+            return id;
         }
 
         public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
