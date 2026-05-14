@@ -55,7 +55,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
             AnswerSetDTO answerSet = new AnswerSetDTO(UserId, selectedAnswerIds);
             GiveFeedback();
             QuizEnabled = false;
-            //_manager.SubmitAnswers(answerSet);
+            _manager.SubmitAnswers(answerSet);
         }
 
         public void GiveFeedback()
