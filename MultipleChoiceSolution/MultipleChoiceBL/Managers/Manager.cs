@@ -49,7 +49,6 @@ namespace MultipleChoiceBL.Managers
             int id = _repository.InsertTopic(topicName);
             Topic topic = new Topic(id, topicName);
             _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
-            return id;
         }
 
         public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
@@ -57,7 +56,10 @@ namespace MultipleChoiceBL.Managers
             QuizGenerator generator = new QuizGenerator(_repository);
             Quiz quiz = generator.GenerateQuiz(questionAmounts, quizName);
 
-            _repository.InsertQuiz(quiz);
+            int id = _repository.InsertQuiz(quiz);
+            QuizDTO dto = new QuizDTO(id, quiz.Name, quiz.Questions.Count, _repository.GetQuestionTopics(id));
+
+            _messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
 
             return quiz;
         }
