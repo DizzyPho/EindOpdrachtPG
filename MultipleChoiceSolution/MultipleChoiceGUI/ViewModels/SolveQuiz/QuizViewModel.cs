@@ -19,6 +19,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
 
             Quiz quiz = _manager.GetQuiz(quizId);
             Title = quiz.Name;
+            QuizEnabled = true;
 
             Questions = quiz.Questions.Select(q => new FullQuestionViewModel(q))
                                       .ToList();
@@ -37,6 +38,11 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
             get => Get<int>();
             set => Set(value);
         }
+        public bool QuizEnabled
+        {
+            get => Get<bool>();
+            set => Set(value);
+        }
 
         public ICommand SubmitCommand { get; init; }
 
@@ -48,6 +54,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
                                                    .ToList();
             AnswerSetDTO answerSet = new AnswerSetDTO(UserId, selectedAnswerIds);
             GiveFeedback();
+            QuizEnabled = false;
             //_manager.SubmitAnswers(answerSet);
         }
 
