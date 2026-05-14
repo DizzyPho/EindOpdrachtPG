@@ -16,12 +16,14 @@ namespace MultipleChoiceGUI
     public partial class MainWindow : Window
     {
         Manager _manager;
+        MessageManager _messageManager;
         public MainWindow()
         {
             InitializeComponent();          
 
             _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                           ConfigurationService.GetSetting("databaseType")));
+            _messageManager = new MessageManager();
             //List<Question> q = reader.Read("./Data/Muziek80s.txt");
             //quizRepository.ImportQuestions(q, [1,2,3]);
 
@@ -29,13 +31,13 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuestions_Click(object sender, RoutedEventArgs e)
         {
-            QuestionsWindow qw = new QuestionsWindow(_manager);
+            QuestionsWindow qw = new QuestionsWindow(_manager, _messageManager);
             qw.ShowDialog();
         }
 
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
         {
-            QuizInfoWindow qiw = new QuizInfoWindow(_manager);
+            QuizInfoWindow qiw = new QuizInfoWindow(_manager, _messageManager);
             qiw.ShowDialog();
         }
     }

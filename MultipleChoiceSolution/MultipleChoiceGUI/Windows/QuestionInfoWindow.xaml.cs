@@ -30,12 +30,12 @@ namespace MultipleChoiceGUI.Windows
     {
         Manager _manager;
         QuestionInfoViewModel _viewModel;
-        public QuestionsWindow(Manager manager)
+        public QuestionsWindow(Manager manager, MessageManager messageManager)
         {
             InitializeComponent();
             _manager = manager;
 
-            _viewModel = new QuestionInfoViewModel(_manager, this);
+            _viewModel = new QuestionInfoViewModel(_manager, messageManager, this);
             DataContext = _viewModel;
         }
         public void CloseAction()
