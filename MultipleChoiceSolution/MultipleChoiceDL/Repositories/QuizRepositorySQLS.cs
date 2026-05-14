@@ -69,7 +69,7 @@ namespace MultipleChoiceDL.Repositories
         {
             List<QuestionDTO> questions = new List<QuestionDTO>();
 
-            const string query = "SELECT q.id, question_text from question q " +
+            const string query = "SELECT q.id, question_text, q.is_enabled from question q " +
                                  "JOIN question_topic t on t.question_id = q.id " +
                                  "WHERE t.topic_id = @topic_id";
 
@@ -84,7 +84,7 @@ namespace MultipleChoiceDL.Repositories
                 {
                     while (reader.Read())
                     {
-                        questions.Add(new QuestionDTO(reader.GetInt32(0), reader.GetString(1)));
+                        questions.Add(new QuestionDTO(reader.GetInt32(0), reader.GetString(1), reader.GetBoolean(2)));
                     }
                 }
             }
