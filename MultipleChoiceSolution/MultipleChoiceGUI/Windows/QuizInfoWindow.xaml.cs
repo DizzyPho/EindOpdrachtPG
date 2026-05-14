@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.QuizInfo;
 using System;
 using System.Collections.Generic;
