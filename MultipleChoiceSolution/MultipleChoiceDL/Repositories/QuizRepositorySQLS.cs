@@ -143,9 +143,10 @@ namespace MultipleChoiceDL.Repositories
             foreach (int questionId in answers.Keys)
             {
                 Question.TryCreate(questionTexts[questionId], answers[questionId], questionId, out FactoryResult<Question> questionResult);
+                questionResult.Result.ShuffleAnswers(new Random(seed));
                 questions.Add(questionResult.Result);
             }
-
+            
             Quiz.TryCreate(id, quizName, seed, questions, out FactoryResult<Quiz> quizResult);
             return quizResult.Result;
 
