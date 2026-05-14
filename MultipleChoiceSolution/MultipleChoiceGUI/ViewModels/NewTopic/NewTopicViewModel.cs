@@ -30,7 +30,7 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
         {
             if (!String.IsNullOrWhiteSpace(TopicName))
             {
-                int id = _manager.InsertTopic(TopicName);
+                _manager.InsertTopic(TopicName);
                 MessageBox.Show("Toevoegen succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
                 CloseAction();
             }
