@@ -455,7 +455,7 @@ namespace MultipleChoiceDL.Repositories
             return id;
         }
 
-        public void SubmitAnswers(AnswerSetDTO answerSet)
+        public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
             const string query = "INSERT INTO user_answer (user_id,answer_id,date) VALUES " +
                                  "(@user_id,@answer_id,@date)";
@@ -464,16 +464,32 @@ namespace MultipleChoiceDL.Repositories
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@user_id", answerSet.UserId);
                 cmd.Parameters.AddWithValue("@date", DateTime.Now);
+                cmd.Parameters.Add(new SqlParameter("@user_id", SqlDbType.Int)); 
                 cmd.Parameters.Add(new SqlParameter("@answer_id", SqlDbType.Int));
 
                 conn.Open();
-                foreach (int id in answerSet.AnswerIds)
+                SqlTransaction tran = conn.BeginTransaction();
+                cmd.Transaction = tran;
+                try
                 {
-                    cmd.Parameters["@answer_id"].Value = id;
-                    cmd.ExecuteNonQuery();
-                } 
+                    foreach (AnswerSetDTO answerSet in answerSets)
+                    {
+                        cmd.Parameters["@user_id"].Value = answerSet.UserId;
+                        foreach (int id in answerSet.AnswerIds)
+                        {
+                            cmd.Parameters["@answer_id"].Value = id;
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    tran.Commit();
+                }
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    throw ex;
+                }
+
             }
         }
     }

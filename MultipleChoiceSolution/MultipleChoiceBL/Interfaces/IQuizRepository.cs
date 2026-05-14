@@ -20,6 +20,6 @@ namespace MultipleChoiceBL.Interfaces
 
         public int InsertQuiz(Quiz quiz);
         public List<QuizDTO> GetQuizDTOs();
-        public void SubmitAnswers(AnswerSetDTO answerSet);
+        public void SubmitAnswerSets(List<AnswerSetDTO> answerSets);
     }
 }

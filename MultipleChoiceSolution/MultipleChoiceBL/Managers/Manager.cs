@@ -63,7 +63,11 @@ namespace MultipleChoiceBL.Managers
 
         public void SubmitAnswers(AnswerSetDTO answerSet)
         {
-            _repository.SubmitAnswers(answerSet);
+            _repository.SubmitAnswerSets([answerSet]);
+        }
+        public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
+        {
+            _repository.SubmitAnswerSets(answerSets);
         }
     }
 }
