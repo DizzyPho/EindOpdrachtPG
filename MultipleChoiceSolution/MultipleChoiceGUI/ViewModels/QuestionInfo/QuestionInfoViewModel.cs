@@ -73,7 +73,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         internal void SelectedTopicChange(Topic topic)
         {
             QuestionList = _manager.GetQuestionDTOs(topic.Id)
-                                    .Select(dto => new QuestionViewModel(dto))
+                                    .Select(dto => new QuestionViewModel(dto, _manager))
                                     .ToList(); 
         }
     }

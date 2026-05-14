@@ -23,5 +23,6 @@ namespace MultipleChoiceBL.Interfaces
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets);
         public void InsertUserIfNotExists(int id, string username);
         public List<string> GetQuestionTopics(int questionId);
+        public void SetQuestionEnabled(int id, bool isEnabled);
     }
 }

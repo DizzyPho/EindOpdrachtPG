@@ -534,5 +534,22 @@ namespace MultipleChoiceDL.Repositories
             }
             return topics;
         }
+
+        public void SetQuestionEnabled(int id, bool isEnabled)
+        {
+            const string query = "update question set is_enabled = @is_enabled " +
+                                 "where id = @id";
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            { 
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@is_enabled", isEnabled);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }

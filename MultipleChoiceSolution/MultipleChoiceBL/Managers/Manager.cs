@@ -57,9 +57,10 @@ namespace MultipleChoiceBL.Managers
             Quiz quiz = generator.GenerateQuiz(questionAmounts, quizName);
 
             int id = _repository.InsertQuiz(quiz);
-            QuizDTO dto = new QuizDTO(id, quiz.Name, quiz.Questions.Count, _repository.GetQuestionTopics(id));
+            
+            //QuizDTO dto = new QuizDTO(id, quiz.Name, quiz.Questions.Count, _repository.GetQuestionTopics(id));
+            //_messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
 
-            _messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
 
             return quiz;
         }
@@ -81,6 +82,11 @@ namespace MultipleChoiceBL.Managers
                 _repository.InsertUserIfNotExists(answerSet.UserId, $"gebruiker{answerSet.UserId}");
             }
             _repository.SubmitAnswerSets(answerSets);
+        }
+
+        public void SetQuestionEnabled(int id, bool isEnabled)
+        {
+            _repository.SetQuestionEnabled(id, isEnabled);
         }
     }
 }
