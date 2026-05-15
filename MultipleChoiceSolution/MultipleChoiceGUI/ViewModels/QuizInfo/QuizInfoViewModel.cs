@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.QuizInfo
@@ -50,6 +51,7 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
             if(saveFileDialog.ShowDialog() == true)
             {
                 _manager.SaveQuiz(_manager.GetQuiz(SelectedQuiz.Id), saveFileDialog.FileName);
+                MessageBox.Show("Export gelukt!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
