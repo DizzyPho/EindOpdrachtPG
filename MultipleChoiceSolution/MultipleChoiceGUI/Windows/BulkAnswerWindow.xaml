@@ -13,7 +13,7 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Bulk Antwoorden Ingeven" Grid.Row="0" Margin="8"></Label>
-        <TextBox Margin="8" Grid.Row="1" TextWrapping="Wrap" Text=""></TextBox>
+        <TextBox Margin="8" Grid.Row="1" TextWrapping="Wrap" Text="" AcceptsReturn="True"></TextBox>
         <Button Margin="8" Grid.Row="2" Content="Importeren" HorizontalAlignment="Right" Padding="16 4"></Button>
         <Button Margin="8" Grid.Row="2" Content="Terug" HorizontalAlignment="Left" Padding="16 4"></Button>
     </Grid>
