@@ -1,5 +1,6 @@
 ﻿using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Commands;
 using MultipleChoiceGUI.Interfaces;
@@ -16,7 +17,7 @@ namespace MultipleChoiceGUI.ViewModels.BulkAnswer
         Manager _manager;
         IActionableWindow _actionableWindow;
         Quiz _quiz;
-        public BulkAnswerViewModel(int quizId, Manager manager, IActionableWindow actionableWindow) : base(actionableWindow)
+        public BulkAnswerViewModel(int quizId, Manager manager, IQuizFileWriter fileWriter, IActionableWindow actionableWindow) : base(actionableWindow)
         {
             _manager = manager;
             _quiz = _manager.GetQuiz(quizId);

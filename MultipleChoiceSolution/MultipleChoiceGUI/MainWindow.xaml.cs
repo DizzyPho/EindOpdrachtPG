@@ -17,6 +17,7 @@ namespace MultipleChoiceGUI
     {
         Manager _manager;
         MessageManager _messageManager;
+        IQuizFileWriter _fileWriter;
         public MainWindow()
         {
             InitializeComponent();          
@@ -24,6 +25,7 @@ namespace MultipleChoiceGUI
             _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                           ConfigurationService.GetSetting("databaseType")));
             _messageManager = new MessageManager();
+            _fileWriter = FileWriterFactory.Create(); 
             //List<Question> q = reader.Read("./Data/Muziek80s.txt");
             //quizRepository.ImportQuestions(q, [1,2,3]);
 
@@ -37,7 +39,7 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
         {
-            QuizInfoWindow qiw = new QuizInfoWindow(_manager, _messageManager);
+            QuizInfoWindow qiw = new QuizInfoWindow(_manager, _messageManager, _fileWriter);
             qiw.ShowDialog();
         }
     }
