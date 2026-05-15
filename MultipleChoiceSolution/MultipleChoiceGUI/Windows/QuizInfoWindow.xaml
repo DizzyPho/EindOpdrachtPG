@@ -17,9 +17,10 @@
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Overzicht Testen" Margin="8"></Label>
-        <ListBox Grid.Row="1" Grid.Column="0" Margin="8" Grid.RowSpan="3"
+        <ListBox Grid.Row="1" Grid.Column="0" Margin="8" Grid.RowSpan="4"
                  ItemsSource="{Binding Quizzes}" SelectedItem="{Binding SelectedQuiz}"></ListBox>
 
         <Label Margin="8" Grid.Row="0" Grid.Column="1" Content="{Binding SelectedQuiz.Name}"></Label>
@@ -42,8 +43,9 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <Button Grid.Row="3" Margin="8" Content="Test Uitvoeren" Grid.Column="1" Click="SolveQuiz_Click"></Button>
-        <Button Grid.Row="4" Margin="8" Content="Bulk input verwerken" Grid.Column="1" Click="BulkInput_Click"></Button>
-        <Button Grid.Row="4" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
+        <Button Grid.Row="3" Margin="8" Content="Test Exporteren" Grid.Column="1"></Button>
+        <Button Grid.Row="4" Margin="8" Content="Test Uitvoeren" Grid.Column="1" Click="SolveQuiz_Click"></Button>
+        <Button Grid.Row="5" Margin="8" Content="Bulk input verwerken" Grid.Column="1" Click="BulkInput_Click"></Button>
+        <Button Grid.Row="5" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
     </Grid>
 </Window>
