@@ -72,14 +72,14 @@ namespace MultipleChoiceBL.Managers
 
         public void SubmitAnswers(AnswerSetDTO answerSet)
         {
-            _repository.InsertUserIfNotExists(answerSet.UserId, $"gebruiker{answerSet.UserId}");
+            _repository.InsertUserIfNotExists(answerSet.UserId);
             _repository.SubmitAnswerSets([answerSet]);
         }
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
             foreach (AnswerSetDTO answerSet in answerSets)
             {
-                _repository.InsertUserIfNotExists(answerSet.UserId, $"gebruiker{answerSet.UserId}");
+                _repository.InsertUserIfNotExists(answerSet.UserId);
             }
             _repository.SubmitAnswerSets(answerSets);
         }
