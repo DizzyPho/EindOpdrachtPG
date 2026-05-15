@@ -1,10 +1,14 @@
-﻿using MultipleChoiceBL.DTOs;
+﻿using Microsoft.Win32;
+using MultipleChoiceBL.Domain;
+using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceBL.Messages;
+using MultipleChoiceGUI.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.QuizInfo
 {
@@ -15,6 +19,8 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
         {
             _manager = manager;
             Quizzes = new ObservableCollection<QuizDTO>(_manager.GetQuizDTOs());
+            ExportCommand = new Command(OnExport);
+
             if (Quizzes.Count > 0)
             {
                 SelectedQuiz = Quizzes.First();
@@ -34,5 +40,18 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
             get => Get<QuizDTO>(); 
             set => Set(value);
         }
+        public ICommand ExportCommand { get; init; }
+        public void OnExport()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text file (*.txt)|*.txt";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if(saveFileDialog.ShowDialog() == true)
+            {
+                _manager.SaveQuiz(_manager.GetQuiz(SelectedQuiz.Id), saveFileDialog.FileName);
+            }
+        }
+
     }
 }

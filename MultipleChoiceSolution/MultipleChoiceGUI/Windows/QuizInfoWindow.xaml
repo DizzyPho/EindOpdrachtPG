@@ -43,7 +43,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <Button Grid.Row="3" Margin="8" Content="Test Exporteren" Grid.Column="1"></Button>
+        <Button Grid.Row="3" Margin="8" Content="Test Exporteren" Grid.Column="1" Command="{Binding ExportCommand}"></Button>
         <Button Grid.Row="4" Margin="8" Content="Test Uitvoeren" Grid.Column="1" Click="SolveQuiz_Click"></Button>
         <Button Grid.Row="5" Margin="8" Content="Bulk input verwerken" Grid.Column="1" Click="BulkInput_Click"></Button>
         <Button Grid.Row="5" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>

@@ -21,6 +21,11 @@ namespace MultipleChoiceBL.Managers
             _messageManager = new MessageManager();
         }
 
+        public void SaveQuiz(Quiz quiz, string path)
+        {
+            _fileWriter.SaveQuiz(quiz, path);
+        }
+
         public Question GetQuestion(int questionId)
         {
             return _repository.GetQuestion(questionId);
