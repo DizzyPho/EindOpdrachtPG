@@ -26,8 +26,6 @@ namespace MultipleChoiceGUI
                                           ConfigurationService.GetSetting("databaseType")));
             _messageManager = new MessageManager();
             _fileWriter = FileWriterFactory.Create(); 
-            //List<Question> q = reader.Read("./Data/Muziek80s.txt");
-            //quizRepository.ImportQuestions(q, [1,2,3]);
 
         }
 
