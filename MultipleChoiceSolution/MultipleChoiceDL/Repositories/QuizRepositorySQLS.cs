@@ -152,19 +152,24 @@ namespace MultipleChoiceDL.Repositories
 
         }
 
-        public void InsertUserIfNotExists(int id)
+        public void InsertUsersIfNotExists(IEnumerable<int> ids)
         {
-            const string query = "if not exists (select @id from dbo.[user]) begin " +
+            const string query = "if not exists (select id from dbo.[user] where id = @id) begin " +
                                  "insert into dbo.[user] values (@id) end";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
             { 
                 cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
 
                 conn.Open();
-                cmd.ExecuteNonQuery();
+                foreach(int id in ids)
+                {
+                    cmd.Parameters["@id"].Value = id;
+                    cmd.ExecuteNonQuery();
+                }
+
             }
         }
 
