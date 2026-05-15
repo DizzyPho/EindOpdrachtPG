@@ -21,11 +21,12 @@ namespace MultipleChoiceGUI
         {
             InitializeComponent();          
 
+            _messageManager = new MessageManager();
             IQuizFileWriter fileWriter = FileWriterFactory.Create();
             IQuizRepository repo = RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
-                                          ConfigurationService.GetSetting("databaseType"));
+                                                      _messageManager,         
+                                                      ConfigurationService.GetSetting("databaseType"));
             _manager = new Manager(repo, fileWriter);
-            _messageManager = new MessageManager();
 
         }
 

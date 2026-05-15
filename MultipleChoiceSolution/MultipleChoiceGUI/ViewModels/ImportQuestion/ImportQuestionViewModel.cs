@@ -59,6 +59,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
         {
             string fileFormat = FormatOptions.Single(f => f.IsChecked).Option;
             _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
+                                                                  new MessageManager(),
                                                                   ConfigurationService.GetSetting("databaseType")),
                                                                   FileReaderFactory.Create(fileFormat));
 

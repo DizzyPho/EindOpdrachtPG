@@ -4,6 +4,8 @@ using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.FactoryResults;
 using MultipleChoiceBL.Interfaces;
+using MultipleChoiceBL.Managers;
+using MultipleChoiceBL.Messages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,10 +18,12 @@ namespace MultipleChoiceDL.Repositories
     public class QuizRepositorySQLS : IQuizRepository
     {
         private string _connectionString;
+        private MessageManager _messageManager;
 
-        public QuizRepositorySQLS(string connectionString)
+        public QuizRepositorySQLS(string connectionString, MessageManager messageManager)
         {
             _connectionString = connectionString;
+            _messageManager = messageManager;
         }
 
         public Question GetQuestion(int questionId)
@@ -455,7 +459,7 @@ namespace MultipleChoiceDL.Repositories
         }
 
         // returns id of inserted topic, or -1 if topic could not be inserted.
-        public int InsertTopic(string topicName)
+        public void InsertTopic(string topicName)
         {
             int id;
             const string query = "INSERT INTO topic (topic) OUTPUT inserted.id VALUES (@topic)";
@@ -469,13 +473,14 @@ namespace MultipleChoiceDL.Repositories
                 try
                 {
                     id = (int)cmd.ExecuteScalar();
+                    Topic topic = new Topic(id, topicName);
+                    _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
                 }
                 catch
                 {
-                    id = -1;
+                    
                 }
             }
-            return id;
         }
 
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)

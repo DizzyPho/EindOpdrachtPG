@@ -1,4 +1,5 @@
 ﻿using MultipleChoiceBL.Interfaces;
+using MultipleChoiceBL.Managers;
 using MultipleChoiceDL.Repositories;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ namespace MultipleChoiceUtil.Factories
 {
     public static class RepoFactory
     {
-        public static IQuizRepository Create(string connectionString, string type)
+        public static IQuizRepository Create(string connectionString, MessageManager messageManager, string type)
         {
             IQuizRepository repo = type switch
             {
-                "SQLS" => new QuizRepositorySQLS(connectionString),
+                "SQLS" => new QuizRepositorySQLS(connectionString, messageManager),
                 _ => throw new ArgumentException("Invalid DB type")
             };
             return repo;
