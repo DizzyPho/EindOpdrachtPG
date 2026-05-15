@@ -462,7 +462,6 @@ namespace MultipleChoiceDL.Repositories
             }
         }
 
-        // returns id of inserted topic, or -1 if topic could not be inserted.
         public void InsertTopic(string topicName)
         {
             int id;
