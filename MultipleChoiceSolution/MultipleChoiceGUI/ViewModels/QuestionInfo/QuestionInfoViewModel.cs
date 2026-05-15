@@ -63,6 +63,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
         }
         internal void SelectedQuestionChange(QuestionViewModel question)
         {
+            if (question == null) return;
             QuestionText = question.QuestionText;
             var answers = _manager.GetQuestion(question.Id)
                                               .GetAnswers()
