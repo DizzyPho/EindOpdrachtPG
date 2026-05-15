@@ -17,9 +17,11 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
     {
         Manager _manager;
         ImportManager _importManager;
-        public ImportQuestionViewModel(Manager manager, IActionableWindow window) : base(window)
+        MessageManager _messageManager;
+        public ImportQuestionViewModel(Manager manager, MessageManager messageManager, IActionableWindow window) : base(window)
         {
             _manager = manager;
+            _messageManager = messageManager;
             
             TopicList = _manager.GetTopics()
                                 .Select(topic => new TopicViewModel(topic))
@@ -59,7 +61,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
         {
             string fileFormat = FormatOptions.Single(f => f.IsChecked).Option;
             _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
-                                                                  new MessageManager(),
+                                                                  _messageManager,
                                                                   ConfigurationService.GetSetting("databaseType")),
                                                                   FileReaderFactory.Create(fileFormat));
 

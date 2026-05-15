@@ -20,10 +20,10 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class ImportQuestionsWindow : Window, IActionableWindow
     {
-        public ImportQuestionsWindow(Manager manager)
+        public ImportQuestionsWindow(Manager manager, MessageManager messageManager)
         {
             InitializeComponent();
-            DataContext = new ImportQuestionViewModel(manager, this);
+            DataContext = new ImportQuestionViewModel(manager, messageManager, this);
         }
 
         public void CloseAction()

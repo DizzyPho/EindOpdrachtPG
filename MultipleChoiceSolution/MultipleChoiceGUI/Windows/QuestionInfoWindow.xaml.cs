@@ -29,13 +29,15 @@ namespace MultipleChoiceGUI.Windows
     public partial class QuestionsWindow : Window, IActionableWindow
     {
         Manager _manager;
+        MessageManager _messageManager;
         QuestionInfoViewModel _viewModel;
         public QuestionsWindow(Manager manager, MessageManager messageManager)
         {
             InitializeComponent();
             _manager = manager;
+            _messageManager = messageManager;
 
-            _viewModel = new QuestionInfoViewModel(_manager, messageManager, this);
+            _viewModel = new QuestionInfoViewModel(_manager, _messageManager, this);
             DataContext = _viewModel;
         }
         public void CloseAction()
@@ -51,7 +53,7 @@ namespace MultipleChoiceGUI.Windows
 
         private void ImportQuestions_Click(object sender, RoutedEventArgs e)
         {
-            ImportQuestionsWindow iqw = new ImportQuestionsWindow(_manager);
+            ImportQuestionsWindow iqw = new ImportQuestionsWindow(_manager, _messageManager);
             iqw.ShowDialog();
         }
         private void NewQuestion_Click(object sender, RoutedEventArgs e)
