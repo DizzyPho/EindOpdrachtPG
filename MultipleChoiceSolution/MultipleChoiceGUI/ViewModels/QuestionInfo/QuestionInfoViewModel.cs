@@ -21,9 +21,9 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             get => Get<ObservableCollection<Topic>>();
             set => Set(value);
         }
-        public List<QuestionViewModel> QuestionList
+        public ObservableCollection<QuestionViewModel> QuestionList
         {
-            get => Get<List<QuestionViewModel>>();
+            get => Get<ObservableCollection<QuestionViewModel>>();
             set => Set(value);
         }
         public Topic SelectedTopic
@@ -60,6 +60,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
             Topics = new ObservableCollection<Topic>(_manager.GetTopics());
 
             messageManager.Register<NewTopicMessage>(this, (o, message) => Topics.Add(message.Topic));
+            messageManager.Register<QuestionsImportedMessage>(this, (o, message) => OnNewQuestionsImported(message.TopicIds, message.Questions));
         }
         internal void SelectedQuestionChange(QuestionViewModel question)
         {
@@ -73,9 +74,20 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 
         internal void SelectedTopicChange(Topic topic)
         {
-            QuestionList = _manager.GetQuestionDTOs(topic.Id)
-                                    .Select(dto => new QuestionViewModel(dto, _manager))
-                                    .ToList(); 
+            QuestionList = new ObservableCollection<QuestionViewModel>
+                           (_manager.GetQuestionDTOs(topic.Id)
+                                    .Select(dto => new QuestionViewModel(dto, _manager))); 
+        }
+
+        private void OnNewQuestionsImported(List<int> topicIds, List<QuestionDTO> dtos)
+        {
+            if (topicIds.Contains(SelectedTopic.Id))
+            {
+                var newQuestions = dtos.Select(dto => new QuestionViewModel(dto, _manager));
+
+                QuestionList = new ObservableCollection<QuestionViewModel>(QuestionList.Union(newQuestions));
+                                           
+            }
         }
     }
 }
