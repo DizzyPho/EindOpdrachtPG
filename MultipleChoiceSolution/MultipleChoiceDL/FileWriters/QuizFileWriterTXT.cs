@@ -29,6 +29,7 @@ namespace MultipleChoiceDL.FileWriters
                         letter++;
                     }
 
+                    sw.WriteLine();
                     questionNumber++;
                 }
             }
