@@ -46,5 +46,11 @@ namespace MultipleChoiceGUI.Windows
             SolveQuizWindow sqw = new SolveQuizWindow(_viewModel.SelectedQuiz.Id, _manager);
             sqw.ShowDialog();
         }
+
+        private void BulkInput_Click(object sender, RoutedEventArgs e)
+        {
+            BulkAnswerWindow baw = new BulkAnswerWindow();
+            baw.ShowDialog();
+        }
     }
 }
