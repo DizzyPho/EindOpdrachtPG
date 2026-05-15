@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.Domain;
+﻿using Microsoft.Win32;
+using MultipleChoiceBL.Domain;
 using MultipleChoiceBL.DTOs;
 using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
@@ -17,7 +18,7 @@ namespace MultipleChoiceGUI.ViewModels.BulkAnswer
         Manager _manager;
         IActionableWindow _actionableWindow;
         Quiz _quiz;
-        public BulkAnswerViewModel(int quizId, Manager manager, IQuizFileWriter fileWriter, IActionableWindow actionableWindow) : base(actionableWindow)
+        public BulkAnswerViewModel(int quizId, Manager manager, IActionableWindow actionableWindow) : base(actionableWindow)
         {
             _manager = manager;
             _quiz = _manager.GetQuiz(quizId);
@@ -45,6 +46,8 @@ namespace MultipleChoiceGUI.ViewModels.BulkAnswer
                 MessageBox.Show("Er ging iets mis. Kijk de input na.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
 
         public List<AnswerSetDTO> BulkTextToAnswerSets()
         { 

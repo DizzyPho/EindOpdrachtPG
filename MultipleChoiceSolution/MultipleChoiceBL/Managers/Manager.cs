@@ -12,10 +12,12 @@ namespace MultipleChoiceBL.Managers
     public class Manager
     {
         private IQuizRepository _repository;
+        private IQuizFileWriter _fileWriter;
         private MessageManager _messageManager;
-        public Manager(IQuizRepository repository) 
+        public Manager(IQuizRepository repository, IQuizFileWriter fileWriter) 
         {
             _repository = repository;
+            _fileWriter = fileWriter;
             _messageManager = new MessageManager();
         }
 

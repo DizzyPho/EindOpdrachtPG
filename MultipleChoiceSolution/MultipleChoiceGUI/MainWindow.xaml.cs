@@ -17,15 +17,15 @@ namespace MultipleChoiceGUI
     {
         Manager _manager;
         MessageManager _messageManager;
-        IQuizFileWriter _fileWriter;
         public MainWindow()
         {
             InitializeComponent();          
 
-            _manager = new Manager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
-                                          ConfigurationService.GetSetting("databaseType")));
+            IQuizFileWriter fileWriter = FileWriterFactory.Create();
+            IQuizRepository repo = RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
+                                          ConfigurationService.GetSetting("databaseType"));
+            _manager = new Manager(repo, fileWriter);
             _messageManager = new MessageManager();
-            _fileWriter = FileWriterFactory.Create(); 
 
         }
 
@@ -37,7 +37,7 @@ namespace MultipleChoiceGUI
 
         private void ButtonQuiz_Click(object sender, RoutedEventArgs e)
         {
-            QuizInfoWindow qiw = new QuizInfoWindow(_manager, _messageManager, _fileWriter);
+            QuizInfoWindow qiw = new QuizInfoWindow(_manager, _messageManager);
             qiw.ShowDialog();
         }
     }

@@ -21,10 +21,10 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class BulkAnswerWindow : Window, IActionableWindow
     {
-        public BulkAnswerWindow(int quizId, Manager manager, IQuizFileWriter fileWriter)
+        public BulkAnswerWindow(int quizId, Manager manager)
         {
             InitializeComponent();
-            DataContext = new BulkAnswerViewModel(quizId, manager, fileWriter, this); 
+            DataContext = new BulkAnswerViewModel(quizId, manager, this); 
         }
 
         public void CloseAction()

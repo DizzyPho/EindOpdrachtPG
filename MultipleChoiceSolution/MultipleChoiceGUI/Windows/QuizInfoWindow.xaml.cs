@@ -23,13 +23,11 @@ namespace MultipleChoiceGUI.Windows
     {
         Manager _manager;
         QuizInfoViewModel _viewModel;
-        IQuizFileWriter _fileWriter;
-        public QuizInfoWindow(Manager manager, MessageManager messageManager, IQuizFileWriter fileWriter)
+        public QuizInfoWindow(Manager manager, MessageManager messageManager)
         {
             InitializeComponent();
             _manager = manager;
             _viewModel = new QuizInfoViewModel(_manager, messageManager);
-            _fileWriter = fileWriter;
             DataContext = _viewModel;
         }
 
@@ -52,7 +50,7 @@ namespace MultipleChoiceGUI.Windows
 
         private void BulkInput_Click(object sender, RoutedEventArgs e)
         {
-            BulkAnswerWindow baw = new BulkAnswerWindow(_viewModel.SelectedQuiz.Id, _manager, _fileWriter);
+            BulkAnswerWindow baw = new BulkAnswerWindow(_viewModel.SelectedQuiz.Id, _manager);
             baw.ShowDialog();
         }
     }
