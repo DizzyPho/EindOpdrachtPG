@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Label Content="Bulk Antwoorden Ingeven" Grid.Row="0" Margin="8"></Label>
         <TextBox Margin="8" Grid.Row="1" TextWrapping="Wrap" Text="{Binding BulkText}" AcceptsReturn="True"></TextBox>
-        <Button Margin="8" Grid.Row="2" Content="Importeren" HorizontalAlignment="Right" Padding="16 4"></Button>
-        <Button Margin="8" Grid.Row="2" Content="Terug" HorizontalAlignment="Left" Padding="16 4"></Button>
+        <Button Margin="8" Grid.Row="2" Content="Importeren" HorizontalAlignment="Right" Padding="16 4" Command="{Binding SubmitCommand}"></Button>
+        <Button Margin="8" Grid.Row="2" Content="Terug" HorizontalAlignment="Left" Padding="16 4" Command="{Binding CloseCommand}"></Button>
     </Grid>
 </Window>
