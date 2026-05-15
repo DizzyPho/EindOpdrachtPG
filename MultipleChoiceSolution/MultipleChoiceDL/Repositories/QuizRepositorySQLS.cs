@@ -381,12 +381,14 @@ namespace MultipleChoiceDL.Repositories
                 cmdQuestion.Transaction = tran;
                 cmdAnswer.Transaction = tran;
                 cmdQuestionTopic.Transaction = tran;
+                List<QuestionDTO> questionDTOs = new List<QuestionDTO>();
+                int questionId = -1;
                 try
                 {
                     foreach (Question question in questions)
                     {
                         cmdQuestion.Parameters["@question_text"].Value = question.QuestionText;
-                        int questionId = (int)cmdQuestion.ExecuteScalar();
+                        questionId = (int)cmdQuestion.ExecuteScalar();
 
                         cmdAnswer.Parameters["@question_id"].Value = questionId;
                         foreach (Answer answer in question.GetAnswers())
@@ -402,8 +404,10 @@ namespace MultipleChoiceDL.Repositories
                             cmdQuestionTopic.Parameters["@topic_id"].Value = id;
                             cmdQuestionTopic.ExecuteNonQuery();
                         }
+                        questionDTOs.Add(new QuestionDTO(questionId, question.QuestionText, true));
                     }
                     tran.Commit();
+                    _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
                 }
                 catch (Exception ex)
                 {
