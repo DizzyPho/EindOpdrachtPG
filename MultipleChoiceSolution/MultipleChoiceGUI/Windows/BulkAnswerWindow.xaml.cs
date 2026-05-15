@@ -1,4 +1,6 @@
-﻿using MultipleChoiceGUI.Interfaces;
+﻿using MultipleChoiceBL.Managers;
+using MultipleChoiceGUI.Interfaces;
+using MultipleChoiceGUI.ViewModels.BulkAnswer;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,9 +20,10 @@ namespace MultipleChoiceGUI.Windows
     /// </summary>
     public partial class BulkAnswerWindow : Window, IActionableWindow
     {
-        public BulkAnswerWindow()
+        public BulkAnswerWindow(int quizId, Manager manager)
         {
             InitializeComponent();
+            DataContext = new BulkAnswerViewModel(quizId, manager, this); 
         }
 
         public void CloseAction()

@@ -49,7 +49,7 @@ namespace MultipleChoiceGUI.Windows
 
         private void BulkInput_Click(object sender, RoutedEventArgs e)
         {
-            BulkAnswerWindow baw = new BulkAnswerWindow();
+            BulkAnswerWindow baw = new BulkAnswerWindow(_viewModel.SelectedQuiz.Id, _manager);
             baw.ShowDialog();
         }
     }
