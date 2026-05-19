@@ -89,10 +89,6 @@ namespace MultipleChoiceBL.Managers
         }
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
-            foreach (AnswerSetDTO answerSet in answerSets)
-            {
-                
-            }
             _repository.InsertUsersIfNotExists(answerSets.Select(a => a.UserId));
             _repository.SubmitAnswerSets(answerSets);
         }
