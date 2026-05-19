@@ -48,7 +48,8 @@ namespace MultipleChoiceBL.Managers
 
         public void InsertQuestion(Question question, List<int> topicIds)
         {
-            List<QuestionDTO> InsertedTopicIds = _repository.ImportQuestions(new List<Question> { question }, topicIds);
+            List<QuestionDTO> questionDTOs = _repository.ImportQuestions(new List<Question> { question }, topicIds);
+            _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
         }
 
         public void InsertTopic(string topicName)
