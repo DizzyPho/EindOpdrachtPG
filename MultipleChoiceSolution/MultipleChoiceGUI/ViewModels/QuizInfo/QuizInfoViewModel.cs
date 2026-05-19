@@ -51,6 +51,11 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
                 Results = GetQuizResults(value);
             }
         }
+        public ResultViewModel SelectedUserResult
+        {
+            get => Get<ResultViewModel>();
+            set => Set(value);
+        }
         public ICommand ExportCommand { get; init; }
         public void OnExport()
         {

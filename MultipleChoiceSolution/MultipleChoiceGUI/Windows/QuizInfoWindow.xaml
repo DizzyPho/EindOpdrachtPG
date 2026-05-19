@@ -52,7 +52,9 @@
             </ItemsControl>
         </StackPanel>
         <ListView Margin="8" Grid.Row="1" Grid.RowSpan="3" Grid.Column="2"
-                  ItemsSource="{Binding Results}" HorizontalContentAlignment="Stretch">
+                  ItemsSource="{Binding Results}" 
+                  SelectedItem="{Binding SelectedUserResult}"
+                  HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <DockPanel>
@@ -63,7 +65,7 @@
             </ListView.ItemTemplate>
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Bekijken"></MenuItem>
+                    <MenuItem Header="Bekijken" Click="SeeResults_Click"></MenuItem>
                 </ContextMenu>
             </ListView.ContextMenu>
         </ListView>

@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.Managers;
+﻿using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.SolveQuiz;
 using System;
@@ -24,6 +25,11 @@ namespace MultipleChoiceGUI.Windows
         {
             InitializeComponent();
             DataContext = new QuizViewModel(quizId, manager, this);
+        }
+        public SolveQuizWindow(AnswerSetDTO answerSet, Manager manager)
+        {
+            InitializeComponent();
+            DataContext = new QuizViewModel(answerSet, manager, this);
         }
         public void CloseAction()
         {

@@ -6,6 +6,7 @@ using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Annotations;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.SolveQuiz
@@ -27,6 +28,22 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
                                       .ToList();
 
             SubmitCommand = new Command(OnSubmit);
+        }
+        public QuizViewModel(AnswerSetDTO answerSet, Manager manager, IActionableWindow window) 
+            : this(answerSet.QuizId, manager, window)
+        {
+            QuizEnabled = false;
+            foreach(KeyValuePair<int, List<int>> answersByQuestion in answerSet.QuestionAnswers)
+            {
+                FullQuestionViewModel question = Questions.Find(q => q.QuestionId == answersByQuestion.Key);
+                question.Answers.ForEach(answer => {
+                    if(answersByQuestion.Value.Contains(answer.Id))
+                    {
+                        answer.IsChecked = true;
+                    }
+                });
+                GiveFeedback();
+            }
         }
         public List<FullQuestionViewModel> Questions { get; init; }
         public String Title { get; init; }

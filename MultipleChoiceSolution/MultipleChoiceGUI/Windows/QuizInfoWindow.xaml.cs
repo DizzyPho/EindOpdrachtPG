@@ -1,4 +1,5 @@
-﻿using MultipleChoiceBL.Interfaces;
+﻿using MultipleChoiceBL.DTOs;
+using MultipleChoiceBL.Interfaces;
 using MultipleChoiceBL.Managers;
 using MultipleChoiceGUI.Interfaces;
 using MultipleChoiceGUI.ViewModels.QuizInfo;
@@ -52,6 +53,13 @@ namespace MultipleChoiceGUI.Windows
         {
             BulkAnswerWindow baw = new BulkAnswerWindow(_viewModel.SelectedQuiz.Id, _manager);
             baw.ShowDialog();
+        }
+
+        private void SeeResults_Click(object sender, RoutedEventArgs e)
+        {
+            AnswerSetDTO answerSet = _manager.GetAnswerSet(_viewModel.SelectedUserResult.UserId, _viewModel.SelectedQuiz.Id);
+            SolveQuizWindow sqw = new SolveQuizWindow(answerSet, _manager);
+            sqw.ShowDialog();
         }
     }
 }
