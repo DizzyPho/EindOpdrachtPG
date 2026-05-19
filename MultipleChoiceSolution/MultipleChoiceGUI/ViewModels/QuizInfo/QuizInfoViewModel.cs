@@ -36,10 +36,20 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
             set => Set(value);
         }
 
+        public ObservableCollection<ResultViewModel> Results
+        {
+            get => Get<ObservableCollection<ResultViewModel>>();
+            set => Set(value);
+        }
+
         public QuizDTO SelectedQuiz
         {
             get => Get<QuizDTO>(); 
-            set => Set(value);
+            set 
+            {
+                Set(value);
+                Results = GetQuizResults(value);
+            }
         }
         public ICommand ExportCommand { get; init; }
         public void OnExport()
@@ -53,6 +63,12 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
                 _manager.SaveQuiz(_manager.GetQuiz(SelectedQuiz.Id), saveFileDialog.FileName);
                 MessageBox.Show("Export gelukt!", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        public ObservableCollection<ResultViewModel> GetQuizResults(QuizDTO quiz)
+        {
+            var results = _manager.GetResultDTOs(quiz.Id).Select(r => new ResultViewModel(r, quiz.QuestionCount));
+            return new ObservableCollection<ResultViewModel>(results);
         }
 
     }
