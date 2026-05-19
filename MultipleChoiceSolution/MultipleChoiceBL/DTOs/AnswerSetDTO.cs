@@ -10,6 +10,7 @@ namespace MultipleChoiceBL.DTOs
     {
         public AnswerSetDTO(int quizId, int userId, Dictionary<int, List<int>> questionAnswers)
         {
+            QuizId = quizId;
             UserId = userId;
             QuestionAnswers = questionAnswers;
         }
