@@ -488,39 +488,26 @@ namespace MultipleChoiceDL.Repositories
 
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
-            const string query = "INSERT INTO user_answer (user_id,answer_id,date) VALUES " +
-                                 "(@user_id,@answer_id,@date)";
+            const string query = "INSERT INTO user_quiz (user_id, quiz_id, results_json) " +
+                                 "VALUES (@user_id, @quiz_id, @results_json)";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 cmd.CommandText = query;
-                cmd.Parameters.AddWithValue("@date", DateTime.Now);
                 cmd.Parameters.Add(new SqlParameter("@user_id", SqlDbType.Int)); 
-                cmd.Parameters.Add(new SqlParameter("@answer_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@quiz_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@results_json", SqlDbType.NVarChar));
 
-                conn.Open();
-                SqlTransaction tran = conn.BeginTransaction();
-                cmd.Transaction = tran;
-                try
-                {
+                conn.Open ();
+
                     foreach (AnswerSetDTO answerSet in answerSets)
                     {
                         cmd.Parameters["@user_id"].Value = answerSet.UserId;
-                        foreach (int id in answerSet.AnswerIds)
-                        {
-                            cmd.Parameters["@answer_id"].Value = id;
+                    cmd.Parameters["@quiz_id"].Value = answerSet.QuizId;
+                    cmd.Parameters["@results_json"].Value = answerSet.ToJson();
                             cmd.ExecuteNonQuery();
                         }
-                    }
-                    tran.Commit();
-                }
-                catch (Exception ex)
-                {
-                    tran.Rollback();
-                    throw ex;
-                }
-
             }
         }
 

@@ -2,19 +2,21 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace MultipleChoiceBL.DTOs
 {
     public class AnswerSetDTO
     {
-        public AnswerSetDTO(int userId, List<int> answerIds)
+        public AnswerSetDTO(int quizId, int userId, Dictionary<int, List<int>> questionAnswers)
         {
             UserId = userId;
-            AnswerIds = answerIds;
+            QuestionAnswers = questionAnswers;
         }
-
-        public int UserId { get; set; }
-        public List<int> AnswerIds { get; set; }
+        public int QuizId { get; init; }
+        public int UserId { get; init; }
+        public int Score { get; init; }
+        public Dictionary<int, List<int>> QuestionAnswers { get; init; }
 
         public static AnswerSetDTO StringToAnswerSet(Quiz quiz, string text)
         {
@@ -22,16 +24,16 @@ namespace MultipleChoiceBL.DTOs
             int.TryParse(fields[0], out int userId);
             string letters = fields[1];
 
-            List<Question> questions = quiz.Questions;
-            List<int> answerIds = new List<int>();
+            Dictionary<int, List<int>> questionAnswers = new Dictionary<int, List<int>>();
+            List <Question> questions = quiz.Questions;
 
             for (int i = 0; i < letters.Count(); i++)
             {
                 int index = LetterToInt(letters[i]);
                 try
                 {
-                    IReadOnlyList<Answer> answers = questions[i].GetAnswers();
-                    answerIds.Add((int)answers[index].Id);
+                    Question question = questions[i];
+                    IReadOnlyList<Answer> answers = question.GetAnswers();
                 }
                 catch
                 {
@@ -39,13 +41,22 @@ namespace MultipleChoiceBL.DTOs
                 }
             }
 
-            return new AnswerSetDTO(userId, answerIds);
+            return new AnswerSetDTO((int)quiz.Id,userId, questionAnswers);
         }
 
         public static int LetterToInt(char letter)
         {
             const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             return alphabet.IndexOf(letter);
+        }
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(this);
+        }
+
+        public static AnswerSetDTO FromJson(string json)
+        {
+            return JsonSerializer.Deserialize<AnswerSetDTO>(json);
         }
     }
 }

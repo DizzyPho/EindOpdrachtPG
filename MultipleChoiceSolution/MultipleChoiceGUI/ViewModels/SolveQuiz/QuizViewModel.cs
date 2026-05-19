@@ -13,9 +13,11 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
     public class QuizViewModel : WindowViewModel
     {
         Manager _manager;
+        int _quizId;
         public QuizViewModel(int quizId, Manager manager, IActionableWindow window) : base(window)
         {
             _manager = manager;
+            _quizId = quizId;
 
             Quiz quiz = _manager.GetQuiz(quizId);
             Title = quiz.Name;
@@ -48,11 +50,19 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
 
         public void OnSubmit()
         {
-            List<int> selectedAnswerIds = Questions.SelectMany(q => q.Answers)
+            Dictionary<int, List<int>> questionAnswers = new Dictionary<int, List<int>>();
+
+            foreach (FullQuestionViewModel question in Questions)
+            {
+                List<int> selectedAnswerIds = question.Answers
                                                    .Where(a => a.IsChecked)
                                                    .Select(a => a.Id)
                                                    .ToList();
-            AnswerSetDTO answerSet = new AnswerSetDTO(UserId, selectedAnswerIds);
+                questionAnswers.Add(question.QuestionId, selectedAnswerIds);
+
+            }
+
+            AnswerSetDTO answerSet = new AnswerSetDTO(_quizId, UserId, questionAnswers);
             GiveFeedback();
             QuizEnabled = false;
             _manager.SubmitAnswers(answerSet);
