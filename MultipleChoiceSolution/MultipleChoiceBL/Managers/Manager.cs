@@ -51,14 +51,16 @@ namespace MultipleChoiceBL.Managers
             List<QuestionDTO> questionDTOs = _repository.ImportQuestions(new List<Question> { question }, topicIds);
             _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
         }
-
-        public void InsertTopic(string topicName)
+        // return true if succesfull
+        public bool InsertTopic(string topicName)
         {
             Topic topic = _repository.InsertTopic(topicName);
             if(topic != null)
             {
                 _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
+                return true;
             }
+            return false;
         }
 
         public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
