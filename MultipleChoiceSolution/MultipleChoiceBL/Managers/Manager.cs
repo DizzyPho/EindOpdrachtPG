@@ -56,15 +56,22 @@ namespace MultipleChoiceBL.Managers
             _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
         }
         // return true if succesfull
-        public bool InsertTopic(string topicName)
+        public List<string> InsertTopic(string topicName)
         {
+            List<String> errors = new List<string>();
+            if (String.IsNullOrWhiteSpace(topicName)) errors.Add("Geef een geldige naam.");
+            if (errors.Count > 0) return errors;
+
             Topic topic = _repository.InsertTopic(topicName);
             if(topic != null)
             {
                 _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
-                return true;
             }
-            return false;
+            else
+            {
+                errors.Add("Er liep iets mis. Bestaat dit onderwerp al?");
+            }
+            return errors;
         }
 
         public List<string> GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)

@@ -28,15 +28,10 @@ namespace MultipleChoiceGUI.ViewModels.NewTopic
 
         public void OnAddNewTopic()
         {
-            if (String.IsNullOrWhiteSpace(TopicName))
+            List<string> errors = _manager.InsertTopic(TopicName);
+            if (errors.Count > 0)
             {
-                MessageBox.Show("Geef een naam in a.u.b.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            bool isSuccess = _manager.InsertTopic(TopicName);
-            if (!isSuccess)
-            {
-                MessageBox.Show("Er ging iets mis. Bestaat dit onderwerp al?", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(string.Join('\n',errors), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
