@@ -462,9 +462,10 @@ namespace MultipleChoiceDL.Repositories
             }
         }
 
-        public void InsertTopic(string topicName)
+        public Topic InsertTopic(string topicName)
         {
             int id;
+            Topic topic = null;
             const string query = "INSERT INTO topic (topic) OUTPUT inserted.id VALUES (@topic)";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -476,14 +477,14 @@ namespace MultipleChoiceDL.Repositories
                 try
                 {
                     id = (int)cmd.ExecuteScalar();
-                    Topic topic = new Topic(id, topicName);
-                    _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
+                    topic = new Topic(id, topicName);
                 }
                 catch
                 {
                     
                 }
             }
+            return topic;
         }
 
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)

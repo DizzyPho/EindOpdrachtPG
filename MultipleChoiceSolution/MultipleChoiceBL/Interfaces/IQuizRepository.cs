@@ -13,7 +13,7 @@ namespace MultipleChoiceBL.Interfaces
         List<QuestionDTO> GetQuestionDTOs(int topicId);
         public List<Topic> GetTopics();
         public List<QuestionDTO> ImportQuestions(List<Question> questions, List<int> topicIds);
-        public void InsertTopic(string topicName);
+        public Topic InsertTopic(string topicName);
 
         public Dictionary<int, List<int>> GetQuestionIdsByTopic();
         public List<Question> GetQuestions(List<int> questionIds);

@@ -54,7 +54,11 @@ namespace MultipleChoiceBL.Managers
 
         public void InsertTopic(string topicName)
         {
-            _repository.InsertTopic(topicName);
+            Topic topic = _repository.InsertTopic(topicName);
+            if(topic != null)
+            {
+                _messageManager.Send<NewTopicMessage>(new NewTopicMessage(topic));
+            }
         }
 
         public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
