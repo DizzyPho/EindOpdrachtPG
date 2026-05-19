@@ -5,6 +5,7 @@ using MultipleChoiceGUI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace MultipleChoiceGUI.ViewModels.NewQuiz
@@ -36,8 +37,15 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
                                                                     .Select(t => new KeyValuePair<Topic, int>(t.Topic, t.Count))
                                                                     .ToDictionary();
           
-            _manager.GenerateQuiz(questionAmountByTopic, Name);
-            CloseAction();
+            List<string> errors = _manager.GenerateQuiz(questionAmountByTopic, Name);
+            if (errors.Count > 0)
+            {
+                MessageBox.Show(string.Join('\n', errors), "Er liep iets mis.", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                CloseAction();
+            }
         }
     }
 }

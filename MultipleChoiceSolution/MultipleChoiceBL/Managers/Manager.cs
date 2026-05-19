@@ -67,18 +67,25 @@ namespace MultipleChoiceBL.Managers
             return false;
         }
 
-        public Quiz GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
+        public List<string> GenerateQuiz(Dictionary<Topic, int> questionAmounts, string quizName)
         {
-            QuizGenerator generator = new QuizGenerator(_repository);
-            Quiz quiz = generator.GenerateQuiz(questionAmounts, quizName);
+            List<string> errors = new List<string>();
+            if (questionAmounts == null || questionAmounts.Keys.Count < 1) errors.Add("Selecteer minstens een onderwerp"); 
+            if (string.IsNullOrWhiteSpace(quizName)) errors.Add("Geef een geldige naam."); 
 
-            int id = _repository.InsertQuiz(quiz);
+
+            if(errors.Count == 0) 
+            {
+                QuizGenerator generator = new QuizGenerator(_repository);
+                Quiz quiz = generator.GenerateQuiz(questionAmounts, quizName);
+
+                int id = _repository.InsertQuiz(quiz);
             
-            QuizDTO dto = _repository.GetQuizDTO(id);
-            _messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
+                QuizDTO dto = _repository.GetQuizDTO(id);
+                _messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
+            }
 
-
-            return quiz;
+            return errors;
         }
 
         public Quiz GetQuiz(int id)
