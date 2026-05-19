@@ -18,7 +18,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuiz
             _manager = manager;
             GenerateQuizCommand = new Command(OnGenerateQuiz);
 
-            TopicList = _manager.GetTopics()
+            TopicList = _manager.GetNonEmptyTopics()
                                 .Select(t =>  new TopicQuestionsAmountViewModel(t))
                                 .ToList();
         }

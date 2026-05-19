@@ -390,6 +390,27 @@ namespace MultipleChoiceDL.Repositories
             }
             return topics;
         }
+        public List<Topic> GetNonEmptyTopics()
+        {
+            const string query = "SELECT distinct t.id, topic FROM topic t " +
+                                  "JOIN question_topic qt on qt.topic_id = t.id";
+            List<Topic> topics = new List<Topic>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                conn.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        topics.Add(new Topic(reader.GetInt32(0), reader.GetString(1)));
+                    }
+                }
+            }
+            return topics;
+        }
         //return DTOs of inserted questions
         public List<QuestionDTO> ImportQuestions(List<Question> questions, List<int> topicIds)
         {

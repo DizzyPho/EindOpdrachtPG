@@ -40,6 +40,10 @@ namespace MultipleChoiceBL.Managers
         {
             return _repository.GetTopics();
         }
+        public List<Topic> GetNonEmptyTopics()
+        {
+            return _repository.GetNonEmptyTopics();
+        }
 
         public List<QuizDTO> GetQuizDTOs()
         {
