@@ -30,6 +30,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
         }
         public List<FullQuestionViewModel> Questions { get; init; }
         public String Title { get; init; }
+        private int _scoreNumber;
         public String Score
         {
             get => Get<String>();
@@ -78,12 +79,14 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
                 ShowAnswerCorrect(answer);
             }
 
+            _scoreNumber = CalculateScore();
+            Score = $"Score: {_scoreNumber} / {questionCount}";
+        }
+        private int CalculateScore()
+        {
             int correctQuestions = Questions.Count(q => q.Answers
-                                            .All(a => 
-                                            {
-                                                return a.IsCorrect == a.IsChecked;
-                                            }));
-            Score = $"Score: {correctQuestions} / {questionCount}";
+                                            .All(a => a.IsCorrect == a.IsChecked));
+            return correctQuestions;
         }
 
         public void ShowAnswerCorrect(AnswerCheckViewModel answer)
