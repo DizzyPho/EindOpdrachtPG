@@ -28,6 +28,7 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
             }
 
             messageManager.Register<NewQuizMessage>(this, (o, message) => Quizzes.Add(message.QuizDTO));
+            messageManager.Register<NewResultMessage>(this, (o, message) => ProcessResultMessage(message));
         }
 
         public ObservableCollection<QuizDTO> Quizzes
@@ -76,5 +77,12 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
             return new ObservableCollection<ResultViewModel>(results);
         }
 
+        public void ProcessResultMessage(NewResultMessage message)
+        {
+            if(message.QuizId == SelectedQuiz.Id)
+            {
+                Results.Add(new ResultViewModel(message.Result, SelectedQuiz.QuestionCount));
+            }
+        }
     }
 }

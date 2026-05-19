@@ -86,6 +86,7 @@ namespace MultipleChoiceBL.Managers
         {
             _repository.InsertUsersIfNotExists([answerSet.UserId]);
             _repository.SubmitAnswerSets([answerSet]);
+            _messageManager.Send<NewResultMessage>(new NewResultMessage(answerSet));
         }
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
