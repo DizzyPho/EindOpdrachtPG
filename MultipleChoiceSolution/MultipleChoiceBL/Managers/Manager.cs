@@ -70,8 +70,8 @@ namespace MultipleChoiceBL.Managers
 
             int id = _repository.InsertQuiz(quiz);
             
-            //QuizDTO dto = new QuizDTO(id, quiz.Name, quiz.Questions.Count, _repository.GetQuestionTopics(id));
-            //_messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
+            QuizDTO dto = _repository.GetQuizDTO(id);
+            _messageManager.Send<NewQuizMessage>(new NewQuizMessage(dto));
 
 
             return quiz;

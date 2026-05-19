@@ -176,7 +176,46 @@ namespace MultipleChoiceDL.Repositories
 
             }
         }
+        public QuizDTO GetQuizDTO(int quizId)
+        {
+            const string queryQuizInfo = "select distinct quiz.name, topic.topic from quiz quiz " +
+                                 "join quiz_questions qq on quiz.id = qq.quiz_id " +
+                                 "join question question on question.id = qq.question_id " +
+                                 "join question_topic q_topic on q_topic.question_id = question.id " +
+                                 "join topic topic on q_topic.topic_id = topic.id " +
+                                 "where quiz.id = @id";
+            const string queryQuestionCounts = "select count(qq.question_id) as count from quiz quiz " +
+                                               "join quiz_questions qq on quiz.id = qq.quiz_id " +
+                                               "group by quiz.id " +
+                                               "having quiz.id = @id";
+            string name = null;
+            List<string> topics = new List<string>();
+            int questionCount = -1;
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmdQuizInfo = conn.CreateCommand())
+            using (SqlCommand cmdQuestionCount = conn.CreateCommand())
+            {
+                cmdQuizInfo.CommandText = queryQuizInfo;
+                cmdQuizInfo.Parameters.AddWithValue("@id", quizId);
+                cmdQuestionCount.CommandText = queryQuestionCounts;
+                cmdQuestionCount.Parameters.AddWithValue("@id", quizId);
 
+                conn.Open ();
+                questionCount = (int)cmdQuestionCount.ExecuteScalar();
+                using (SqlDataReader reader = cmdQuizInfo.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if(name == null)
+                        {
+                            name = reader.GetString(0);
+                        }
+                        topics.Add(reader.GetString(1));
+                    }
+                }
+            }
+            return new QuizDTO(quizId, name, questionCount, topics);
+        }
         public List<QuizDTO> GetQuizDTOs()
         {
             const string queryTopicNames = "select distinct quiz.id, quiz.name, topic.topic from quiz quiz " +

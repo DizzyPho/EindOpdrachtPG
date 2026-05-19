@@ -23,6 +23,7 @@ namespace MultipleChoiceBL.Interfaces
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets);
         public void InsertUsersIfNotExists(IEnumerable<int> ids);
         public List<string> GetQuestionTopics(int questionId);
+        public QuizDTO GetQuizDTO(int quizId);
         public void SetQuestionEnabled(int id, bool isEnabled);
         public List<ResultDTO> GetResultDTOs(int quizId);
         public AnswerSetDTO GetAnswerSet(int userId, int quizId);
