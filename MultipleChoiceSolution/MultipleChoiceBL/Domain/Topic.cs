@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MultipleChoiceBL.Domain
 {
-    public record struct Topic
+    public class Topic
     {
         public Topic(int id, string name)
         {
