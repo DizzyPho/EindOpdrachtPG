@@ -25,5 +25,6 @@ namespace MultipleChoiceBL.Interfaces
         public List<string> GetQuestionTopics(int questionId);
         public void SetQuestionEnabled(int id, bool isEnabled);
         public List<ResultDTO> GetResultDTOs(int quizId);
+        public AnswerSetDTO GetAnswerSet(int userId, int quizId);
     }
 }

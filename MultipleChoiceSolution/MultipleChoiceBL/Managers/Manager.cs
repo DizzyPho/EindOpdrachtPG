@@ -99,5 +99,9 @@ namespace MultipleChoiceBL.Managers
         {
             return _repository.GetResultDTOs(quizId);
         }
+        public AnswerSetDTO GetAnswerSet(int userId, int quizId)
+        {
+            return _repository.GetAnswerSet(userId, quizId);
+        }
     }
 }

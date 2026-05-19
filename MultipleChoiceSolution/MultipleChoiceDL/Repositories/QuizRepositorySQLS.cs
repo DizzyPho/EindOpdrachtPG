@@ -576,5 +576,28 @@ namespace MultipleChoiceDL.Repositories
 
             return results;
         }
+
+        public AnswerSetDTO GetAnswerSet(int userId, int quizId)
+        {
+            const string query = "SELECT results_json FROM user_quiz WHERE quiz_id = @quiz_id and user_id = @user_id";
+            AnswerSetDTO answerSet = null;
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@quiz_id", quizId);
+                conn.Open ();
+
+                using(SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read())
+                    {
+                        answerSet = AnswerSetDTO.FromJson(reader.GetString(0));
+                    }
+                }
+            }
+            return answerSet;
+        }
     }
 }
