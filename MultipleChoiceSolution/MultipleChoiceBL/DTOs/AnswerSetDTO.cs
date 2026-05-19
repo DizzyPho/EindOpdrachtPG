@@ -35,6 +35,8 @@ namespace MultipleChoiceBL.DTOs
                 {
                     Question question = questions[i];
                     IReadOnlyList<Answer> answers = question.GetAnswers();
+                    int answerId = (int)answers[index].Id;
+                    questionAnswers.Add((int)question.Id, [answerId]);
                 }
                 catch
                 {
