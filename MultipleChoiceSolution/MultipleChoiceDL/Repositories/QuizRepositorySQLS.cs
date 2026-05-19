@@ -351,8 +351,8 @@ namespace MultipleChoiceDL.Repositories
             }
             return topics;
         }
-
-        public void ImportQuestions(List<Question> questions, List<int> topicIds)
+        //return DTOs of inserted questions
+        public List<QuestionDTO> ImportQuestions(List<Question> questions, List<int> topicIds)
         {
             const string queryQuestion = "INSERT INTO question (question_text) OUTPUT INSERTED.id VALUES (@question_text)";
             const string queryAnswer = "INSERT INTO answer (answer_text, is_correct, question_id) " +
@@ -407,7 +407,7 @@ namespace MultipleChoiceDL.Repositories
                         questionDTOs.Add(new QuestionDTO(questionId, question.QuestionText, true));
                     }
                     tran.Commit();
-                    _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
+                    return questionDTOs;
                 }
                 catch (Exception ex)
                 {
