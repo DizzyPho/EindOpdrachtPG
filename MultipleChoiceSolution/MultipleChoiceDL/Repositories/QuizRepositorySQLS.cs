@@ -553,5 +553,28 @@ namespace MultipleChoiceDL.Repositories
                 cmd.ExecuteNonQuery();
             }
         }
+        public List<ResultDTO> GetResultDTOs(int quizId)
+        {
+            const string query = "SELECT user_id, score FROM user_quiz WHERE quiz_id = @quiz_id";
+            List<ResultDTO> results = new List<ResultDTO>();
+
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = query;
+                cmd.Parameters.AddWithValue("@quiz_id", quizId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        results.Add(new ResultDTO(reader.GetInt32(0), reader.GetInt32(1)));
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }

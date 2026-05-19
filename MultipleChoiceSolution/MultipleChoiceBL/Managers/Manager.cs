@@ -94,5 +94,10 @@ namespace MultipleChoiceBL.Managers
         {
             _repository.SetQuestionEnabled(id, isEnabled);
         }
+
+        public List<ResultDTO> GetResultDTOs(int quizId)
+        {
+            return _repository.GetResultDTOs(quizId);
+        }
     }
 }

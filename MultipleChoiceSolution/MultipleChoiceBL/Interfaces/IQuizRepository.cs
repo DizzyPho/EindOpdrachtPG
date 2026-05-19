@@ -24,5 +24,6 @@ namespace MultipleChoiceBL.Interfaces
         public void InsertUsersIfNotExists(IEnumerable<int> ids);
         public List<string> GetQuestionTopics(int questionId);
         public void SetQuestionEnabled(int id, bool isEnabled);
+        public List<ResultDTO> GetResultDTOs(int quizId);
     }
 }
