@@ -63,7 +63,8 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                                                   _messageManager,
                                                                   ConfigurationService.GetSetting("databaseType")),
-                                                                  FileReaderFactory.Create(fileFormat));
+                                                                  FileReaderFactory.Create(fileFormat),
+                                                                  _messageManager);
 
             List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
             _importManager.ImportQuestions(FilePath, topicIds);
