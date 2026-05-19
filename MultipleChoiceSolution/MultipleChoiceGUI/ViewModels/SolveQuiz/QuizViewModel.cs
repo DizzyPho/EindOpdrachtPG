@@ -42,6 +42,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
                         answer.IsChecked = true;
                     }
                 });
+                UserId = answerSet.UserId;
                 GiveFeedback();
             }
         }
