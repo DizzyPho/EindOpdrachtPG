@@ -51,8 +51,8 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
 
         public void OnSubmit()
         {
+            GiveFeedback();
             Dictionary<int, List<int>> questionAnswers = new Dictionary<int, List<int>>();
-
             foreach (FullQuestionViewModel question in Questions)
             {
                 List<int> selectedAnswerIds = question.Answers
@@ -63,8 +63,7 @@ namespace MultipleChoiceGUI.ViewModels.SolveQuiz
 
             }
 
-            AnswerSetDTO answerSet = new AnswerSetDTO(_quizId, UserId, questionAnswers);
-            GiveFeedback();
+            AnswerSetDTO answerSet = new AnswerSetDTO(_quizId, UserId, _scoreNumber, questionAnswers);
             QuizEnabled = false;
             _manager.SubmitAnswers(answerSet);
         }

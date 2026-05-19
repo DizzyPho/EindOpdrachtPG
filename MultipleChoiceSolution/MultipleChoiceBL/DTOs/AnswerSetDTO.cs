@@ -1,6 +1,7 @@
 ﻿using MultipleChoiceBL.Domain;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipes;
 using System.Text;
 using System.Text.Json;
 
@@ -8,10 +9,11 @@ namespace MultipleChoiceBL.DTOs
 {
     public class AnswerSetDTO
     {
-        public AnswerSetDTO(int quizId, int userId, Dictionary<int, List<int>> questionAnswers)
+        public AnswerSetDTO(int quizId, int userId, int score, Dictionary<int, List<int>> questionAnswers)
         {
             QuizId = quizId;
             UserId = userId;
+            Score = score;
             QuestionAnswers = questionAnswers;
         }
         public int QuizId { get; init; }
@@ -25,6 +27,7 @@ namespace MultipleChoiceBL.DTOs
             int.TryParse(fields[0], out int userId);
             string letters = fields[1];
 
+            int score = 0;
             Dictionary<int, List<int>> questionAnswers = new Dictionary<int, List<int>>();
             List <Question> questions = quiz.Questions;
 
@@ -36,6 +39,7 @@ namespace MultipleChoiceBL.DTOs
                     Question question = questions[i];
                     IReadOnlyList<Answer> answers = question.GetAnswers();
                     int answerId = (int)answers[index].Id;
+                    if (answers[index].IsCorrect) score++;
                     questionAnswers.Add((int)question.Id, [answerId]);
                 }
                 catch
@@ -44,7 +48,7 @@ namespace MultipleChoiceBL.DTOs
                 }
             }
 
-            return new AnswerSetDTO((int)quiz.Id,userId, questionAnswers);
+            return new AnswerSetDTO((int)quiz.Id,userId,score, questionAnswers);
         }
 
         public static int LetterToInt(char letter)

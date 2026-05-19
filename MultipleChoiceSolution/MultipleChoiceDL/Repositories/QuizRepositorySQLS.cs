@@ -488,8 +488,8 @@ namespace MultipleChoiceDL.Repositories
 
         public void SubmitAnswerSets(List<AnswerSetDTO> answerSets)
         {
-            const string query = "INSERT INTO user_quiz (user_id, quiz_id, results_json) " +
-                                 "VALUES (@user_id, @quiz_id, @results_json)";
+            const string query = "INSERT INTO user_quiz (user_id, quiz_id, score, results_json) " +
+                                 "VALUES (@user_id, @quiz_id, @score, @results_json)";
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmd = conn.CreateCommand())
@@ -497,6 +497,7 @@ namespace MultipleChoiceDL.Repositories
                 cmd.CommandText = query;
                 cmd.Parameters.Add(new SqlParameter("@user_id", SqlDbType.Int)); 
                 cmd.Parameters.Add(new SqlParameter("@quiz_id", SqlDbType.Int));
+                cmd.Parameters.Add(new SqlParameter("@score", SqlDbType.Int));
                 cmd.Parameters.Add(new SqlParameter("@results_json", SqlDbType.NVarChar));
 
                 conn.Open ();
@@ -504,10 +505,11 @@ namespace MultipleChoiceDL.Repositories
                     foreach (AnswerSetDTO answerSet in answerSets)
                     {
                         cmd.Parameters["@user_id"].Value = answerSet.UserId;
-                    cmd.Parameters["@quiz_id"].Value = answerSet.QuizId;
-                    cmd.Parameters["@results_json"].Value = answerSet.ToJson();
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.Parameters["@quiz_id"].Value = answerSet.QuizId;
+                        cmd.Parameters["@score"].Value = answerSet.Score;
+                        cmd.Parameters["@results_json"].Value = answerSet.ToJson();
+                        cmd.ExecuteNonQuery();
+                    }
             }
         }
 
