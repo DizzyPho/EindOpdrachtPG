@@ -27,7 +27,10 @@ namespace MultipleChoiceBL.Domain
             foreach (KeyValuePair<Topic, int> amount in questionAmounts)
             {
                 int topicQuestionsAmount = 0;
-                List<int> currentTopicQuestions = QuestionIdsByTopic[amount.Key.Id];
+                if(!QuestionIdsByTopic.TryGetValue(amount.Key.Id, out List<int> currentTopicQuestions))
+                {
+                    continue;
+                }
                 while (topicQuestionsAmount < amount.Value)
                 {
                     if (currentTopicQuestions.Count == 0)
