@@ -81,7 +81,7 @@ namespace MultipleChoiceGUI.ViewModels.QuestionInfo
 
         private void OnNewQuestionsImported(List<int> topicIds, List<QuestionDTO> dtos)
         {
-            if (topicIds.Contains(SelectedTopic.Id))
+            if (SelectedTopic != null && topicIds.Contains(SelectedTopic.Id))
             {
                 var newQuestions = dtos.Select(dto => new QuestionViewModel(dto, _manager));
 
