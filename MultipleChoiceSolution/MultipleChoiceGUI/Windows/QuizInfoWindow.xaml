@@ -61,6 +61,11 @@
                     </DockPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Bekijken"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
         </ListView>
            
 
