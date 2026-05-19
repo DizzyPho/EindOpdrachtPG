@@ -67,19 +67,7 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
             }
 
             string fileFormat = checkedFileFormat.Option;
-
             List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
-            if (topicIds.Count == 0)
-            {
-                MessageBox.Show("Selecteer minstens een onderwerp.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if(string.IsNullOrWhiteSpace(FilePath))
-            {
-                MessageBox.Show("Selecteer een geldig bestand.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
 
             _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                                                   _messageManager,
@@ -87,10 +75,16 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
                                                                   FileReaderFactory.Create(fileFormat),
                                                                   _messageManager);
 
-            _importManager.ImportQuestions(FilePath, topicIds);
-
-            MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
-            CloseAction();
+            List<string> errors = _importManager.ImportQuestions(FilePath, topicIds);
+            if (errors.Count > 0)
+            {
+                MessageBox.Show(string.Join('\n', errors), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseAction();
+            }
         }
     }
 }

@@ -21,11 +21,20 @@ namespace MultipleChoiceBL.Managers
             _messageManager = messageManager;
         }
 
-        public void ImportQuestions(string path, List<int> topicIds)
+        public List<string> ImportQuestions(string path, List<int> topicIds)
         {
-            List<Question> questions = _reader.Read(path);
-            List<QuestionDTO> questionDTOs= _repository.ImportQuestions(questions, topicIds);
-            _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
+            List<string> errors = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(path)) errors.Add("Selecteer een geldig bestand");
+            if (topicIds.Count == 0) errors.Add("Selecteer minstens een onderwerp");
+
+            if (errors.Count == 0)
+            {
+                List<Question> questions = _reader.Read(path);
+                List<QuestionDTO> questionDTOs = _repository.ImportQuestions(questions, topicIds);
+                _messageManager.Send<QuestionsImportedMessage>(new QuestionsImportedMessage(topicIds, questionDTOs));
+            }
+            return errors;
         }
     }
 }
