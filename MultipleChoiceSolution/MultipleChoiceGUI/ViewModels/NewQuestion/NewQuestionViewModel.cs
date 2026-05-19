@@ -59,7 +59,7 @@ namespace MultipleChoiceGUI.ViewModels.NewQuestion
                 errors.Add("Please select at least one category.");
             }
 
-            foreach(AddAnswerViewModel answerViewModel in AnswerList)
+            foreach(AddAnswerViewModel answerViewModel in AnswerList.Where(a => !string.IsNullOrWhiteSpace(a.Text)))
             {
                 if(Answer.TryCreate(answerViewModel.Text, answerViewModel.IsChecked, out FactoryResult<Answer> answerResult))
                 {
