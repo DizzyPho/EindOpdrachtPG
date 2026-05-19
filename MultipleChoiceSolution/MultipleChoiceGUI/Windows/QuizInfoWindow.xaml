@@ -17,13 +17,19 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Overzicht Testen" Margin="8"></Label>
         <Label Grid.Row="0" Grid.Column="2" Content="Resultaten" Margin="8"></Label>
-        <ListBox Grid.Row="1" Grid.Column="0" Margin="8" Grid.RowSpan="4"
-                 ItemsSource="{Binding Quizzes}" SelectedItem="{Binding SelectedQuiz}"></ListBox>
+        <ListBox Grid.Row="1" Grid.Column="0" Margin="8" Grid.RowSpan="2"
+                 ItemsSource="{Binding Quizzes}" SelectedItem="{Binding SelectedQuiz}">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding ExportCommand}" Header="Exporteren"></MenuItem>
+                    <MenuItem Click="SolveQuiz_Click" Header="Test Uitvoeren"></MenuItem>
+                    <MenuItem Click="BulkInput_Click" Header="Bulk Input Verwerken"></MenuItem>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
 
         <Label Margin="8" Grid.Row="0" Grid.Column="1" Content="{Binding SelectedQuiz.Name}"></Label>
         <StackPanel Grid.Row="1" Grid.Column="1">
@@ -45,7 +51,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <ListView Margin="8" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
+        <ListView Margin="8" Grid.Row="1" Grid.RowSpan="3" Grid.Column="2"
                   ItemsSource="{Binding Results}" HorizontalContentAlignment="Stretch">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -57,9 +63,7 @@
             </ListView.ItemTemplate>
         </ListView>
            
-        <Button Grid.Row="5" Margin="8" Content="Test Exporteren" Grid.Column="1" Command="{Binding ExportCommand}"></Button>
-        <Button Grid.Row="4" Margin="8" Content="Test Uitvoeren" Grid.Column="2" Click="SolveQuiz_Click"></Button>
-        <Button Grid.Row="5" Margin="8" Content="Bulk input verwerken" Grid.Column="2" Click="BulkInput_Click"></Button>
-        <Button Grid.Row="5" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
+
+        <Button Grid.Row="3" Margin="8" Content="Nieuwe Test" Click="NewQuiz_Click"></Button>
     </Grid>
 </Window>
