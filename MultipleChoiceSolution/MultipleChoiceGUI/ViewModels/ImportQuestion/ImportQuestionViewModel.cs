@@ -59,14 +59,34 @@ namespace MultipleChoiceGUI.ViewModels.ImportQuestion
 
         public void OnImportQuestions()
         {
-            string fileFormat = FormatOptions.Single(f => f.IsChecked).Option;
+            var checkedFileFormat = FormatOptions.FirstOrDefault(f => f.IsChecked);
+            if (checkedFileFormat == null)
+            {
+                MessageBox.Show("Selecteer een formaat a.u.b", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string fileFormat = checkedFileFormat.Option;
+
+            List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
+            if (topicIds.Count == 0)
+            {
+                MessageBox.Show("Selecteer minstens een onderwerp.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if(string.IsNullOrWhiteSpace(FilePath))
+            {
+                MessageBox.Show("Selecteer een geldig bestand.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             _importManager = new ImportManager(RepoFactory.Create(ConfigurationService.GetConnectionString("SQLServerConnection"),
                                                                   _messageManager,
                                                                   ConfigurationService.GetSetting("databaseType")),
                                                                   FileReaderFactory.Create(fileFormat),
                                                                   _messageManager);
 
-            List<int> topicIds = TopicList.Where(t => t.IsChecked).Select(t => t.Topic.Id).ToList();
             _importManager.ImportQuestions(FilePath, topicIds);
 
             MessageBox.Show("Import succesvol", "Succes", MessageBoxButton.OK, MessageBoxImage.Information);
