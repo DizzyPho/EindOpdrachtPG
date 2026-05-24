@@ -25,7 +25,10 @@
                  Margin="8" ItemsSource="{Binding QuestionList}"  SelectedItem="{Binding SelectedQuestion}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding QuestionText}" IsChecked="{Binding IsEnabled}"></CheckBox>
+                    <DockPanel>
+                        <CheckBox IsChecked="{Binding IsEnabled}" VerticalAlignment="Center"></CheckBox>
+                        <Label Content="{Binding QuestionText}"></Label>
+                    </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
