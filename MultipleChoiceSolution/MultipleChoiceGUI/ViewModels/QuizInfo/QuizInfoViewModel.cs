@@ -79,6 +79,7 @@ namespace MultipleChoiceGUI.ViewModels.QuizInfo
 
         public void ProcessResultMessage(NewResultMessage message)
         {
+            if (SelectedQuiz == null) return;
             if(message.QuizId == SelectedQuiz.Id)
             {
                 Results.Add(new ResultViewModel(message.Result, SelectedQuiz.QuestionCount));
