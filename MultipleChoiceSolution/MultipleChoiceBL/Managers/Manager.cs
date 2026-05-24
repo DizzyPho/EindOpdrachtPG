@@ -110,6 +110,10 @@ namespace MultipleChoiceBL.Managers
         {
             _repository.InsertUsersIfNotExists(answerSets.Select(a => a.UserId));
             _repository.SubmitAnswerSets(answerSets);
+            foreach (AnswerSetDTO answerSet in answerSets)
+            {
+                _messageManager.Send<NewResultMessage>(new NewResultMessage(answerSet));
+            }
         }
 
         public void SetQuestionEnabled(int id, bool isEnabled)
