@@ -41,7 +41,12 @@ namespace MultipleChoiceBL.Domain
         }
         public String Name { get; init; }
         public int Seed { get; init; }
-        public List<Question> Questions { get; init; }
+        private List<Question> _questions;
+        public IReadOnlyList<Question> Questions 
+        { 
+            get { return _questions; }
+            init { _questions = new List<Question>(value); }
+        }
 
         public int? Id { get; init; }
 

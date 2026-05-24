@@ -29,7 +29,7 @@ namespace MultipleChoiceBL.DTOs
 
             int score = 0;
             Dictionary<int, List<int>> questionAnswers = new Dictionary<int, List<int>>();
-            List <Question> questions = quiz.Questions;
+            List <Question> questions = new List<Question>(quiz.Questions);
 
             for (int i = 0; i < letters.Count(); i++)
             {
