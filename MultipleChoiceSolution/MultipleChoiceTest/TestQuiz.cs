@@ -73,6 +73,50 @@ namespace MultipleChoiceTest
             Assert.Single(errors);
             Assert.Contains<String>("Name cannot be empty.", errors);
         }
-   
+
+        [Fact]
+        public void Test_TryCreate_Questions_Valid()
+        {
+            // check 1: list of two or more questions is valid
+            bool isSucces = Quiz.TryCreate("TestQuiz", 1, TwoQuestionsList, out var factory);
+
+            Quiz q = factory.Result;
+            List<String> errors = factory.Errors;
+
+
+            Assert.Null(errors);
+            Assert.True(isSucces);
+            Assert.NotNull(q);
+            Assert.Equal(q.Questions.Count, 2);
+        }
+
+        [Fact]
+        public void Test_TryCreate_Questions_Invalid()
+        {
+            //check 1 : list of questions = null
+            bool isSucces = Quiz.TryCreate("TestQuiz", 1, null, out var factory);
+
+            Quiz q1 = factory.Result;
+            List<String> errors1 = factory.Errors;
+
+            Assert.False(isSucces);
+            Assert.Null(q1);
+            Assert.NotNull(errors1);
+            Assert.Single(errors1);
+            Assert.Contains("Add at least 1 question to the quiz.", errors1);
+
+            //check 2: empty question list
+
+            isSucces = Quiz.TryCreate("TestQuiz", 1, NoQuestionsList, out factory);
+
+            Quiz q2 = factory.Result;
+            List<String> errors2 = factory.Errors;
+
+            Assert.False(isSucces);
+            Assert.Null(q2);
+            Assert.NotNull(errors2);
+            Assert.Single(errors2);
+            Assert.Contains("Add at least 1 question to the quiz.", errors2);
+        }
     }
 }
