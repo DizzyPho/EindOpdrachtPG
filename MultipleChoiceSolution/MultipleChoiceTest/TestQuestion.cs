@@ -33,7 +33,7 @@ namespace MultipleChoiceTest
         [InlineData(" Vraag 1")]
         [InlineData("Vraag 1 ")]
         [InlineData(" Vraag 1 ")]
-        public void Test_TryCreate_Valid(string questionText)
+        public void Test_TryCreate_Text_Valid(string questionText)
         {
             bool isSucces = Question.TryCreate(questionText, validAnswerSet, out FactoryResult<Question> factory);
             Question q = factory.Result;
