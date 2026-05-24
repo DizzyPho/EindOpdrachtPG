@@ -22,7 +22,7 @@ namespace MultipleChoiceBL.Domain
             List<String> errors = new List<String>();
 
             if (string.IsNullOrWhiteSpace(name)) errors.Add("Name cannot be empty.");
-            if (questions.Count == 0 && questions == null) errors.Add("Add at least 1 question to the quiz.");
+            if (questions == null || questions.Count == 0) errors.Add("Add at least 1 question to the quiz.");
 
             if (errors.Count > 0)
             {
